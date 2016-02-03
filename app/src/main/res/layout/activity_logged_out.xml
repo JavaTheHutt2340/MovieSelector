@@ -9,4 +9,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="javathehutt.buzz_movieselector.LoggedOut">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In Again"
+        android:id="@+id/LogOutToIn"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:minWidth="200dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:id="@+id/LogOutToHome"
+        android:layout_below="@+id/LogOutToIn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:minWidth="200dp" />
+
 </RelativeLayout>
