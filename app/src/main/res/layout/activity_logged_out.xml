@@ -26,6 +26,7 @@
         android:layout_below="@+id/LogOutToIn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp"
-        android:minWidth="200dp" />
+        android:minWidth="200dp"
+        android:onClick="returnHome" />
 
 </RelativeLayout>
