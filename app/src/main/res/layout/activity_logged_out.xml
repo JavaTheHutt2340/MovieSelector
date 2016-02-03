@@ -29,4 +29,17 @@
         android:minWidth="200dp"
         android:onClick="returnHome" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_above="@+id/LogOutToIn"
+        android:layout_marginBottom="84dp"
+        android:src="@mipmap/PopCorn"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/LogOutToIn"
+        android:layout_alignStart="@+id/LogOutToIn"
+        android:layout_alignRight="@+id/LogOutToIn"
+        android:layout_alignEnd="@+id/LogOutToIn" />
+
 </RelativeLayout>
