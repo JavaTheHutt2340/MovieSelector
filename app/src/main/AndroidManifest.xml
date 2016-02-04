@@ -22,7 +22,11 @@
         <activity
             android:name=".model.welcome_screen_activity"
             android:label="@string/title_activity_welcome_screen_activity"
+<<<<<<< HEAD
             android:theme="@style/AppTheme.NoActionBar"/>
+=======
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> 12efbfa98da33587062fe3b5eabd444dd879ab60
         <activity android:name=".LoggedOut"></activity>
     </application>
 
