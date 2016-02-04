@@ -3,6 +3,7 @@ package javathehutt.buzz_movieselector;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -28,7 +29,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.loginButton:
-
+                Intent login = new Intent(this, loginActivity.class);
+                Log.i("test", "here");
+                startActivity(login);
                 break;
             case R.id.registerButton:
                 break;
