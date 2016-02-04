@@ -15,7 +15,9 @@ public abstract class User {
         this.password = password;
         loggedIn = false;
     }
-
+    public boolean isAdmin() {
+        return this instanceof AdminUser;
+    }
     public void logout() {
         loggedIn = false;
     }
