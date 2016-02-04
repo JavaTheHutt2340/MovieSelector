@@ -15,6 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".loginActivity"
             android:label="@string/title_activity_login"
@@ -23,6 +24,9 @@
             android:name=".model.welcome_screen_activity"
             android:label="@string/title_activity_welcome_screen_activity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+=======
+        <activity android:name=".LoggedOut"></activity>
+>>>>>>> 49b67fe23b64186db86df841fdb02bed238b4fec
     </application>
 
 </manifest>

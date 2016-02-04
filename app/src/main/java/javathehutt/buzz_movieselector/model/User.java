@@ -15,7 +15,9 @@ public abstract class User {
         this.password = password;
         loggedIn = false;
     }
-
+    public boolean isAdmin() {
+        return this instanceof AdminUser;
+    }
     public void logout() {
         loggedIn = false;
     }
@@ -28,5 +30,16 @@ public abstract class User {
         boolean result = this.password.equals(password);
         loggedIn = result;
         return result;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (null == o) {
+            return false;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User other = (User) o;
+        return other.getUsername().equals(this.getUsername());
     }
 }

@@ -13,6 +13,7 @@ public class AdminUser extends User {
             user.unlock();
         } else {
             //throw exception
+            throw new IllegalStateException("Account already unlocked");
         }
     }
 }
