@@ -14,32 +14,41 @@
         android:layout_height="wrap_content"
         android:text="Log In Again"
         android:id="@+id/LogOutToIn"
-        android:layout_centerVertical="true"
+        android:minWidth="200dp"
+        android:layout_above="@+id/LogOutToHome"
         android:layout_centerHorizontal="true"
-        android:minWidth="200dp" />
+        android:layout_marginBottom="59dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Home"
         android:id="@+id/LogOutToHome"
-        android:layout_below="@+id/LogOutToIn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
         android:minWidth="200dp"
-        android:onClick="returnHome" />
+        android:onClick="returnHome"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/LogOutToIn"
+        android:layout_alignStart="@+id/LogOutToIn"
+        android:layout_marginBottom="39dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_above="@+id/LogOutToIn"
-        android:layout_marginBottom="84dp"
-        android:src="@mipmap/PopCorn"
         android:layout_alignParentTop="true"
+        android:src="@mipmap/popcorn"
         android:layout_alignLeft="@+id/LogOutToIn"
         android:layout_alignStart="@+id/LogOutToIn"
         android:layout_alignRight="@+id/LogOutToIn"
-        android:layout_alignEnd="@+id/LogOutToIn" />
+        android:layout_alignEnd="@+id/LogOutToIn"
+        android:layout_above="@+id/LogOutToIn" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="You have logged out" />
 
 </RelativeLayout>
