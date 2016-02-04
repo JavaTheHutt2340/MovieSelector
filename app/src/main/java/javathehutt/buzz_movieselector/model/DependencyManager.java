@@ -10,7 +10,7 @@ public class DependencyManager {
     public static UserManager um;
     public static UserManager getUserManager() {
         if (um == null) {
-            um;
+            um = new UserMapManager();
         }
         return um;
     }
