@@ -29,4 +29,15 @@ public abstract class User {
         loggedIn = result;
         return result;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (null == o) {
+            return false;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User other = (User) o;
+        return other.getUsername().equals(this.getUsername());
+    }
 }
