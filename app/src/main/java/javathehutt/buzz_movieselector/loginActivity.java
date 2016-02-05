@@ -42,17 +42,16 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.userLoginButton:
-                Log.i("test", "login");
                 UserManager userManager = new UserMapManager();
-                Log.i("test", "login");
+                //TODO add an exception here for when they enter an invalid username
                 if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
                     Log.i("test", "success");
+                    finish();
                 } else {
                     Log.i("test", "failure");
                 }
                 break;
             case R.id.cancelButton:
-                Log.i("test", "cancel");
                 finish();
                 break;
         }
