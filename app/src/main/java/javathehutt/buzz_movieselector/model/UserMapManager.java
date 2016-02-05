@@ -1,4 +1,6 @@
 package javathehutt.buzz_movieselector.model;
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -24,6 +26,12 @@ public class UserMapManager implements UserManager, AuthenticationManager {
         userMap.put(s, u);
     }
     public User searchUser(String s) {
-        return new RegUser(null, null);
+        if (userMap.containsKey(s)) {
+            Log.i("test", "contains user");
+            return userMap.get(s);
+        } else {
+            return null;
+        }
+
     }
 }

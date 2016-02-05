@@ -7,6 +7,7 @@ import javathehutt.buzz_movieselector.model.User;
 public interface UserManager {
     boolean isInSystem(String u);
     boolean isAdmin(User u);
+    boolean handleLogInRequest(String id, String password);
     void addUser(User u);
     User searchUser(String id);
 }

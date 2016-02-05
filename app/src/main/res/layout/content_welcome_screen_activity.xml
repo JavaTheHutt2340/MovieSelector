@@ -17,7 +17,7 @@
         android:textAlignment="center"
         android:text="@string/login_button"
         android:clickable="true"
-        android:focusable="false" />
+        android:focusable="false"/>
 
     <Button
         android:layout_width="fill_parent"

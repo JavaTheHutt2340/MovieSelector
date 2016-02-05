@@ -7,9 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import javathehutt.buzz_movieselector.model.RegUser;
+import javathehutt.buzz_movieselector.model.UserManager;
+import javathehutt.buzz_movieselector.model.UserMapManager;
 import javathehutt.buzz_movieselector.model.welcome_screen_activity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity/* implements View.OnClickListener*/ {
 
     Button loginButton, registerButton;
 
@@ -20,12 +23,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         loginButton = (Button) findViewById(R.id.loginButton);
         registerButton = (Button) findViewById(R.id.registerButton);
-
+        UserManager userManager = new UserMapManager();
+        userManager.addUser(new RegUser("user", "pass"));
         Intent welcome = new Intent(this, welcome_screen_activity.class);
         startActivity(welcome);
     }
 
-    @Override
+    /*@Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.loginButton:
@@ -36,5 +40,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.registerButton:
                 break;
         }
-    }
+    }*/
 }
