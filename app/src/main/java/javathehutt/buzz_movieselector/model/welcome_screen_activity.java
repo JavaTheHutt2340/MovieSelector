@@ -43,11 +43,14 @@ public class welcome_screen_activity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.loginButton:
-                Log.i("test", "here");
                 Intent login = new Intent(this, loginActivity.class);
                 startActivity(login);
+                //TODO
+                //finish() if logged in
+                //else do not finish
                 break;
             case R.id.registerButton:
+
                 break;
         }
     }
