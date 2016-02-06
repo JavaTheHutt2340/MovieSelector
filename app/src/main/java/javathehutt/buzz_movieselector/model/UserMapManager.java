@@ -9,7 +9,7 @@ import java.util.Map;
 public class UserMapManager implements UserManager, AuthenticationManager {
 
     private static Map<String, User> userMap;
-
+    private static User currentUser; //TODO:need to fix fact only one person can login at a time
     public UserMapManager() {
         if (userMap == null) {
             userMap = new HashMap<>();
@@ -20,7 +20,16 @@ public class UserMapManager implements UserManager, AuthenticationManager {
     }
     public boolean handleLogInRequest(String id, String password) {
         User u = userMap.get(id);
-        return u.logIn(password);
+        if(u.logIn(password) && currentUser == null) {
+            currentUser = u;
+            return true;
+        };
+        return false;
+    }
+    public User lastLogIn() {
+        User u = currentUser;
+        currentUser = null;
+        return u;
     }
     public boolean isAdmin(User u) {
         return u.isAdmin();

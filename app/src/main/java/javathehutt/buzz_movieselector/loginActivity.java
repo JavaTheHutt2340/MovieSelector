@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import javathehutt.buzz_movieselector.model.AuthenticationManager;
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
@@ -44,7 +45,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.userLoginButton:
-                UserManager userManager = new UserMapManager();
+                AuthenticationManager userManager = new UserMapManager();
                 //TODO add an exception here for when they enter an invalid username
                 if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
                     Log.i("test", "success");
@@ -53,7 +54,8 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
-                    finish();
+                    Intent intent = new Intent(this, MainMenu.class);
+                    startActivity(intent);
                 } else {
                     Log.i("test", "failure");
                     Context context = getApplicationContext();

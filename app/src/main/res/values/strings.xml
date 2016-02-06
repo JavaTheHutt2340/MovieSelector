@@ -7,4 +7,5 @@
     <string name="cancle_button">Cancel</string>
     <string name="title_activity_login">loginActivity</string>
     <string name="title_activity_welcome_screen_activity">welcome_screen_activity</string>
+    <string name="title_activity_main_menu">MainMenu</string>
 </resources>
