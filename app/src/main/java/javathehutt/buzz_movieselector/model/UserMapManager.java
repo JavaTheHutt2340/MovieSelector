@@ -7,9 +7,13 @@ import java.util.Map;
  * Created by Mohammed on 2/3/2016.
  */
 public class UserMapManager implements UserManager, AuthenticationManager {
-    private Map<String, User> userMap;
+
+    private static Map<String, User> userMap;
+
     public UserMapManager() {
-        userMap = new HashMap<>();
+        if (userMap == null) {
+            userMap = new HashMap<>();
+        }
     }
     public boolean isInSystem(String u) {
         return userMap.get(u) != null;
@@ -24,10 +28,10 @@ public class UserMapManager implements UserManager, AuthenticationManager {
     public void addUser(User u) {
         String s = u.getUsername();
         userMap.put(s, u);
+        userMap.get(u.getUsername());
     }
     public User searchUser(String s) {
         if (userMap.containsKey(s)) {
-            Log.i("test", "contains user");
             return userMap.get(s);
         } else {
             return null;
