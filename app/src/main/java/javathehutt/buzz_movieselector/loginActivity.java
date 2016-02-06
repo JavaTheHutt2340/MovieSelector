@@ -1,5 +1,6 @@
 package javathehutt.buzz_movieselector;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
@@ -46,9 +48,19 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                 //TODO add an exception here for when they enter an invalid username
                 if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
                     Log.i("test", "success");
+                    Context context = getApplicationContext();
+                    CharSequence text = "Log In Success!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                     finish();
                 } else {
                     Log.i("test", "failure");
+                    Context context = getApplicationContext();
+                    CharSequence text = "Log In Failed!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
                 break;
             case R.id.cancelButton:
