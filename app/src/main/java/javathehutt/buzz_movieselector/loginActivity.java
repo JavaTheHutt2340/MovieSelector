@@ -45,19 +45,27 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.userLoginButton:
-                AuthenticationManager userManager = new UserMapManager();
+                UserManager userManager = new UserMapManager();
                 //TODO add an exception here for when they enter an invalid username
-                if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Log In Success!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                    Intent intent = new Intent(this, MainMenu.class);
-                    startActivity(intent);
+                if (userManager.isInSystem(etUsername.getText().toString())) {
+                    if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
+                        Context context = getApplicationContext();
+                        CharSequence text = "Log In Success!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        Intent intent = new Intent(this, MainMenu.class);
+                        startActivity(intent);
+                    } else {
+                        Context context = getApplicationContext();
+                        CharSequence text = "Invalid Password!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
                 } else {
                     Context context = getApplicationContext();
-                    CharSequence text = "Log In Failed!";
+                    CharSequence text = "Not a Valid Username";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
