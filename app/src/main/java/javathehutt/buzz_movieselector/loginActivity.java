@@ -45,9 +45,9 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.userLoginButton:
-                AuthenticationManager userManager = new UserMapManager();
+                UserManager userManager = new UserMapManager();
                 //TODO add an exception here for when they enter an invalid username
-                if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
+                if (userManager.isInSystem(etUsername.getText().toString()) && userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
                     Context context = getApplicationContext();
                     CharSequence text = "Log In Success!";
                     int duration = Toast.LENGTH_SHORT;
