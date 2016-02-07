@@ -48,7 +48,6 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                 AuthenticationManager userManager = new UserMapManager();
                 //TODO add an exception here for when they enter an invalid username
                 if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
-                    Log.i("test", "success");
                     Context context = getApplicationContext();
                     CharSequence text = "Log In Success!";
                     int duration = Toast.LENGTH_SHORT;
@@ -57,7 +56,6 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                     Intent intent = new Intent(this, MainMenu.class);
                     startActivity(intent);
                 } else {
-                    Log.i("test", "failure");
                     Context context = getApplicationContext();
                     CharSequence text = "Log In Failed!";
                     int duration = Toast.LENGTH_SHORT;
