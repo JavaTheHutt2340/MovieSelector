@@ -4,32 +4,21 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import javathehutt.buzz_movieselector.model.AuthenticationManager;
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 
-public class MainMenu extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+        setContentView(R.layout.activity_profile);
         AuthenticationManager a = new UserMapManager();
         u = a.lastLogIn();
-    }
-
-    public void openProfile(View v) {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        startActivity(intent);
-    }
-
-    public void logOut(View v) {
-        u.logout();
-        Intent i = new Intent(this, LoggedOut.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
     }
 }
