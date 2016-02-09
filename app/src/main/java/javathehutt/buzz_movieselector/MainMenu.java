@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import javathehutt.buzz_movieselector.model.AuthenticationManager;
+import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 
@@ -17,7 +17,7 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        AuthenticationManager a = new UserMapManager();
+        UserManager a = new UserMapManager();
         u = a.lastLogIn();
     }
     public void logOut(View v) {
