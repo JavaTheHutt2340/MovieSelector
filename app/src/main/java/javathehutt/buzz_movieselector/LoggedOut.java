@@ -20,5 +20,6 @@ public class LoggedOut extends AppCompatActivity {
     public void returnLogIn(View v) {
         Intent intent = new Intent(this, loginActivity.class);
         startActivity(intent);
+        finish();
     }
 }
