@@ -31,5 +31,6 @@ public class MainMenu extends AppCompatActivity {
         Intent i = new Intent(this, LoggedOut.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
+        finish();
     }
 }
