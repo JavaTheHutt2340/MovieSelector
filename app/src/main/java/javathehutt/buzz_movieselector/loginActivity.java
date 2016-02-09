@@ -17,7 +17,6 @@ import javathehutt.buzz_movieselector.model.AuthenticationManager;
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
-import javathehutt.buzz_movieselector.model.welcome_screen_activity;
 
 public class loginActivity extends AppCompatActivity implements View.OnClickListener {
 
