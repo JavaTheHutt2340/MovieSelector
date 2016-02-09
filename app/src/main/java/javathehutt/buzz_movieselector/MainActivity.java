@@ -30,14 +30,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 1) {
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.loginButton:
                 Intent login = new Intent(this, loginActivity.class);
-                startActivity(login);
-                //TODO
-                //finish() if logged in
-                //else do not finish
+                startActivityForResult(login, 1);
                 break;
             case R.id.registerButton:
 
