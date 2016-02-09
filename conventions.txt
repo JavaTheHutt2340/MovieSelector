@@ -1,0 +1,3 @@
+activity_name_morename.xml
+
+use relative layout pls
