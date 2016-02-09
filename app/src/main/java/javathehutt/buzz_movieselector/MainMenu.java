@@ -24,6 +24,5 @@ public class MainMenu extends AppCompatActivity {
         u.logout();
         Intent i = new Intent(this, LoggedOut.class);
         startActivity(i);
-        finish();
     }
 }
