@@ -18,10 +18,10 @@
         android:minWidth="200dp"
         android:minHeight="100dp"
         android:layout_above="@+id/LogOutToHome"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -30,13 +30,12 @@
         android:id="@+id/LogOutToHome"
         android:minWidth="200dp"
         android:onClick="returnHome"
+        android:minHeight="100dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/LogOutToIn"
-        android:layout_alignStart="@+id/LogOutToIn"
-        android:layout_marginBottom="39dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/LogOutToIn"
-        android:layout_alignEnd="@+id/LogOutToIn"
-        android:minHeight="100dp" />
+        android:layout_alignEnd="@+id/LogOutToIn" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -45,10 +44,10 @@
         android:src="@mipmap/popcorn"
         android:layout_above="@+id/LogOutToIn"
         android:layout_below="@+id/textView"
-        android:layout_alignRight="@+id/LogOutToIn"
-        android:layout_alignEnd="@+id/LogOutToIn"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
