@@ -53,9 +53,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
-                        Intent intent = new Intent(this, MainMenu.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                        //Intent intent = new Intent(this, MainMenu.class);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //startActivity(intent);
+                        setResult(1);
                         finish();
                     } else {
                         Context context = getApplicationContext();
