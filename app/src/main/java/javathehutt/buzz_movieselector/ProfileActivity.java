@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import javathehutt.buzz_movieselector.model.AuthenticationManager;
 import javathehutt.buzz_movieselector.model.User;
+import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -18,7 +18,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        AuthenticationManager a = new UserMapManager();
+        UserManager a = new UserMapManager();
         u = a.lastLogIn();
     }
 }
