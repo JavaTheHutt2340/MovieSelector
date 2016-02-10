@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.loginButton:
                 Intent login = new Intent(this, loginActivity.class);
                 startActivityForResult(login, 1);
+                //TODO
+                //finish() if logged in
+                //else do not finish
                 break;
             case R.id.registerButton:
 

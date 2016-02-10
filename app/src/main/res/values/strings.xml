@@ -8,4 +8,6 @@
     <string name="title_activity_login">loginActivity</string>
     <string name="title_activity_welcome_screen_activity">welcome_screen_activity</string>
     <string name="title_activity_main_menu">MainMenu</string>
+    <string name="profileButton">Profile</string>
+    <string name="logOutButton">Log Out</string>
 </resources>
