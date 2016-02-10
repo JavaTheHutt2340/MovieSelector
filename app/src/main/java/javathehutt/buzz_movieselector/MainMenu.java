@@ -20,9 +20,16 @@ public class MainMenu extends AppCompatActivity {
         UserManager a = new UserMapManager();
         u = a.lastLogIn();
     }
+
+    public void openProfile(View v) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
     public void logOut(View v) {
         u.logout();
         Intent i = new Intent(this, LoggedOut.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
     }
