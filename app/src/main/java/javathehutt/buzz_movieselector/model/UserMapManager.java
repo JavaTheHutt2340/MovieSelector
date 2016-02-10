@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by Mohammed on 2/3/2016.
  */
-public class UserMapManager implements UserManager, AuthenticationManager {
+public class UserMapManager implements UserManager {
 
     private static Map<String, User> userMap;
     private static User currentUser; //TODO:need to fix fact only one person can login at a time

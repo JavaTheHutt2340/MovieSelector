@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (resultCode == 1) {
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
-            finish();
         }
     }
 
