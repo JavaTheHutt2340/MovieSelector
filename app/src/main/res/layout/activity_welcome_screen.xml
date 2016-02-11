@@ -19,7 +19,8 @@
         android:focusable="false"
         android:layout_above="@+id/registerButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="loginButtonClick" />
 
     <Button
         android:layout_width="fill_parent"

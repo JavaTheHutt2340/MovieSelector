@@ -11,7 +11,7 @@ import javathehutt.buzz_movieselector.model.RegUser;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     Button loginButton, registerButton;
 
@@ -19,11 +19,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
-
-        loginButton = (Button) findViewById(R.id.loginButton);
-        registerButton = (Button) findViewById(R.id.registerButton);
-
-        loginButton.setOnClickListener(this);
 
         UserManager userManager = new UserMapManager();
         userManager.addUser(new RegUser("user", "pass"));
@@ -37,20 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.loginButton:
-                Intent login = new Intent(this, loginActivity.class);
-                startActivityForResult(login, 1);
-                //TODO
-                //finish() if logged in
-                //else do not finish
-                break;
-            case R.id.registerButton:
-
-                break;
-        }
+    public void loginButtonClick(View v) {
+        Intent login = new Intent(this, loginActivity.class);
+        startActivityForResult(login, 1);
     }
 
     //TODO add a logout button to logout from the main screen
