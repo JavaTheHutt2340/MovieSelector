@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         registerButton = (Button) findViewById(R.id.registerButton);
 
         loginButton.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
 
         UserManager userManager = new UserMapManager();
         userManager.addUser(new RegUser("user", "pass"));
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //else do not finish
                 break;
             case R.id.registerButton:
-
+                Intent register = new Intent(this, RegisterActivity.class);
+                startActivity(register);
                 break;
         }
     }

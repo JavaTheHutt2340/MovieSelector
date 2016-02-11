@@ -8,4 +8,5 @@
     <string name="title_activity_login">loginActivity</string>
     <string name="title_activity_welcome_screen_activity">welcome_screen_activity</string>
     <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>

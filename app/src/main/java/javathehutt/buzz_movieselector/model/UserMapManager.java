@@ -45,6 +45,5 @@ public class UserMapManager implements UserManager, AuthenticationManager {
         } else {
             return null;
         }
-
     }
 }
