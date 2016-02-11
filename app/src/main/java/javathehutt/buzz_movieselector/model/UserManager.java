@@ -9,5 +9,6 @@ public interface UserManager {
     boolean isAdmin(User u);
     boolean handleLogInRequest(String id, String password);
     void addUser(User u);
+    User lastLogIn();
     User searchUser(String id);
 }

@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     startActivity(intent);
                     finish();
                 } else {
-                    if (etConfirmPassword.getText().toString().equals(etPassword.getText().toString())) {
+                    if (!(etConfirmPassword.getText().toString().equals(etPassword.getText().toString()))) {
                         Context context = getApplicationContext();
                         CharSequence text = "Passwords don't match.";
                         int duration = Toast.LENGTH_SHORT;
@@ -62,17 +62,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Intent intent = new Intent(this, MainMenu.class);
                         startActivity(intent);
                         finish();
+                    } else if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Register Success!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
+                        userManager.addUser(user);
+                        Intent intent = new Intent(this, MainMenu.class);
+                        startActivity(intent);
+                        finish();
                     }
-                    Context context = getApplicationContext();
-                    CharSequence text = "Register Success!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                    RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
-                    userManager.addUser(user);
-                    Intent intent = new Intent(this, MainMenu.class);
-                    startActivity(intent);
-                    finish();
                 }
             case R.id.cancelButton:
                 finish();
