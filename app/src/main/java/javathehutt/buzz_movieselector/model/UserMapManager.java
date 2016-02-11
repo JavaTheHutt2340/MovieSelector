@@ -46,7 +46,6 @@ public class UserMapManager implements UserManager {
         } else {
             return null;
         }
-
     }
 
     public User getCurrentUser() {
