@@ -10,5 +10,6 @@ public interface UserManager {
     boolean handleLogInRequest(String id, String password);
     void addUser(User u);
     User searchUser(String id);
+    User getCurrentUser();
     User lastLogIn();
 }

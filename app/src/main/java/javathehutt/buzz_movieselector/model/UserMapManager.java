@@ -20,10 +20,10 @@ public class UserMapManager implements UserManager {
     }
     public boolean handleLogInRequest(String id, String password) {
         User u = userMap.get(id);
-        if(u.logIn(password) && currentUser == null) {
+        if(currentUser == null && u.logIn(password)) {
             currentUser = u;
             return true;
-        };
+        }
         return false;
     }
     public User lastLogIn() {
@@ -31,6 +31,7 @@ public class UserMapManager implements UserManager {
         currentUser = null;
         return u;
     }
+
     public boolean isAdmin(User u) {
         return u.isAdmin();
     }
@@ -46,5 +47,9 @@ public class UserMapManager implements UserManager {
             return null;
         }
 
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 }
