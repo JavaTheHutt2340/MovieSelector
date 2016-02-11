@@ -17,7 +17,7 @@ import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 
-public class loginActivity extends AppCompatActivity implements View.OnClickListener {
+public class loginActivity extends AppCompatActivity {
 
     Button userLoginButton, cancelButton;
     EditText etUsername, etPassword;
@@ -31,51 +31,37 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
 
-        userLoginButton = (Button) findViewById(R.id.userLoginButton);
-        cancelButton = (Button) findViewById(R.id.cancelButton);
-
-        userLoginButton.setOnClickListener(this);
-        cancelButton.setOnClickListener(this);
-
     }
 
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.userLoginButton:
-                UserManager userManager = new UserMapManager();
-                //TODO add an exception here for when they enter an invalid username
-                if (userManager.isInSystem(etUsername.getText().toString())) {
-                    if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
-                        Context context = getApplicationContext();
-                        CharSequence text = "Log In Success!";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                        //Intent intent = new Intent(this, MainMenu.class);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        //startActivity(intent);
-                        setResult(1);
-                        finish();
-                    } else {
-                        Context context = getApplicationContext();
-                        CharSequence text = "Invalid Password!";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                    }
-                } else {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Not a Valid Username";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-                break;
-            case R.id.cancelButton:
+    public void userLoginButtonClick(View v) {
+        UserManager userManager = new UserMapManager();
+        //TODO add an exception here for when they enter an invalid username
+        if (userManager.isInSystem(etUsername.getText().toString())) {
+            if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
+                Context context = getApplicationContext();
+                CharSequence text = "Log In Success!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                setResult(1);
                 finish();
-                break;
+            } else {
+                Context context = getApplicationContext();
+                CharSequence text = "Invalid Password!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        } else {
+            Context context = getApplicationContext();
+            CharSequence text = "Not a Valid Username";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
     }
 
+    public void cancelButtonClick(View v) {
+        finish();
+    }
 }
