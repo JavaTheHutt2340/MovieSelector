@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import javathehutt.buzz_movieselector.model.AuthenticationManager;
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
@@ -53,9 +52,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
-                        Intent intent = new Intent(this, MainMenu.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                        //Intent intent = new Intent(this, MainMenu.class);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //startActivity(intent);
+                        setResult(1);
                         finish();
                     } else {
                         Context context = getApplicationContext();

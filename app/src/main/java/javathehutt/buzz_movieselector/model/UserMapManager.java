@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by Mohammed on 2/3/2016.
  */
-public class UserMapManager implements UserManager, AuthenticationManager {
+public class UserMapManager implements UserManager {
 
     private static Map<String, User> userMap;
     private static User currentUser; //TODO:need to fix fact only one person can login at a time
@@ -20,10 +20,10 @@ public class UserMapManager implements UserManager, AuthenticationManager {
     }
     public boolean handleLogInRequest(String id, String password) {
         User u = userMap.get(id);
-        if(u.logIn(password) && currentUser == null) {
+        if(currentUser == null && u.logIn(password)) {
             currentUser = u;
             return true;
-        };
+        }
         return false;
     }
     public User lastLogIn() {
@@ -31,6 +31,7 @@ public class UserMapManager implements UserManager, AuthenticationManager {
         currentUser = null;
         return u;
     }
+
     public boolean isAdmin(User u) {
         return u.isAdmin();
     }
@@ -46,5 +47,9 @@ public class UserMapManager implements UserManager, AuthenticationManager {
             return null;
         }
 
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 }

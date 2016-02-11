@@ -42,4 +42,12 @@ public abstract class User {
         User other = (User) o;
         return other.getUsername().equals(this.getUsername());
     }
+
+    public int hashCode() {
+        int result = 0;
+        result *= 17 * password.hashCode();
+        result *= 21 * username.hashCode();
+        return result;
+    }
+
 }
