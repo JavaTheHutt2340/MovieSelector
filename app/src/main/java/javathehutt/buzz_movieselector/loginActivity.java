@@ -29,7 +29,7 @@ public class loginActivity extends AppCompatActivity {
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
-
+kj
     }
 
     public void userLoginButtonClick(View v) {
