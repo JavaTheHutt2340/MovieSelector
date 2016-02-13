@@ -13,7 +13,6 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
 
 public class loginActivity extends AppCompatActivity {
 
-    Button userLoginButton, cancelButton;
     EditText etUsername, etPassword;
 
 

@@ -18,10 +18,10 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
 import javathehutt.buzz_movieselector.model.User;
 
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity {
 
-    Button userLoginButton, cancelButton;
     EditText etUsername, etPassword, etConfirmPassword;
+    UserManager userManager = new UserMapManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,50 +30,35 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
-
-        userLoginButton = (Button) findViewById(R.id.userRegisterButton);
-        cancelButton = (Button) findViewById(R.id.cancelButton);
-
-        userLoginButton.setOnClickListener(this);
-        cancelButton.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.userRegisterButton:
-                UserMapManager userManager = new UserMapManager();
-                if (userManager.isInSystem(etUsername.getText().toString())) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "User name is taken";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                } else {
-                    RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
-                    userManager.addUser(user);
-                    if (etConfirmPassword.getText().toString().equals(etPassword.getText().toString()) && userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())){
-                        Context context = getApplicationContext();
-                        CharSequence text = "Register Success!";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                        Intent intent = new Intent(this, MainMenu.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Context context = getApplicationContext();
-                        CharSequence text = "Passwords don't match.";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                    }
-
-                }
-                break;
-            case R.id.cancelButton:
+    public void registerClick(View v) {
+        int duration = Toast.LENGTH_SHORT;
+        Context context = getApplicationContext();
+        if (userManager.isInSystem(etUsername.getText().toString())) {
+            CharSequence text = "Username is taken";
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        } else {
+            if (etConfirmPassword.getText().toString().equals(etPassword.getText().toString()) && userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())){
+                RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
+                userManager.addUser(user);
+                CharSequence text = "Register Success!";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                Intent intent = new Intent(this, MainMenu.class);
+                startActivity(intent);
                 finish();
-                break;
+            } else {
+                CharSequence text = "Passwords don't match.";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+
         }
+    }
+
+    public void cancelClick(View v) {
+        finish();
     }
 }
