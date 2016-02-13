@@ -45,6 +45,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="registerButtonClick"/>
+        android:onClick="registerClick" />
 
     <Button
         android:layout_width="fill_parent"

@@ -20,12 +20,12 @@ public class MainMenu extends AppCompatActivity {
         u = a.lastLogIn();
     }
 
-    public void openProfile(View v) {
+    public void openProfileClick(View v) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
-    public void logOut(View v) {
+    public void logOutClick(View v) {
         u.logout();
         Intent i = new Intent(this, LoggedOut.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

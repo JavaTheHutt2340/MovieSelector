@@ -11,7 +11,6 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

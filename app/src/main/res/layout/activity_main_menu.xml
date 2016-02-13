@@ -17,14 +17,14 @@
         android:longClickable="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="openProfile" />
+        android:onClick="openProfileClick" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/logOutButton"
         android:id="@+id/button"
-        android:onClick="logOut"
+        android:onClick="logOutClick"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="106dp" />

@@ -36,6 +36,7 @@ public class loginActivity extends AppCompatActivity {
                 toast.show();
                 Intent intent = new Intent(this, MainMenu.class);
                 startActivity(intent);
+                finish();
             } else {
                 Context context = getApplicationContext();
                 CharSequence text = "Invalid Password!";
