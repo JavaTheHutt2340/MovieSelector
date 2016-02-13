@@ -26,23 +26,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(register);
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.loginButton:
-//                Intent login = new Intent(this, loginActivity.class);
-//                startActivity(login);
-//                //TODO
-//                //finish() if logged in
-//                //else do not finish
-//                break;
-//            case R.id.registerButton:
-//                Intent register = new Intent(this, RegisterActivity.class);
-//                startActivity(register);
-//                break;
-//        }
-//    }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 1) {
             Intent intent = new Intent(this, MainMenu.class);
