@@ -43,7 +43,8 @@
         android:longClickable="false"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="registerClick" />
 
     <Button
         android:layout_width="fill_parent"
@@ -52,7 +53,8 @@
         android:id="@+id/cancelButton"
         android:layout_below="@+id/userRegisterButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="cancelClick" />
 
     <LinearLayout
         android:orientation="horizontal"
