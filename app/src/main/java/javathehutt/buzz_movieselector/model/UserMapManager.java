@@ -38,7 +38,6 @@ public class UserMapManager implements UserManager {
     public void addUser(User u) {
         String s = u.getUsername();
         userMap.put(s, u);
-        userMap.get(u.getUsername());
     }
     public User searchUser(String s) {
         if (userMap.containsKey(s)) {

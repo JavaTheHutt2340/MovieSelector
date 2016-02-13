@@ -31,7 +31,11 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
     }
-
+    public boolean validFields(){
+        return etConfirmPassword.getText().toString().equals(etPassword.getText().toString())
+                && etUsername.getText().toString().length() > 0
+                && etPassword.getText().toString().length() > 0;
+    }
     public void registerClick(View v) {
         int duration = Toast.LENGTH_SHORT;
         Context context = getApplicationContext();
@@ -40,17 +44,22 @@ public class RegisterActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
-            if (etConfirmPassword.getText().toString().equals(etPassword.getText().toString()) && userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())){
+            if (validFields()){
                 RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
                 userManager.addUser(user);
                 CharSequence text = "Register Success!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+                userManager.handleLogInRequest(user.getUsername(), etPassword.getText().toString());
                 Intent intent = new Intent(this, MainMenu.class);
                 startActivity(intent);
                 finish();
-            } else {
+            } else if(!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
                 CharSequence text = "Passwords don't match.";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            } else {
+                CharSequence text = "Please fill out all fields.";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             }

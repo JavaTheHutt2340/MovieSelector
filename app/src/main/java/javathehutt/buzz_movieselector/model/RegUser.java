@@ -10,7 +10,7 @@ public class RegUser extends User{
 
     public RegUser(String username, String password) {
         super(username, password);
-        locked = false;
+        locked = true;
     }
 
     public boolean getLockStatus() {
