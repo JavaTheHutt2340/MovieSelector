@@ -48,7 +48,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="@dimen/button_height"
-        android:text="@string/cancle_button"
+        android:text="@string/cancel_button"
         android:id="@+id/cancelButton"
         android:layout_below="@+id/userRegisterButton"
         android:layout_alignParentLeft="true"
