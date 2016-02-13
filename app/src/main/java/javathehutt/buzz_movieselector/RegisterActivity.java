@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Context context = getApplicationContext();
         if (userManager.isInSystem(etUsername.getText().toString())) {
-            CharSequence text = "Username is taken";
+            CharSequence text = "Username is taken.";
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
