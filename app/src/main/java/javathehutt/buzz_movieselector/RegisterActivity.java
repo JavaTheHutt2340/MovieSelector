@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
                 && etUsername.getText().toString().length() > 0
                 && etPassword.getText().toString().length() > 0;
     }
-    public void registerClick(View v) {
+    public void registerButtonClick(View v) {
         int duration = Toast.LENGTH_SHORT;
         Context context = getApplicationContext();
         if (userMapManager.isInSystem(etUsername.getText().toString())) {
@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (validFields()){
                 RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
                 userMapManager.addUser(user);
-                CharSequence text = "Register Success!";
+                CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
                 userMapManager.handleLogInRequest(user.getUsername(), etPassword.getText().toString());
