@@ -40,7 +40,8 @@ public abstract class User {
             return false;
         }
         User other = (User) o;
-        return other.getUsername().equals(this.getUsername());
+        return other.getUsername().equals(this.getUsername())
+                && password.equals(other.password);
     }
 
     public int hashCode() {

@@ -31,26 +31,35 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
     }
-
+    public boolean validFields(){
+        return etConfirmPassword.getText().toString().equals(etPassword.getText().toString())
+                && etUsername.getText().toString().length() > 0
+                && etPassword.getText().toString().length() > 0;
+    }
     public void registerButtonClick(View v) {
         int duration = Toast.LENGTH_SHORT;
         Context context = getApplicationContext();
         if (userMapManager.isInSystem(etUsername.getText().toString())) {
-            CharSequence text = "Username is taken";
+            CharSequence text = "Username is taken.";
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
-            RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
-            userMapManager.addUser(user);
-            if (etConfirmPassword.getText().toString().equals(etPassword.getText().toString()) && userMapManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())){
-                CharSequence text = "Register Success!";
+            if (validFields()){
+                RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
+                userMapManager.addUser(user);
+                CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+                userMapManager.handleLogInRequest(user.getUsername(), etPassword.getText().toString());
                 Intent intent = new Intent(this, MainMenu.class);
                 startActivity(intent);
                 finish();
-            } else {
+            } else if(!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
                 CharSequence text = "Passwords don't match.";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            } else {
+                CharSequence text = "Please fill out all fields.";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             }
