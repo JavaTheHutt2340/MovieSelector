@@ -11,4 +11,5 @@ public interface UserManager {
     void addUser(User u);
     User lastLogIn();
     User searchUser(String id);
+    User getCurrentUser();
 }

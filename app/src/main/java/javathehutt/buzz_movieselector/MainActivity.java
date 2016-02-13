@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
+        switch (v.getId()) {
             case R.id.loginButton:
                 Intent login = new Intent(this, loginActivity.class);
                 startActivity(login);
@@ -47,5 +47,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 1) {
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
+        }
+    }
+
+    public void loginButtonClick(View v) {
+        Intent login = new Intent(this, loginActivity.class);
+        startActivityForResult(login, 1);
+    }
+
     //TODO add a logout button to logout from the main screen
+
 }
+
+

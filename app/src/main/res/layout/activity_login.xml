@@ -43,16 +43,18 @@
         android:longClickable="false"
         android:layout_below="@+id/linearLayout2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="userLoginButtonClick" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="@dimen/button_height"
-        android:text="@string/cancle_button"
+        android:text="@string/cancel_button"
         android:id="@+id/cancelButton"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/userLoginButton"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:onClick="cancelButtonClick" />
 
     <LinearLayout
         android:orientation="horizontal"
