@@ -21,7 +21,7 @@ import javathehutt.buzz_movieselector.model.User;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword, etConfirmPassword;
-    UserManager userManager = new UserMapManager();
+    UserManager userMapManager = new UserMapManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +39,18 @@ public class RegisterActivity extends AppCompatActivity {
     public void registerClick(View v) {
         int duration = Toast.LENGTH_SHORT;
         Context context = getApplicationContext();
-        if (userManager.isInSystem(etUsername.getText().toString())) {
+        if (userMapManager.isInSystem(etUsername.getText().toString())) {
             CharSequence text = "Username is taken.";
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
             if (validFields()){
                 RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
-                userManager.addUser(user);
+                userMapManager.addUser(user);
                 CharSequence text = "Register Success!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                userManager.handleLogInRequest(user.getUsername(), etPassword.getText().toString());
+                userMapManager.handleLogInRequest(user.getUsername(), etPassword.getText().toString());
                 Intent intent = new Intent(this, MainMenu.class);
                 startActivity(intent);
                 finish();
