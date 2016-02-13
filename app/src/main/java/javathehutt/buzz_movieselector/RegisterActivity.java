@@ -70,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
 
                 }
+                break;
             case R.id.cancelButton:
                 finish();
                 break;
