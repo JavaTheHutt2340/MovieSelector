@@ -21,7 +21,7 @@ public abstract class User {
     public void logout() {
         loggedIn = false;
     }
-
+    public abstract boolean isLocked();
     public String getUsername() {
         return username;
     }

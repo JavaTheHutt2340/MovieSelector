@@ -8,6 +8,10 @@ public class AdminUser extends User {
         super(username, password);
     }
 
+    public boolean isLocked() {
+        return false;
+    }
+
     public void unlockAccount(RegUser user) {
         if (user.getLockStatus()) {
             user.unlock();

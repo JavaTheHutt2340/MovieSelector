@@ -20,7 +20,7 @@ public class UserMapManager implements UserManager {
     }
     public boolean handleLogInRequest(String id, String password) {
         User u = userMap.get(id);
-        if(currentUser == null && u.logIn(password)) {
+        if(currentUser == null && u != null && u.logIn(password)) {
             currentUser = u;
             return true;
         }

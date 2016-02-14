@@ -25,6 +25,10 @@ public class RegUser extends User{
         locked = false;
     }
 
+    public boolean isLocked(){
+        return locked;
+    }
+
     @Override
     public boolean logIn(String password) {
         if (locked) {
