@@ -28,7 +28,6 @@ public class UserMapManager implements UserManager {
     }
     public User lastLogIn() {
         User u = currentUser;
-        currentUser = null;
         return u;
     }
 
