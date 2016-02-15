@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie Mention</string>
-    <string name="username"> Username:</string>
-    <string name="password"> Password:</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
     <string name="login_button">Login</string>
     <string name="register_button">Register</string>
     <string name="cancel_button">Cancel</string>
@@ -14,4 +14,5 @@
     <string name="title_activity_main">Welcome!</string>
     <string name="profileButton">Profile</string>
     <string name="logOutButton">Log Out</string>
+    <string name="realName">Name:</string>
 </resources>

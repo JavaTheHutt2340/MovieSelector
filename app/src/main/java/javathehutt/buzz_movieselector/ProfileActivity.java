@@ -20,5 +20,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         UserManager a = new UserMapManager();
         u = a.lastLogIn();
+        TextView usernameEdit = (TextView) findViewById(R.id.usernameProfileEdit);
+        usernameEdit.setText(" " + u.getUsername());
     }
 }

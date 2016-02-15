@@ -6,6 +6,9 @@ package javathehutt.buzz_movieselector.model;
 public abstract class User {
     private String username;
     private String password;
+    private String realName;
+    private String location;
+    private String favoriteGenre;
     private boolean loggedIn;
 
 
@@ -13,6 +16,9 @@ public abstract class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.realName = "";
+        this.location = "";
+        this.favoriteGenre = "";
         loggedIn = false;
     }
     public boolean isAdmin() {
@@ -22,9 +28,10 @@ public abstract class User {
         loggedIn = false;
     }
     public abstract boolean isLocked();
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
+    public String getRealName() { return realName; }
+    public String getLocation() { return location; }
+    public String getFavoriteGenre() { return favoriteGenre; }
 
     public boolean logIn(String password) {
         boolean result = this.password.equals(password);
