@@ -10,7 +10,7 @@ import android.widget.Toast;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword;
 
@@ -34,7 +34,7 @@ public class loginActivity extends AppCompatActivity {
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                Intent intent = new Intent(this, MainMenu.class);
+                Intent intent = new Intent(this, MainMenuActivity.class);
                 startActivity(intent);
                 finish();
             } else {

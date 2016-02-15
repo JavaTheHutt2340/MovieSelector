@@ -5,10 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import javathehutt.buzz_movieselector.model.RegUser;
-import javathehutt.buzz_movieselector.model.UserManager;
-import javathehutt.buzz_movieselector.model.UserMapManager;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 1) {
-            Intent intent = new Intent(this, MainMenu.class);
+            Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
         }
     }
 
     public void loginButtonClick(View v) {
-        Intent login = new Intent(this, loginActivity.class);
+        Intent login = new Intent(this, LoginActivity.class);
         startActivityForResult(login, 1);
     }
 
