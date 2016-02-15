@@ -8,4 +8,14 @@
         android:text=""
         android:id="@+id/usernameProfile"
         android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/username"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/usernameProfile"
+        android:layout_toRightOf="@+id/usernameProfile"
+        android:layout_toEndOf="@+id/usernameProfile" />
 </RelativeLayout>
