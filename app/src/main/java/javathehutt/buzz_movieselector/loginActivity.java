@@ -10,7 +10,7 @@ import android.widget.Toast;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword;
 

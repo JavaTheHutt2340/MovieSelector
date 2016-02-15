@@ -37,7 +37,7 @@ public class LoggedOut extends AppCompatActivity {
      * @param v current view
      */
     public void returnLogIn(View v) {
-        Intent intent = new Intent(this, loginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
