@@ -39,13 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
     public void registerButtonClick(View v) {
         int duration = Toast.LENGTH_SHORT;
         Context context = getApplicationContext();
-        if (userMapManager.isInSystem(etUsername.getText().toString())) {
+        if (userMapManager.isInSystem(etUsername.getText().toString().toLowerCase())) {
             CharSequence text = "Username is taken.";
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
             if (validFields()){
-                RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
+                RegUser user = new RegUser(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString());
                 userMapManager.addUser(user);
                 CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);
