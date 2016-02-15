@@ -6,6 +6,9 @@ package javathehutt.buzz_movieselector.model;
 public abstract class User {
     private String username;
     private String password;
+    private String realName;
+    private String location;
+    private String favoriteGenre;
     private boolean loggedIn;
 
 
@@ -16,6 +19,9 @@ public abstract class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.realName = "";
+        this.location = "";
+        this.favoriteGenre = "";
         loggedIn = false;
     }
     /*
@@ -34,17 +40,47 @@ public abstract class User {
     }
 
     /*
-    *
+    * returns true if the account is locked
+    * @return boolean true if the account is locked
      */
-    public String getUsername() {
-        return username;
-    }
+    public abstract boolean isLocked();
+    /*
+    * returns the username
+    * @param String the username the users username
+     */
+    public String getUsername() { return username; }
+    /*
+    * return the real name of the user
+    * @return String realName the users realName
+     */
+    public String getRealName() { return realName; }
 
+    /*
+    * returns the location of the user
+    * @return String the location of the user
+     */
+    public String getLocation() { return location; }
+
+    /*
+    * return the users favorite genre
+    * @return String the users favorite genre
+     */
+    public String getFavoriteGenre() { return favoriteGenre; }
+
+    /*
+    * determines if the login is valid
+    * @param password the
+     */
     public boolean logIn(String password) {
         boolean result = this.password.equals(password);
         loggedIn = result;
         return result;
     }
+    /*
+    * determines if the two objects are equal
+    * @param o the other object ot compare
+    * @return boolean true if the objects are equal
+     */
     @Override
     public boolean equals(Object o) {
         if (null == o) {
@@ -58,6 +94,10 @@ public abstract class User {
                 && password.equals(other.password);
     }
 
+    /*
+    * returns the hashcode of the User
+    * @return int the hashCode
+     */
     public int hashCode() {
         int result = 0;
         result *= 17 * password.hashCode();

@@ -27,8 +27,8 @@ public class loginActivity extends AppCompatActivity {
     public void userLoginButtonClick(View v) {
         UserManager userManager = new UserMapManager();
         //TODO add an exception here for when they enter an invalid username
-        if (userManager.isInSystem(etUsername.getText().toString())) {
-            if (userManager.handleLogInRequest(etUsername.getText().toString(), etPassword.getText().toString())) {
+        if (userManager.isInSystem(etUsername.getText().toString().toLowerCase())) {
+            if (userManager.handleLogInRequest(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString())) {
                 Context context = getApplicationContext();
                 CharSequence text = "Log In Success!";
                 int duration = Toast.LENGTH_SHORT;
@@ -46,7 +46,7 @@ public class loginActivity extends AppCompatActivity {
             }
         } else {
             Context context = getApplicationContext();
-            CharSequence text = "Not a Valid Username";
+            CharSequence text = "User Does Not Exist!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();

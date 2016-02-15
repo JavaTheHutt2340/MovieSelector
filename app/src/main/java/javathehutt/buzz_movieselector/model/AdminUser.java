@@ -8,11 +8,22 @@ public class AdminUser extends User {
         super(username, password);
     }
 
+    /*
+    * returns if the account is locked
+    * @return booolean true if the account is locked
+     */
+    public boolean isLocked() {
+        return false;
+    }
+
+    /*
+    * unlocks a RegUser
+    * @param the user to be unlocked
+     */
     public void unlockAccount(RegUser user) {
         if (user.getLockStatus()) {
             user.unlock();
         } else {
-            //throw exception
             throw new IllegalStateException("Account already unlocked");
         }
     }

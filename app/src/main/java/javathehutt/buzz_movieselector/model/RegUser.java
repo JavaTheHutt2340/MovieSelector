@@ -44,6 +44,10 @@ public class RegUser extends User{
     * @param password the password the person is using to login
     * @return true if the password matches the stored password
      */
+    public boolean isLocked(){
+        return locked;
+    }
+
     @Override
     public boolean logIn(String password) {
         if (locked) {
