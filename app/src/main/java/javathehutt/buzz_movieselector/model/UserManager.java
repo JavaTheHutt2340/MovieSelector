@@ -1,9 +1,11 @@
+/**
+ * Abstract model for object controlling User collection
+ * @author Mohammed Saqib
+ * @version 1.0
+ */
 package javathehutt.buzz_movieselector.model;
 import javathehutt.buzz_movieselector.model.User;
-/**
- * Created by Mohammed on 2/3/2016.
- *
- */
+
 public interface UserManager {
     /**
      * Method for checking if a username corresponds
