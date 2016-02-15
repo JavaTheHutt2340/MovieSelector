@@ -47,8 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
      */
     public boolean validFields(){
         return etConfirmPassword.getText().toString().equals(etPassword.getText().toString())
-                && etUsername.getText().toString().length() > 0
-                && etPassword.getText().toString().length() > 0;
+                && etUsername.getText().toString().trim().length() > 0
+                && etPassword.getText().toString().trim().length() > 0;
     }
 
     /**
@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
             toast.show();
         } else {
             if (validFields()){
-                RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
+                RegUser user = new RegUser(etUsername.getText().toString().trim(), etPassword.getText().toString());
                 userMapManager.addUser(user);
                 CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);
