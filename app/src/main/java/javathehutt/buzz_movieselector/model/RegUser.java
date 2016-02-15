@@ -22,6 +22,7 @@ public class RegUser extends User{
     * used to determined if the account is locked
     * @return locked ture if the user is locked false otherwise
      */
+    @Override
     public boolean getLockStatus() {
         return locked;
     }

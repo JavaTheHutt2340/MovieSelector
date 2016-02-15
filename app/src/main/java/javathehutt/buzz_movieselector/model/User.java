@@ -43,7 +43,9 @@ public abstract class User {
     * returns true if the account is locked
     * @return boolean true if the account is locked
      */
-    public abstract boolean isLocked();
+
+    public abstract boolean getLockStatus();
+
     /*
     * returns the username
     * @param String the username the users username
