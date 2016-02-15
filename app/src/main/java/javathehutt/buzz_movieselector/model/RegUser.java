@@ -12,7 +12,7 @@ public class RegUser extends User{
         super(username, password);
         locked = false;
     }
-
+    @Override
     public boolean getLockStatus() {
         return locked;
     }
@@ -24,6 +24,7 @@ public class RegUser extends User{
     public void unlock() {
         locked = false;
     }
+
 
     @Override
     public boolean logIn(String password) {

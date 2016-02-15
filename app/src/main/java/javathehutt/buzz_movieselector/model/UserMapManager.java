@@ -9,36 +9,73 @@ import java.util.Map;
 public class UserMapManager implements UserManager {
 
     private static Map<String, User> userMap;
-    private static User currentUser; //TODO:need to fix fact only one person can login at a time
+    private static User currentUser;
+    /**
+     * Constructor for UserMapManager
+     */
     public UserMapManager() {
         if (userMap == null) {
             userMap = new HashMap<>();
         }
     }
+
+    /**
+     * Method for checking if a username corresponds
+     *  with existing user
+     * @param u String representing username
+     * @return true if is in map
+     */
     public boolean isInSystem(String u) {
         return userMap.get(u) != null;
     }
+
+    /**
+     * Method for safely handling Log In based on username and password
+     * @param id String representing username
+     * @param password String representing password
+     * @return true if login was successful
+     */
     public boolean handleLogInRequest(String id, String password) {
         User u = userMap.get(id);
-        if(currentUser == null && u.logIn(password)) {
+        if(u != null && u.logIn(password)) {
             currentUser = u;
             return true;
         }
         return false;
     }
+
+    /**
+     * A method for returning the last User who was logged in
+     * @return User object
+     */
     public User lastLogIn() {
         User u = currentUser;
-        currentUser = null;
         return u;
     }
 
+    /**
+     * A method for checking if User is an Admin user
+     * @param u User object to check
+     * @return true if it is
+     */
     public boolean isAdmin(User u) {
         return u.isAdmin();
     }
+
+    /**
+     * A method to add a user to the database
+     * @param u User to add
+     */
     public void addUser(User u) {
         String s = u.getUsername();
         userMap.put(s, u);
     }
+
+    /**
+     * A method to search a user based on username
+     * @param s String representing username
+     * @return User object corresponding to username
+     */
     public User searchUser(String s) {
         if (userMap.containsKey(s)) {
             return userMap.get(s);
@@ -47,6 +84,10 @@ public class UserMapManager implements UserManager {
         }
     }
 
+    /**
+     * A method to return current user in system
+     * @return User object
+     */
     public User getCurrentUser() {
         return currentUser;
     }

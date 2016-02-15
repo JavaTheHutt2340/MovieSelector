@@ -19,7 +19,8 @@
 *.rar
 *.tar
 *.zip
-
+local.properties
+build/
 # Logs and databases #
 ######################
 *.log

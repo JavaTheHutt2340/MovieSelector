@@ -7,6 +7,10 @@ public class AdminUser extends User {
     public AdminUser(String username, String password) {
         super(username, password);
     }
+    @Override
+    public boolean getLockStatus() {
+        return false;
+    }
 
     public void unlockAccount(RegUser user) {
         if (user.getLockStatus()) {
@@ -14,6 +18,15 @@ public class AdminUser extends User {
         } else {
             //throw exception
             throw new IllegalStateException("Account already unlocked");
+        }
+    }
+
+    public void lockAccount(RegUser user) {
+        if (!user.getLockStatus()) {
+            user.lock();
+        } else {
+            //throw exception
+            throw new IllegalStateException("Account already locked");
         }
     }
 }
