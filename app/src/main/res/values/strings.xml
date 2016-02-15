@@ -15,4 +15,7 @@
     <string name="profileButton">Profile</string>
     <string name="logOutButton">Log Out</string>
     <string name="realName">Name:</string>
+    <string name="location">Location:</string>
+    <string name="favoriteGenre">Favorite Genre:</string>
+    <string name="updateProfile">Update Profile</string>
 </resources>
