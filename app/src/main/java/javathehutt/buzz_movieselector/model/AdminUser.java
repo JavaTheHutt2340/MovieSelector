@@ -8,7 +8,7 @@ public class AdminUser extends User {
         super(username, password);
     }
 
-    public boolean isLocked() {
+    public boolean getLockStatus() {
         return false;
     }
 
@@ -18,6 +18,15 @@ public class AdminUser extends User {
         } else {
             //throw exception
             throw new IllegalStateException("Account already unlocked");
+        }
+    }
+
+    public void lockAccount(RegUser user) {
+        if (!user.getLockStatus()) {
+            user.lock();
+        } else {
+            //throw exception
+            throw new IllegalStateException("Account already locked");
         }
     }
 }
