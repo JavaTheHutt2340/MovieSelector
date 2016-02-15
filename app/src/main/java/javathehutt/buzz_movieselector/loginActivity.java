@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void userLoginButtonClick(View v) {
         UserManager userManager = new UserMapManager();
-        //TODO add an exception here for when they enter an invalid username
         if (userManager.isInSystem(etUsername.getText().toString().toLowerCase())) {
             if (userManager.handleLogInRequest(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString())) {
                 Context context = getApplicationContext();
