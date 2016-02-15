@@ -35,6 +35,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void updateProfileClick(View v) {
-        finish();
+        TextView realName = (TextView) findViewById(R.id.realNameEdit);
+        u.setRealName(realName.getText().toString());
+
+        TextView location = (TextView) findViewById(R.id.locationProfileEdit);
+        u.setLocation(location.getText().toString());
+
+        TextView genre = (TextView) findViewById(R.id.genreProfileEdit);
+        u.setFavoriteGenre(genre.getText().toString());
     }
 }
