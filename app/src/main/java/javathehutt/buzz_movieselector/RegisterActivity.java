@@ -17,12 +17,21 @@ import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 import javathehutt.buzz_movieselector.model.User;
 
-
+/**
+ * Activity for Registration Screen.
+ *
+ * @author Saqib Ali
+ * @version 1.0
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword, etConfirmPassword;
     UserManager userMapManager = new UserMapManager();
 
+    /**
+     * Initializes the RegisterActivity class
+     * @param savedInstanceState Used so that you don't lose the activity when you back out of it
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +40,21 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
     }
+
+    /**
+     * Checks if fields are valid when entering register information.
+     * @return true if fields are valid or false if not.
+     */
     public boolean validFields(){
         return etConfirmPassword.getText().toString().equals(etPassword.getText().toString())
                 && etUsername.getText().toString().length() > 0
                 && etPassword.getText().toString().length() > 0;
     }
+
+    /**
+     * Represents onClick for register button.
+     * @param v displays the register button
+     */
     public void registerButtonClick(View v) {
         int duration = Toast.LENGTH_SHORT;
         Context context = getApplicationContext();
@@ -67,6 +86,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Represents onClick for cancel button.
+     * @param v displays the cancel button
+     */
     public void cancelClick(View v) {
         finish();
     }
