@@ -116,7 +116,7 @@ public abstract class User {
             return false;
         }
         User other = (User) o;
-        return other.getUsername().equals(this.getUsername())
+        return other.getUsername().equalsIgnoreCase(this.getUsername())
                 && password.equals(other.password);
     }
 

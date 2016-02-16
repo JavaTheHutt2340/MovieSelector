@@ -34,7 +34,6 @@ public class AdminUser extends User {
         if (!user.getLockStatus()) {
             user.lock();
         } else {
-            //throw exception
             throw new IllegalStateException("Account already locked");
         }
     }
