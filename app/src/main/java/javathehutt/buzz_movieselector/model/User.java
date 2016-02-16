@@ -70,6 +70,30 @@ public abstract class User {
     public String getFavoriteGenre() { return favoriteGenre; }
 
     /*
+     * sets the realName of the User
+     * @param s the new realName
+     */
+    public void setRealName(String s) {
+        realName = s;
+    }
+
+    /*
+     * sets the location of the User
+     * @param s the new location
+     */
+    public void setLocation(String s) {
+        location = s;
+    }
+
+    /*
+     * sets the favoriteGenre of the User
+     * @param s the new favoriteGenre
+     */
+    public void setFavoriteGenre(String s) {
+        favoriteGenre = s;
+    }
+
+    /*
     * determines if the login is valid
     * @param password the
      */
@@ -102,8 +126,8 @@ public abstract class User {
      */
     public int hashCode() {
         int result = 0;
-        result *= 17 * password.hashCode();
-        result *= 21 * username.hashCode();
+        result += 17 * password.hashCode();
+        result += 21 * username.hashCode();
         return result;
     }
 

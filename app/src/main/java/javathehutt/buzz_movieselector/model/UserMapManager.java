@@ -1,11 +1,13 @@
+/**
+ * Instantiated UserManager using maps
+ * @author Mohammed Saqib
+ * @version 1.0
+ */
 package javathehutt.buzz_movieselector.model;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
-/**
- * Created by Mohammed on 2/3/2016.
- */
 public class UserMapManager implements UserManager {
     private static Map<String, User> userMap;
     private static User currentUser;
@@ -40,6 +42,7 @@ public class UserMapManager implements UserManager {
         return u.isAdmin();
     }
 
+    @Override
     public void addUser(User u) {
         String s = u.getUsername();
         userMap.put(s, u);

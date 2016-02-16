@@ -46,6 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
                 && etPassword.getText().toString().length() > 0;
     }
 
+    public boolean validPassword(){
+        return etPassword.getText().toString().trim().indexOf(" ") == -1;
+    }
     /**
      * Represents onClick for register button.
      * @param v displays the register button
@@ -58,8 +61,12 @@ public class RegisterActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
-            if (validFields()){
-                RegUser user = new RegUser(etUsername.getText().toString(), etPassword.getText().toString());
+            if (!validPassword()) {
+                CharSequence text = "Password cannot contain spaces.";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            } else if (validFields()){
+                RegUser user = new RegUser(etUsername.getText().toString().trim(), etPassword.getText().toString());
                 userMapManager.addUser(user);
                 CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);

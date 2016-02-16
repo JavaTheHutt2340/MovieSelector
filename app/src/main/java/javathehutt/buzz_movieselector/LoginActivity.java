@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         if (userManager.isInSystem(etUsername.getText().toString().toLowerCase())) {
             if (userManager.handleLogInRequest(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString())) {
                 Context context = getApplicationContext();
-                CharSequence text = "Log In Success!";
+                CharSequence text = "Log In Successful!";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
