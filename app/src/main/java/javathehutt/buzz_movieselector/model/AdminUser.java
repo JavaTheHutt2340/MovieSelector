@@ -30,6 +30,10 @@ public class AdminUser extends User {
         }
     }
 
+    /*
+    * locks the given account
+    * @param the user to be banned
+     */
     public void lockAccount(RegUser user) {
         if (!user.getLockStatus()) {
             user.lock();
