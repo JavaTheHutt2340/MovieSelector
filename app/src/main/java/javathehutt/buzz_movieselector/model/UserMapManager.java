@@ -19,10 +19,12 @@ public class UserMapManager implements UserManager {
             userMap = new HashMap<>();
         }
     }
+
     @Override
     public boolean isInSystem(String u) {
-        return userMap.get(u) != null;
+        return userMap.containsKey(u);
     }
+
     @Override
     public boolean handleLogInRequest(String id, String password) {
         User u = userMap.get(id);
@@ -32,11 +34,12 @@ public class UserMapManager implements UserManager {
         }
         return false;
     }
+
     @Override
     public User lastLogIn() {
-        User u = currentUser;
-        return u;
+        return currentUser;
     }
+
     @Override
     public boolean isAdmin(User u) {
         return u.isAdmin();
@@ -44,9 +47,9 @@ public class UserMapManager implements UserManager {
 
     @Override
     public void addUser(User u) {
-        String s = u.getUsername();
-        userMap.put(s, u);
+        userMap.put(u.getUsername(), u);
     }
+
     @Override
     public User searchUser(String s) {
         if (userMap.containsKey(s)) {
@@ -55,6 +58,7 @@ public class UserMapManager implements UserManager {
             return null;
         }
     }
+
     @Override
     public User getCurrentUser() {
         return currentUser;
