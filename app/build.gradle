@@ -26,5 +26,6 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.github.kevinsawicki:http-request:6.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'junit:junit:4.12'
 }
 
