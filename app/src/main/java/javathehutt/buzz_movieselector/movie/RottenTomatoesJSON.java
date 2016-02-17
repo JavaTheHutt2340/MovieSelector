@@ -58,8 +58,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     public Movie[] makeMovie(InputStreamReader b) {
         ArrayList<Movie> movies = new ArrayList<>();
         Scanner scan = new Scanner(b).useDelimiter("\"");
-        String total = "";
-        total = scan.nextLine();
+        String toProcess = scan.nextLine();
         /*while(scan.hasNext()) {
 
             String toProcess = scan.next();
@@ -70,16 +69,16 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                 year = new Integer(scan.next());
             }
         }*/
-        while(total.length() != 0) {
-            total = total.substring(total.indexOf("title\":\"") + 8);
-            int nextChar = total.indexOf("\"");
-            String title = total.substring(0, nextChar);
-            total = total.substring(nextChar);
-            total = total.substring(total.indexOf("year\":") + 6);
-            int year = Integer.parseInt(total.substring(0, 4));
-            total = total.substring(4);
+        while(toProcess.length() != 0) {
+            toProcess = toProcess.substring(toProcess.indexOf("title\":\"") + 8);
+            int nextChar = toProcess.indexOf("\"");
+            String title = toProcess.substring(0, nextChar);
+            toProcess = toProcess.substring(nextChar);
+            toProcess = toProcess.substring(toProcess.indexOf("year\":") + 6);
+            int year = Integer.parseInt(toProcess.substring(0, 4));
+            toProcess = toProcess.substring(4);
             movies.add(new Movie(title, year));
-            if (total.indexOf("title\":\"") == -1 || total.indexOf("year\":") == -1) {
+            if (toProcess.indexOf("title\":\"") == -1 || toProcess.indexOf("year\":") == -1) {
                 break;
             }
         }
