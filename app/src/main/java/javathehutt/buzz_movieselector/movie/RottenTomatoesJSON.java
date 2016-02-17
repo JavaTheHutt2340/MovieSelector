@@ -15,8 +15,9 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     private final String KEY = "yedukp76ffytfuy24zsqk7f5";
     private final int TIMEOUT = 200;
     @Override
-    public Movie[] searchMovieByName(){
-        return new Movie[0];
+    public Movie[] searchMovieByName(String name){
+        HttpRequest h = makeRequestByName(name);
+        return makeMovie(extractReader(h));
     };
 
     @Override
@@ -43,6 +44,9 @@ public class RottenTomatoesJSON implements RottenTomatoes {
         } catch (HttpRequest.HttpRequestException e) {
             return null;
         }
+    }
+    public HttpRequest makeRequestByGenre(Genre g) {
+        return null;
     }
     public InputStreamReader extractReader(HttpRequest h) {
         try {

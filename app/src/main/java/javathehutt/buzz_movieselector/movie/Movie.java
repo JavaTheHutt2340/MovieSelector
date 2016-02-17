@@ -14,13 +14,28 @@ public class Movie {
     private String audienceRating;
     private int audienceScore;
 
-    public Movie(){}
-
+    /**
+     * Standard constructor for movie
+     * @param name of movie
+     * @param year of movie
+     */
     public Movie(String name, int year){
         this.name = name;
         this.year = year;
     }
 
+    /**
+     * More indepth constructor of movie
+     * @param name of movie
+     * @param year of movie
+     * @param mpaa_rating of movie
+     * @param runtime how long movie runs
+     * @param criticsConsensus short summary of critics
+     * @param criticsRating Rotten or fresh or etc....
+     * @param criticsScore Number score
+     * @param audienceRating short summary of audience
+     * @param audienceScore Number score
+     */
     public Movie(String name, int year, String mpaa_rating, int runtime,
                  String criticsConsensus, String criticsRating, int criticsScore, String audienceRating,
                  int audienceScore) {
@@ -33,5 +48,27 @@ public class Movie {
         this.criticsScore = criticsScore;
         this.audienceRating = audienceRating;
         this.audienceScore = audienceScore;
+    }
+    @Override
+    public int hashCode() {
+        int h = 17;
+        h += h * 31 + name.hashCode();
+        h += h * 31 + year;
+        return h;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (null == o) {
+            return false;
+        }
+        if (!(o instanceof Movie)) {
+            return false;
+        }
+        Movie m = (Movie) o;
+        return m.name.equals(name) && m.year == year;
+    }
+    @Override
+    public String toString() {
+        return "Title: " + name + "\nYear:" + year;
     }
 }
