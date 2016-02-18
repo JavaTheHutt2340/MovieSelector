@@ -150,7 +150,6 @@ public class RottenTomatoesJSON {
     }
 
     public void displayMovies(List<Movie> movies) {
-
     }
 
 
