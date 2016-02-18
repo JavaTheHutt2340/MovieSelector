@@ -1,10 +1,22 @@
 package javathehutt.buzz_movieselector.movie;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.kevinsawicki.http.HttpRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -14,22 +26,47 @@ import java.util.ArrayList;
  * Deprecated in favor of Volley?
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoesJSON implements RottenTomatoes {
-    private final int TIMEOUT = 200;
-    @Override
-    public Movie[] searchMovieByName(String name){
-        HttpRequest h = makeRequestByName(name);
-        return makeMovie(extractReader(h));
-    };
+public class RottenTomatoesJSON {
+    public final String KEY = "yedukp76ffytfuy24zsqk7f5";
+    public final String URL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=";
+    private static RequestQueue queue;
 
-    @Override
-    public Movie[] recentDVD() {
-        return new Movie[0];
+    public RottenTomatoesJSON(Context context) {
+        if (null == queue) {
+            queue = Volley.newRequestQueue(context);
+        }
+    }
+    /**
+     * Method to call for new Movie Releases
+     * Generates URL, sends into passOnMoviesList()
+     * TODO: associate with button
+     */
+    public void newMovieReleases() {
+        String url =
+                "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey="
+                        + KEY + "&limit=1";
+        passOnMoviesList(url);
+    }
+    /**
+     * Method to call for new DVD movie releases
+     * Generates URL, sends into passOnMoviesList()
+     * TODO: associate with button
+     */
+    public void newDVDReleases() {
+        String url =
+                "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?apikey="
+                        + KEY + "&page_limit=1";
+        passOnMoviesList(url);
     }
 
-    @Override
-    public Movie[] recentMovies() {
-        return new Movie[0];
+    /**
+     * Method to search for movie based on name
+     * TODO: associate with button and search field, remove name parameter
+     * @param name title of movie
+     */
+    public void searchMovieByName(String name) {
+        String url = URL + KEY +"&q=" + name + "&page_limit=1";
+        passOnMoviesList(url);
     }
 
     public HttpRequest makeRequestByName(String name){
@@ -56,34 +93,63 @@ public class RottenTomatoesJSON implements RottenTomatoes {
         }
     }
 
-    public Movie[] makeMovie(InputStreamReader b) {
-        ArrayList<Movie> movies = new ArrayList<>();
-        Scanner scan = new Scanner(b).useDelimiter("\"");
-        String toProcess = scan.nextLine();
-        /*while(scan.hasNext()) {
+        /**
+         * Sets on Volley queue JsonObjectRequest to retrieve movie information
+         *  if information is obtained, create Movie list, and pass on to displayMovies
+         * @param url specific String URL based on specific movie to view
+         */
+    public void passOnMoviesList(String url) {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject resp) {
+                        //handle a valid response coming back.  Getting this string mainly for debug
+                        //printing first 500 chars of the response.  Only want to do this for debug
 
-            String toProcess = scan.next();
-            if(toProcess.equals("title")) {
-                title = scan.next();
-            }
-            if(toProcess.equals("year")) {
-                year = new Integer(scan.next());
-            }
-        }*/
-        while(toProcess.length() != 0) {
-            toProcess = toProcess.substring(toProcess.indexOf("title\":\"") + 8);
-            int nextChar = toProcess.indexOf("\"");
-            String title = toProcess.substring(0, nextChar);
-            toProcess = toProcess.substring(nextChar);
-            toProcess = toProcess.substring(toProcess.indexOf("year\":") + 6);
-            int year = Integer.parseInt(toProcess.substring(0, 4));
-            toProcess = toProcess.substring(4);
-            movies.add(new Movie(title, year));
-            if (toProcess.indexOf("title\":\"") == -1 || toProcess.indexOf("year\":") == -1) {
-                break;
-            }
-        }
-        return movies.toArray(new Movie[0]);
+                        //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
+                        JSONObject obj1 = null;
+                        try {
+                            obj1 = resp.getJSONObject("RestResponse");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        assert obj1 != null;
+                        //From that object, we extract the array of actual data labeled result
+                        JSONArray array = obj1.optJSONArray("result");
+                        ArrayList<Movie> movies = new ArrayList<>();
+                        for (int i = 0; i < array.length(); i++) {
+
+                            try {
+                                //for each array element, we have to create an object
+                                JSONObject jsonObject = array.getJSONObject(i);
+                                assert jsonObject != null;
+                                String title = jsonObject.optString("name");
+                                int year = jsonObject.optInt("year");
+                                String critics_rating = jsonObject.optString("critics_rating");
+                                int critics_score = jsonObject.optInt("critics_score");
+                                Movie m = new Movie(title, year, critics_rating, critics_score);
+                                //save the object for later
+                                movies.add(m);
+
+
+                            } catch (JSONException e) {
+                                Log.d("VolleyApp", "Failed to get JSON object");
+                                e.printStackTrace();
+                            }
+                        }
+                        //sends movies list to method to be formated for xml layout
+                        displayMovies(movies);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(jsObjRequest);
+    }
+
+    public void displayMovies(List<Movie> movies) {
     }
 
 

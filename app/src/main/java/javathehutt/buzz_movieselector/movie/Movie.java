@@ -19,10 +19,7 @@ public class Movie implements Serializable{
      * @param name of movie
      * @param year of movie
      */
-    public Movie(String name, int year) {
-        this.name = name;
-        this.year = year;
-    }
+
 
     public Movie(String name, int year, String criticsRating, int criticsScore) {
         this.name = name;
