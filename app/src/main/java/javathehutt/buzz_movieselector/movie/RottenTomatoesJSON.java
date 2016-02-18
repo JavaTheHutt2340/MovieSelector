@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 
 /**
+ * Class using HttpRequest class custom library in order to access Movie objects
+ * Deprecated in favor of Volley?
  * Created by Mohammed on 2/16/2016.
  */
 public class RottenTomatoesJSON implements RottenTomatoes {

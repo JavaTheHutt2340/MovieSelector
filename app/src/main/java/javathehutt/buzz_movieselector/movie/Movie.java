@@ -24,6 +24,13 @@ public class Movie implements Serializable{
         this.year = year;
     }
 
+    public Movie(String name, int year, String criticsRating, int criticsScore) {
+        this.name = name;
+        this.year = year;
+        this.criticsRating = criticsRating;
+        this.criticsScore = criticsScore;
+    }
+
     /**
      * More indepth constructor of movie
      * @param name of movie
@@ -56,8 +63,8 @@ public class Movie implements Serializable{
     public int getYear() {
         return year;
     }
-    public String getCritcsConsensus() {
-        return criticsConsensus;
+    public String getCritcsRating() {
+        return criticsRating;
     }
     public int getCriticsScore() {
         return criticsScore;
