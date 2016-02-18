@@ -1,9 +1,9 @@
 package javathehutt.buzz_movieselector.movie;
-
+import java.io.Serializable;
 /**
  * Created by Mohammed on 2/16/2016.
  */
-public class Movie {
+public class Movie implements Serializable{
     private String name;
     private int year;
     private String mpaa_rating;
@@ -19,7 +19,7 @@ public class Movie {
      * @param name of movie
      * @param year of movie
      */
-    public Movie(String name, int year){
+    public Movie(String name, int year) {
         this.name = name;
         this.year = year;
     }
@@ -48,6 +48,19 @@ public class Movie {
         this.criticsScore = criticsScore;
         this.audienceRating = audienceRating;
         this.audienceScore = audienceScore;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public int getYear() {
+        return year;
+    }
+    public String getCritcsConsensus() {
+        return criticsConsensus;
+    }
+    public int getCriticsScore() {
+        return criticsScore;
     }
     @Override
     public int hashCode() {

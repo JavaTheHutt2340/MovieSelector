@@ -5,6 +5,8 @@ package javathehutt.buzz_movieselector.movie;
  */
 
 public interface RottenTomatoes {
+    public final String KEY = "yedukp76ffytfuy24zsqk7f5";
+    public final String URL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json";
     /**
      * Method to return an array of Movies from a name search
      * @return Movie array
@@ -13,13 +15,6 @@ public interface RottenTomatoes {
 
     /**
      * Method to return an array of Movies from a genre search
-     * @return Movie array
-     */
-    Movie[] searchMovieByGenre();
-
-    /**
-     * Method to return an array of recently released
-     *  in theaters movies
      * @return Movie array
      */
     Movie[] recentMovies();
