@@ -124,11 +124,16 @@ public abstract class User {
     * returns the hashcode of the User
     * @return int the hashCode
      */
+    @Override
     public int hashCode() {
         int result = 0;
         result += 17 * password.hashCode();
         result += 21 * username.hashCode();
         return result;
+    }
+    @Override
+    public String toString() {
+        return username + ": " + password;
     }
 
 }

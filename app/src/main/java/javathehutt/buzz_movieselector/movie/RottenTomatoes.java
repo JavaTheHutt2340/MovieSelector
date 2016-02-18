@@ -1,7 +1,29 @@
 package javathehutt.buzz_movieselector.movie;
 
 /**
+ * Interface for interfacing with RottenTomatoes
+ * (Deprecated for Volley in SearchResults?)
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoes {
+
+public interface RottenTomatoes {
+    public final String KEY = "yedukp76ffytfuy24zsqk7f5";
+    public final String URL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=";
+    /**
+     * Method to return an array of Movies from a name search
+     * @return Movie array
+     */
+    Movie[] searchMovieByName(String name);
+
+    /**
+     * Method to return an array of Movies from a genre search
+     * @return Movie array
+     */
+    Movie[] recentMovies();
+
+    /**
+     * Method to return an array
+     * @return
+     */
+    Movie[] recentDVD();
 }
