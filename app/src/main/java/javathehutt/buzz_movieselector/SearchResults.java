@@ -1,3 +1,8 @@
+/**
+ * Class to do searches and instantiate REST calls
+ * @author Mohammed Saqib
+ * @version 1.0
+ */
 package javathehutt.buzz_movieselector;
 
 import android.os.Bundle;
@@ -45,8 +50,45 @@ public class SearchResults extends AppCompatActivity{
         });
     }
 
+    /**
+     * Method to call for new Movie Releases
+     * Generates URL, sends into passOnMoviesList()
+     * TODO: associate with button
+     */
+    public void newMovieReleases() {
+        String url =
+                "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey="
+                        + KEY + "&limit=1";
+        passOnMoviesList(url);
+    }
+    /**
+     * Method to call for new DVD movie releases
+     * Generates URL, sends into passOnMoviesList()
+     * TODO: associate with button
+     */
+    public void newDVDReleases() {
+        String url =
+                "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?apikey="
+                        + KEY + "&page_limit=1";
+        passOnMoviesList(url);
+    }
+
+    /**
+     * Method to search for movie based on name
+     * TODO: associate with button and search field, remove name parameter
+     * @param name title of movie
+     */
     public void searchMovieByName(String name) {
         String url = URL + KEY +"&q=" + name + "&page_limit=1";
+        passOnMoviesList(url);
+    }
+
+    /**
+     * Sets on Volley queue JsonObjectRequest to retrieve movie information
+     *  if information is obtained, create Movie list, and pass on to displayMovies
+     * @param url specific String URL based on specific movie to view
+     */
+    public void passOnMoviesList(String url) {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
                     @Override
@@ -86,7 +128,8 @@ public class SearchResults extends AppCompatActivity{
                                 e.printStackTrace();
                             }
                         }
-                        displayMovies(movies, "Search by Title");
+                        //sends movies list to method to be formated for xml layout
+                        displayMovies(movies);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -94,16 +137,13 @@ public class SearchResults extends AppCompatActivity{
 
                     }
                 });
-
-    }
-    public void recentMovies() {
+        queue.add(jsObjRequest);
     }
 
-    public Movie[] recentDVD() {
-        return new Movie[0];
-    }
-
-
-    public void displayMovies(List<Movie> movies, String title){
+    /**
+     * TODO: Create new Intent, Adapter for movies, and fragments for each movie
+     * @param movies
+     */
+    public void displayMovies(List<Movie> movies){
     }
 }
