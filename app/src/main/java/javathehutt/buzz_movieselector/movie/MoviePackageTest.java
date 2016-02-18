@@ -22,7 +22,7 @@ public class MoviePackageTest {
     @Test(timeout = TIMEOUT)
     public void testMakeMovie(){
         HttpRequest r = control.makeRequestByName("Toy Story 3");
-        BufferedReader b = control.extractReader(r);
-        Movie m = control.makeMovie(b);
+        java.io.InputStreamReader b = control.extractReader(r);
+        Movie[] m = control.makeMovie(b);
     }
 }

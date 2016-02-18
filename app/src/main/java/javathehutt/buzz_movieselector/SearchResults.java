@@ -121,8 +121,6 @@ public class SearchResults extends AppCompatActivity{
                                 Movie m = new Movie(title, year, critics_rating, critics_score);
                                 //save the object for later
                                 movies.add(m);
-
-
                             } catch (JSONException e) {
                                 Log.d("VolleyApp", "Failed to get JSON object");
                                 e.printStackTrace();

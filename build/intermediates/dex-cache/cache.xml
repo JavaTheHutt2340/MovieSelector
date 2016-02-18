@@ -1,2 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/JasonGibson/CSstuff/gradle-2.10/bin/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="2973d150c0dc1fefe998f834810d68f278ea58ec">
+        <dex dex="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/pre-dexed/debug/junit-4.12_5ae4f4026a773e5d6a227c7445f4a022507c0613.jar" />
+    </item>
+    <item
+        jar="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.10.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="bcb4a50f5e2c67b3e84441b1b2a239856776c9b8">
+        <dex dex="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-android-sdk-4.10.0_977b7d5abc387ecd02e999f43916ebf90de78ea8.jar" />
+    </item>
+    <item
+        jar="/Users/JasonGibson/CSstuff/gradle-2.10/bin/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.19/a8f23f65fc1e522ee4a1a697ee569901a46741fa/library-1.0.19.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a8f23f65fc1e522ee4a1a697ee569901a46741fa">
+        <dex dex="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/pre-dexed/debug/library-1.0.19_3e774fe7814a0ac516f9222d6104ac960d979d9c.jar" />
+    </item>
+    <item
+        jar="/Users/JasonGibson/CSstuff/gradle-2.10/bin/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.3.0/bc535105332645408ef5f1380215cc954b842178/bolts-applinks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="bc535105332645408ef5f1380215cc954b842178">
+        <dex dex="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.3.0_1ef5236ed9782dbf1e3bc8118673b666482e4dee.jar" />
+    </item>
+    <item
+        jar="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
+        <dex dex="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.1.1_3c659c53316a60978029a4a99ac1576294ea07c1.jar" />
+    </item>
+    <item
+        jar="/Users/JasonGibson/CSstuff/gradle-2.10/bin/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="42a25dc3219429f0e5d060061f71acb49bf010a0">
+        <dex dex="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/pre-dexed/debug/hamcrest-core-1.3_f3252f23835b6d7b8241ab5e754a1efaebcedfd8.jar" />
+    </item>
+    <item
+        jar="/Users/JasonGibson/CSstuff/gradle-2.10/bin/caches/modules-2/files-2.1/com.github.kevinsawicki/http-request/6.0/910c844ccd4653c9f6895dc4b7adce6372a4da03/http-request-6.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="910c844ccd4653c9f6895dc4b7adce6372a4da03">
+        <dex dex="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/pre-dexed/debug/http-request-6.0_4d252c8d2c763b51b68e9ac8e3ab50c475c4e829.jar" />
+    </item>
+    <item
+        jar="/Users/JasonGibson/CSstuff/gradle-2.10/bin/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.3.0/8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c/bolts-tasks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c">
+        <dex dex="/Users/JasonGibson/Documents/GeorgiaTech/sem2/2340/Repo/MovieSelector/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.3.0_89412d4cb23ab56bad132de0fbc7b96747f226fb.jar" />
+    </item>
+
+</items>

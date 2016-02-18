@@ -72,8 +72,8 @@ public class Movie implements Serializable{
     @Override
     public int hashCode() {
         int h = 17;
-        h += h * 31 + name.hashCode();
-        h += h * 31 + year;
+        h += 31 * name.hashCode();
+        h += 23 * year;
         return h;
     }
     @Override
