@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public boolean validPassword(){
-        return etPassword.getText().toString().trim().indexOf(" ") == -1;
+        return etPassword.getText().toString().indexOf(" ") == -1;
     }
     /**
      * Represents onClick for register button.
