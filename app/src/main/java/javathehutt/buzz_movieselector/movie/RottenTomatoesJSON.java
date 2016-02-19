@@ -9,28 +9,26 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.kevinsawicki.http.HttpRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 
 /**
- * Class using HttpRequest class custom library in order to access Movie objects
- * Deprecated in favor of Volley?
+ * Class using Volley in order to access Movie objects
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoesJSON {
-    public final String KEY = "yedukp76ffytfuy24zsqk7f5";
-    public final String URL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=";
+public class RottenTomatoesJSON implements RottenTomatoes{
     private static RequestQueue queue;
 
+    /**
+     * Constructor for a RottenTomatoesJSON interfacer
+     * @param context
+     */
     public RottenTomatoesJSON(Context context) {
         if (null == queue) {
             queue = Volley.newRequestQueue(context);
@@ -41,7 +39,7 @@ public class RottenTomatoesJSON {
      * Generates URL, sends into passOnMoviesList()
      * TODO: associate with button
      */
-    public void newMovieReleases() {
+    public void recentMovies() {
         String url =
                 "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey="
                         + KEY + "&limit=1";
@@ -52,7 +50,7 @@ public class RottenTomatoesJSON {
      * Generates URL, sends into passOnMoviesList()
      * TODO: associate with button
      */
-    public void newDVDReleases() {
+    public void recentDVD() {
         String url =
                 "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?apikey="
                         + KEY + "&page_limit=1";
@@ -67,30 +65,6 @@ public class RottenTomatoesJSON {
     public void searchMovieByName(String name) {
         String url = URL + KEY +"&q=" + name + "&page_limit=1";
         passOnMoviesList(url);
-    }
-
-    public HttpRequest makeRequestByName(String name){
-        //http://api.rottentomatoes.com/api/public/v1.0/movies.json
-        //yedukp76ffytfuy24zsqk7f5
-        try {
-            return HttpRequest.get(URL, true,
-                    "apikey", KEY, "q", name);
-        } catch (HttpRequest.HttpRequestException e) {
-            return null;
-        }
-    }
-    public HttpRequest makeRequestByGenre() {
-        return null;
-    }
-    public InputStreamReader extractReader(HttpRequest h) {
-        try {
-            if (h.ok()) {
-                return h.reader();
-            }
-            return null;
-        } catch (HttpRequest.HttpRequestException e) {
-            return null;
-        }
     }
 
         /**
