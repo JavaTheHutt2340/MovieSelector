@@ -58,8 +58,16 @@ public class MainMenu extends AppCompatActivity {
     }
     public void searchMovies(View v){
         SearchView searchBar = (SearchView) findViewById(R.id.searchView);
-        String searchText = searchBar.getQuery().toString();
-        RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
-        RTJSON.searchMovieByName(searchText, 12);
+        if (searchBar.getQuery() == null || searchBar.getQuery() == "") {
+            Context context = getApplicationContext();
+            CharSequence text = "Please enter movie to search!";
+            int duration = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        } else {
+            String searchText = searchBar.getQuery().toString();
+            RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
+            RTJSON.searchMovieByName(searchText, 12);
+        }
     }
 }
