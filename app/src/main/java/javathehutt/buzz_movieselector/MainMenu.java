@@ -58,7 +58,7 @@ public class MainMenu extends AppCompatActivity {
     }
     public void searchMovies(View v){
         SearchView searchBar = (SearchView) findViewById(R.id.searchView);
-        if (searchBar.getQuery() == null || searchBar.getQuery() == "") {
+        if (searchBar.isIconified() || searchBar.getQuery() == null || searchBar.getQuery() == "") {
             Context context = getApplicationContext();
             CharSequence text = "Please enter movie to search!";
             int duration = Toast.LENGTH_LONG;
