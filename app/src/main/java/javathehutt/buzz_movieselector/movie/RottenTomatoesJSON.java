@@ -27,7 +27,7 @@ import javathehutt.buzz_movieselector.MovieSearchActivity;
  */
 public class RottenTomatoesJSON implements RottenTomatoes{
     private static RequestQueue queue;
-
+    private static List<Movie> storedMovies;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
      * @param context
@@ -129,6 +129,7 @@ public class RottenTomatoesJSON implements RottenTomatoes{
     }
 
     public void displayMovies(List<Movie> movies) {
+        this.storedMovies = movies;
         Log.i("test", movies.toString());
     }
 }
