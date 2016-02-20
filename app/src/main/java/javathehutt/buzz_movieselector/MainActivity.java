@@ -16,8 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
-        SearchView searchBar = (SearchView) findViewById(R.id.searchView);
-        searchBar.setQueryHint("Search Movie");
+
         /*RottenTomatoesJSON r = new RottenTomatoesJSON(MainActivity.this);
         r.newMovieReleases(10);*/ //TODO this is how to use the class
     }
@@ -48,12 +47,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(login, 1);
     }
 
-    public void searchMovies(View v){
-        SearchView searchBar = (SearchView) findViewById(R.id.searchView);
-        String searchText = searchBar.getQuery().toString();
-        RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
-        RTJSON.searchMovieByName(searchText,12);
-    }
+
 }
 
 

@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
+import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -21,6 +23,8 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         UserManager a = new UserMapManager();
         u = a.lastLogIn();
+        SearchView searchBar = (SearchView) findViewById(R.id.searchView);
+        searchBar.setQueryHint("Search Movie");
     }
 
     /**
@@ -51,5 +55,11 @@ public class MainMenu extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
+    }
+    public void searchMovies(View v){
+        SearchView searchBar = (SearchView) findViewById(R.id.searchView);
+        String searchText = searchBar.getQuery().toString();
+        RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
+        RTJSON.searchMovieByName(searchText, 12);
     }
 }
