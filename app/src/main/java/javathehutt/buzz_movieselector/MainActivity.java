@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
         setContentView(R.layout.activity_main);
 
         loginButton = (Button) findViewById(R.id.loginButton);
@@ -34,7 +33,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.registerButton:
                 break;
         }
-=======
->>>>>>> 49b67fe23b64186db86df841fdb02bed238b4fec
     }
 }
