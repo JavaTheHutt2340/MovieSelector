@@ -6,12 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import android.app.Activity;
 
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenu extends Activity {
 
     private User u;
 

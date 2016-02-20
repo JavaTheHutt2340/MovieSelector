@@ -10,8 +10,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.app.Activity;
 
-public class LoggedOut extends AppCompatActivity {
+public class LoggedOut extends Activity {
     /**
      * creates and sets the screen
      * @param savedInstanceState
