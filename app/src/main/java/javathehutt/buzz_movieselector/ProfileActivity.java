@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.app.Activity;
 
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
@@ -19,7 +20,7 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
  * @version 1.0
  * @date 02/15/16
  */
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends Activity {
 
     private User u;
 
@@ -37,8 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView realName = (TextView) findViewById(R.id.realNameEdit);
         realName.setText(u.getRealName());
 
-        TextView usernameProfile = (TextView) findViewById(R.id.usernameProfile);
-        usernameProfile.append(" " + u.getUsername());
+        setTitle(u.getUsername() + "'s Profile");
 
         TextView location = (TextView) findViewById(R.id.locationProfileEdit);
         location.setText(u.getLocation());
@@ -74,5 +74,13 @@ public class ProfileActivity extends AppCompatActivity {
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    /**
+     * Represents onClick for cancel button.
+     * @param v displays the cancel button
+     */
+    public void mainMenuClick(View v) {
+        finish();
     }
 }

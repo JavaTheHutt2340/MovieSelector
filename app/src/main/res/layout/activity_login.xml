@@ -9,77 +9,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/linearLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etUsername"
+        android:hint="@string/username"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/text_height"
-            android:text="@string/username"
-            android:id="@+id/textView2"
-            android:textColor="#000000"
-            android:textSize="@dimen/text_font_size" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/etUsername"
-            android:layout_gravity="left|center_horizontal" />
-    </LinearLayout>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/button_height"
-        android:text="@string/login_button"
-        android:id="@+id/userLoginButton"
-        android:longClickable="false"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="userLoginButtonClick" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/button_height"
-        android:text="@string/cancel_button"
-        android:id="@+id/cancelButton"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/userLoginButton"
-        android:layout_alignParentLeft="true"
-        android:onClick="cancelButtonClick" />
+    <EditText
+        android:layout_below="@id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etPassword"
+        android:inputType="textPassword"
+        android:hint="@string/password" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/linearLayout2">
+        android:layout_height="@dimen/button_height"
+        android:layout_below="@id/etPassword"
+        android:layout_marginTop="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/text_height"
-            android:text="@string/password"
-            android:id="@+id/textView4"
-            android:textColor="#000000"
-            android:textSize="@dimen/text_font_size" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/cancel_button"
+            android:id="@+id/cancelButton"
+            android:onClick="cancelButtonClick" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/etPassword"
-            android:editable="false"
-            android:elegantTextHeight="false"
-            android:inputType="textPassword"
-            android:layout_gravity="left" />
-    </LinearLayout>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/login_button"
+            android:id="@+id/userLoginButton"
+            android:longClickable="false"
+            android:onClick="userLoginButtonClick" />
+
+        </LinearLayout>
 </RelativeLayout>
