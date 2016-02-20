@@ -23,11 +23,21 @@ public class MainMenu extends AppCompatActivity {
         u = a.lastLogIn();
     }
 
+    /**
+     * method for button to open profile
+     *  from MainMenu
+     * @param v
+     */
     public void openProfileClick(View v) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * method for button to logOut
+     *  from MainMenu
+     * @param v
+     */
     public void logOutClick(View v) {
         u.logout();
 

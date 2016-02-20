@@ -15,6 +15,7 @@ public class Movie implements Serializable{
      * @param year of movie
      * @param criticsRating representing whether movie is Rotten or otherwise
      * @param criticsScore representing numerical grade 0 - 100
+     * @param synopsis String summary
      */
     public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis) {
         this.name = name;
@@ -39,14 +40,33 @@ public class Movie implements Serializable{
     public int getYear() {
         return year;
     }
-    public String getCritcsRating() {
+
+    /**
+     * Accessor method to get critics rating
+     * @return String representing fresh, rotten, or in between movie
+     */
+    public String getCriticsRating() {
         return criticsRating;
     }
-    public int getCriticsScore() {
-        return criticsScore;
+
+    /**
+     * Accessor method to get critics score
+     * @return String 0 - 100 or "No rating yet" string
+     */
+    public String getCriticsScore() {
+        if (criticsScore != -1)
+            return "" + criticsScore;
+        return "No rating yet";
     }
+
+    /**
+     * Accessor method to get summary of movie
+     * @return String of movie summary
+     */
     public String getSynopsis() {
-        return synopsis;
+        if (synopsis != null && synopsis.length() != 0)
+            return synopsis;
+        return "No synopsis";
     }
     @Override
     public int hashCode() {

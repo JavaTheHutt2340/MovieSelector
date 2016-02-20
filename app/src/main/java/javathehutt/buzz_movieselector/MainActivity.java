@@ -19,11 +19,16 @@ public class MainActivity extends AppCompatActivity {
         r.newMovieReleases(10);*/ //TODO this is how to use the class
     }
 
+    /**
+     * Method called when User
+     *  wishes to register new account
+     * @param v
+     */
     public void registerButtonClick(View v) {
         Intent register = new Intent(this, RegisterActivity.class);
         startActivity(register);
     }
-
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 1) {
             Intent intent = new Intent(this, MainMenu.class);
@@ -31,12 +36,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to allow user to login
+     * @param v
+     */
     public void loginButtonClick(View v) {
         Intent login = new Intent(this, LoginActivity.class);
         startActivityForResult(login, 1);
     }
-
-    //TODO add a logout button to logout from the main screen
 
 }
 

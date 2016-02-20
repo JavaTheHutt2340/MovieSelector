@@ -31,7 +31,11 @@ public class MovieSearchActivity extends AppCompatActivity {
 
     private RottenTomatoesJSON json;
 
-    public void makeCall() {
+    /**
+     * Test method
+     * DO NOT USE EXCEPT TO TEST
+     */
+    private void makeCall() {
         json.newMovieReleases(10);
         //this is how to make the call
         //you do not and should not use this method

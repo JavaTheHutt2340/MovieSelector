@@ -131,7 +131,12 @@ public class RottenTomatoesJSON implements RottenTomatoes{
         queue.add(jsObjRequest);
     }
 
-    public void displayMovies(List<Movie> movies) {
+    /**
+     * Called when request from requestQuery is completed
+     *  with new movies to display
+     * @param movies List of Movie to display
+     */
+    private void displayMovies(List<Movie> movies) {
         this.storedMovies = movies;
         Log.i("test", movies.toString());
     }
