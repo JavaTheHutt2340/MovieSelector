@@ -86,6 +86,6 @@ public class Movie implements Serializable{
     }
     @Override
     public String toString() {
-        return "Title: " + name + "\nYear:" + year;
+        return "Title: " + name + " Year:" + year + "\n";
     }
 }
