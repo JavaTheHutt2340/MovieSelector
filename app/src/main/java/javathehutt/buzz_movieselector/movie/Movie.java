@@ -46,6 +46,9 @@ public class Movie implements Serializable{
      * @return String representing fresh, rotten, or in between movie
      */
     public String getCriticsRating() {
+        if(criticsRating.trim().length() == 0) {
+            return "No rating yet";
+        }
         return criticsRating;
     }
 
@@ -88,7 +91,7 @@ public class Movie implements Serializable{
     }
     @Override
     public String toString() {
-        return "Title: " + name + " Year:" + year  + " Rating: " + criticsRating
-                + " Critics Score: " + criticsScore + "\n" + "Synopsis: " + synopsis + "\n";
+        return "Title: " + name + " Year:" + year  + " Rating: " + getCriticsRating()
+                + " Critics Score: " + getCriticsScore() + "\n" + "Synopsis: " + synopsis + "\n";
     }
 }

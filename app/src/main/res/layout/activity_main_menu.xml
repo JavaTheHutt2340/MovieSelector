@@ -9,15 +9,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainMenuActivity">
 
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchView"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/profileButton"
+        android:layout_alignEnd="@+id/profileButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="@dimen/button_height"
         android:text="@string/profileButton"
         android:id="@+id/profileButton"
         android:longClickable="false"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="openProfileClick" />
+        android:onClick="openProfileClick"
+        android:layout_above="@+id/button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="77dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -28,5 +40,16 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="106dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:onClick="searchMovies"
+        android:id="@+id/searchButton"
+        android:layout_below="@+id/searchView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp" />
 
 </RelativeLayout>
