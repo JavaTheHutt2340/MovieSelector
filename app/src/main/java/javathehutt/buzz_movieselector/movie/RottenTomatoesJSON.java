@@ -3,6 +3,8 @@ package javathehutt.buzz_movieselector.movie;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,15 +21,16 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javathehutt.buzz_movieselector.MovieSearchActivity;
+import javathehutt.buzz_movieselector.DisplayMoviesActivity;
+import javathehutt.buzz_movieselector.R;
 
 
 /**
  * Class using Volley in order to access Movie objects
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoesJSON implements RottenTomatoes{
+public class RottenTomatoesJSON implements RottenTomatoes {
     private static RequestQueue queue;
-    private static List<Movie> storedMovies;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
      * @param context
@@ -119,7 +122,7 @@ public class RottenTomatoesJSON implements RottenTomatoes{
                                 e.printStackTrace();
                             }
                         }
-                        //sends movies list to method to be formated for xml layout
+                        //sends movies list to method to be formatted for xml layout
                         displayMovies(movies);
                     }
                 }, new Response.ErrorListener() {
@@ -137,7 +140,10 @@ public class RottenTomatoesJSON implements RottenTomatoes{
      * @param movies List of Movie to display
      */
     private void displayMovies(List<Movie> movies) {
-        this.storedMovies = movies;
-        Log.i("test", movies.toString());
+        DisplayMoviesActivity displayMoviesActivity = new DisplayMoviesActivity();
+        ArrayAdapter adapter = new ArrayAdapter(displayMoviesActivity.getContext()
+                , android.R.layout.simple_list_item_1, movies);
+        ListView listView = displayMoviesActivity.getListView();
+        listView.setAdapter(adapter);
     }
 }

@@ -47,6 +47,10 @@
         <activity
             android:name=".MovieSearchActivity"
             android:label="@string/title_activity_movie_search"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DisplayMoviesActivity"
+            android:label="@string/title_activity_display_movies"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
