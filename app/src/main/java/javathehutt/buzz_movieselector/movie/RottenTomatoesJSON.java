@@ -105,14 +105,17 @@ public class RottenTomatoesJSON implements RottenTomatoes{
                                 assert jsonObject != null;
                                 String title = jsonObject.optString("title");
                                 int year = jsonObject.optInt("year");
-                                String critics_rating = jsonObject.optString("critics_rating");
-                                int critics_score = jsonObject.optInt("critics_score");
-                                Movie m = new Movie(title, year, critics_rating, critics_score);
+                                String synopsis = jsonObject.optString("synopsis");
+                                JSONObject rating = jsonObject.getJSONObject("ratings");
+                                String critics_rating = rating.optString("critics_rating");
+                                int critics_score = rating.optInt("critics_score");
+                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis);
                                 //save the object for later
                                 movies.add(m);
                             } catch (JSONException e) {
                                 Log.i("test", "fail");
                                 Log.d("VolleyApp", "Failed to get JSON object");
+                                Log.d("test", e.getStackTrace().toString());
                                 e.printStackTrace();
                             }
                         }

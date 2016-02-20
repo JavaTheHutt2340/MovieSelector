@@ -8,6 +8,7 @@ public class Movie implements Serializable{
     private int year;
     private String criticsRating;
     private int criticsScore;
+    private String synopsis;
     /**
      * Standard constructor for movie
      * @param name of movie
@@ -15,11 +16,12 @@ public class Movie implements Serializable{
      * @param criticsRating representing whether movie is Rotten or otherwise
      * @param criticsScore representing numerical grade 0 - 100
      */
-    public Movie(String name, int year, String criticsRating, int criticsScore) {
+    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis) {
         this.name = name;
         this.year = year;
         this.criticsRating = criticsRating;
         this.criticsScore = criticsScore;
+        this.synopsis = synopsis;
     }
 
     /**
@@ -43,6 +45,9 @@ public class Movie implements Serializable{
     public int getCriticsScore() {
         return criticsScore;
     }
+    public String getSynopsis() {
+        return synopsis;
+    }
     @Override
     public int hashCode() {
         int h = 17;
@@ -63,6 +68,7 @@ public class Movie implements Serializable{
     }
     @Override
     public String toString() {
-        return "Title: " + name + " Year:" + year  + "Rating: " + criticsRating + "\n";
+        return "Title: " + name + " Year:" + year  + " Rating: " + criticsRating
+                + " Critics Score: " + criticsScore + "\n" + "Synopsis: " + synopsis + "\n";
     }
 }
