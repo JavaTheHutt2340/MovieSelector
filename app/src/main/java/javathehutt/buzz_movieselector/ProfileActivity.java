@@ -38,8 +38,7 @@ public class ProfileActivity extends Activity {
         TextView realName = (TextView) findViewById(R.id.realNameEdit);
         realName.setText(u.getRealName());
 
-        TextView usernameProfile = (TextView) findViewById(R.id.usernameProfile);
-        usernameProfile.append(" " + u.getUsername());
+        setTitle(u.getUsername() + "'s Profile");
 
         TextView location = (TextView) findViewById(R.id.locationProfileEdit);
         location.setText(u.getLocation());
@@ -75,5 +74,13 @@ public class ProfileActivity extends Activity {
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    /**
+     * Represents onClick for cancel button.
+     * @param v displays the cancel button
+     */
+    public void mainMenuClick(View v) {
+        finish();
     }
 }
