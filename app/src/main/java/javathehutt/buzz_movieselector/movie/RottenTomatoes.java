@@ -11,15 +11,15 @@ public interface RottenTomatoes {
     /**
      * Method to send a list of Movies from a name search to an Intent
      */
-    void searchMovieByName(String name);
+    void searchMovieByName(String name, int limit);
 
     /**
      * Method to send a List of Movie from recent movies query to an Intent
      */
-    void recentMovies();
+    void newMovieReleases(int limit);
 
     /**
      * Method to send a List of Movie from recent DVD releases to an Intent
      */
-    void recentDVD();
+    void newDVDReleases(int limit);
 }
