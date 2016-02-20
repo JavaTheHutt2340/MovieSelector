@@ -69,6 +69,15 @@ public class RottenTomatoesJSON implements RottenTomatoes{
      */
     @Override
     public void searchMovieByName(String name, int limit) {
+        if (name == null || name.length() == 0) {
+            throw new IllegalArgumentException();
+        }
+        String[] nameParts = name.split(" ");
+        name = "";
+        for(int i = 0; i < nameParts.length - 1; i++) {
+            name += nameParts[i] + "%20";
+        }
+        name += nameParts[nameParts.length - 1];
         String url = URL + KEY +"&q=" + name + "&page_limit=" + limit;
         passOnMoviesList(url);
     }
