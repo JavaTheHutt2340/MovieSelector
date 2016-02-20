@@ -24,6 +24,10 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
     }
 
+    /**
+     * Method called when User attempts to login
+     * @param v
+     */
     public void userLoginButtonClick(View v) {
         UserManager userManager = new UserMapManager();
         if (userManager.isInSystem(etUsername.getText().toString().toLowerCase())) {
@@ -52,6 +56,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method called when user no
+     * longer wishes to log in
+     * @param v
+     */
     public void cancelButtonClick(View v) {
         finish();
     }
