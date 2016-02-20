@@ -46,6 +46,10 @@ public class RegisterActivity extends AppCompatActivity {
                 && etPassword.getText().toString().length() > 0;
     }
 
+    /**
+     * ensures password contains no space characters
+     * @return true if password allowed
+     */
     public boolean validPassword(){
         return etPassword.getText().toString().indexOf(" ") == -1;
     }

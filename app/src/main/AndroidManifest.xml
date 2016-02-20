@@ -45,8 +45,8 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".SearchResults"
-            android:label="@string/title_activity_search_results"
+            android:name=".MovieSearchActivity"
+            android:label="@string/title_activity_movie_search"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

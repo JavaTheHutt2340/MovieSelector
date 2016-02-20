@@ -6,71 +6,73 @@ import java.io.Serializable;
 public class Movie implements Serializable{
     private String name;
     private int year;
-    private String mpaa_rating;
-    private int runTime;
-    private String criticsConsensus;
     private String criticsRating;
     private int criticsScore;
-    private String audienceRating;
-    private int audienceScore;
-
+    private String synopsis;
     /**
      * Standard constructor for movie
      * @param name of movie
      * @param year of movie
+     * @param criticsRating representing whether movie is Rotten or otherwise
+     * @param criticsScore representing numerical grade 0 - 100
+     * @param synopsis String summary
      */
-
-
-    public Movie(String name, int year, String criticsRating, int criticsScore) {
+    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis) {
         this.name = name;
         this.year = year;
         this.criticsRating = criticsRating;
         this.criticsScore = criticsScore;
+        this.synopsis = synopsis;
     }
 
     /**
-     * More indepth constructor of movie
-     * @param name of movie
-     * @param year of movie
-     * @param mpaa_rating of movie
-     * @param runtime how long movie runs
-     * @param criticsConsensus short summary of critics
-     * @param criticsRating Rotten or fresh or etc....
-     * @param criticsScore Number score
-     * @param audienceRating short summary of audience
-     * @param audienceScore Number score
+     * Accessor method to get name of Movie
+     * @return String representing name of Movie
      */
-    public Movie(String name, int year, String mpaa_rating, int runtime,
-                 String criticsConsensus, String criticsRating, int criticsScore, String audienceRating,
-                 int audienceScore) {
-        this.name = name;
-        this.year = year;
-        this.mpaa_rating = mpaa_rating;
-        this.runTime = runtime;
-        this.criticsConsensus = criticsConsensus;
-        this.criticsRating = criticsRating;
-        this.criticsScore = criticsScore;
-        this.audienceRating = audienceRating;
-        this.audienceScore = audienceScore;
-    }
-
     public String getName() {
         return name;
     }
+
+    /**
+     * Accessor method to get year of Movie
+     * @return int representing year of Movie
+     */
     public int getYear() {
         return year;
     }
-    public String getCritcsRating() {
+
+    /**
+     * Accessor method to get critics rating
+     * @return String representing fresh, rotten, or in between movie
+     */
+    public String getCriticsRating() {
         return criticsRating;
     }
-    public int getCriticsScore() {
-        return criticsScore;
+
+    /**
+     * Accessor method to get critics score
+     * @return String 0 - 100 or "No rating yet" string
+     */
+    public String getCriticsScore() {
+        if (criticsScore != -1)
+            return "" + criticsScore;
+        return "No rating yet";
+    }
+
+    /**
+     * Accessor method to get summary of movie
+     * @return String of movie summary
+     */
+    public String getSynopsis() {
+        if (synopsis != null && synopsis.length() != 0)
+            return synopsis;
+        return "No synopsis";
     }
     @Override
     public int hashCode() {
         int h = 17;
-        h += h * 31 + name.hashCode();
-        h += h * 31 + year;
+        h += 31 * name.hashCode();
+        h += 31 * year;
         return h;
     }
     @Override
@@ -86,6 +88,7 @@ public class Movie implements Serializable{
     }
     @Override
     public String toString() {
-        return "Title: " + name + "\nYear:" + year;
+        return "Title: " + name + " Year:" + year  + " Rating: " + criticsRating
+                + " Critics Score: " + criticsScore + "\n" + "Synopsis: " + synopsis + "\n";
     }
 }
