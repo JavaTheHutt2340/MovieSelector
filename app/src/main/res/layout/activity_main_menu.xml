@@ -9,15 +9,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="javathehutt.buzz_movieselector.MainMenu">
 
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchView"
+        android:layout_alignParentTop="true"
+        android:onCLick="searchMovies"
+        android:layout_alignRight="@+id/profileButton"
+        android:layout_alignEnd="@+id/profileButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="@dimen/button_height"
         android:text="@string/profileButton"
         android:id="@+id/profileButton"
         android:longClickable="false"
+        android:onClick="openProfileClick"
+        android:layout_below="@+id/searchView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="openProfileClick" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
