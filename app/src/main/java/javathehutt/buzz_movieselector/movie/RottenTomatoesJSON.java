@@ -10,30 +10,28 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.kevinsawicki.http.HttpRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 import javathehutt.buzz_movieselector.MovieSearchActivity;
 
 
 /**
- * Class using HttpRequest class custom library in order to access Movie objects
- * Deprecated in favor of Volley?
+ * Class using Volley in order to access Movie objects
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoesJSON {
-    public final String KEY = "yedukp76ffytfuy24zsqk7f5";
-    public final String URL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=";
+public class RottenTomatoesJSON implements RottenTomatoes{
     private static RequestQueue queue;
-
+    private static List<Movie> storedMovies;
+    /**
+     * Constructor for a RottenTomatoesJSON interfacer
+     * @param context
+     */
     public RottenTomatoesJSON(Context context) {
         if (null == queue) {
             queue = Volley.newRequestQueue(context);
@@ -44,6 +42,7 @@ public class RottenTomatoesJSON {
      * Generates URL, sends into passOnMoviesList()
      * TODO: associate with button
      */
+    @Override
     public void newMovieReleases(int limit) {
         String url =
                 "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey="
@@ -55,6 +54,7 @@ public class RottenTomatoesJSON {
      * Generates URL, sends into passOnMoviesList()
      * TODO: associate with button
      */
+    @Override
     public void newDVDReleases(int limit) {
         String url =
                 "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?apikey="
@@ -67,33 +67,10 @@ public class RottenTomatoesJSON {
      * TODO: associate with button and search field, remove name parameter
      * @param name title of movie
      */
+    @Override
     public void searchMovieByName(String name, int limit) {
         String url = URL + KEY +"&q=" + name + "&page_limit=" + limit;
         passOnMoviesList(url);
-    }
-
-    public HttpRequest makeRequestByName(String name){
-        //http://api.rottentomatoes.com/api/public/v1.0/movies.json
-        //yedukp76ffytfuy24zsqk7f5
-        try {
-            return HttpRequest.get(URL, true,
-                    "apikey", KEY, "q", name);
-        } catch (HttpRequest.HttpRequestException e) {
-            return null;
-        }
-    }
-    public HttpRequest makeRequestByGenre() {
-        return null;
-    }
-    public InputStreamReader extractReader(HttpRequest h) {
-        try {
-            if (h.ok()) {
-                return h.reader();
-            }
-            return null;
-        } catch (HttpRequest.HttpRequestException e) {
-            return null;
-        }
     }
 
         /**
@@ -128,14 +105,17 @@ public class RottenTomatoesJSON {
                                 assert jsonObject != null;
                                 String title = jsonObject.optString("title");
                                 int year = jsonObject.optInt("year");
-                                String critics_rating = jsonObject.optString("critics_rating");
-                                int critics_score = jsonObject.optInt("critics_score");
-                                Movie m = new Movie(title, year, critics_rating, critics_score);
+                                String synopsis = jsonObject.optString("synopsis");
+                                JSONObject rating = jsonObject.getJSONObject("ratings");
+                                String critics_rating = rating.optString("critics_rating");
+                                int critics_score = rating.optInt("critics_score");
+                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis);
                                 //save the object for later
                                 movies.add(m);
                             } catch (JSONException e) {
                                 Log.i("test", "fail");
                                 Log.d("VolleyApp", "Failed to get JSON object");
+                                Log.d("test", e.getStackTrace().toString());
                                 e.printStackTrace();
                             }
                         }
@@ -152,6 +132,7 @@ public class RottenTomatoesJSON {
     }
 
     public void displayMovies(List<Movie> movies) {
+        this.storedMovies = movies;
         Log.i("test", movies.toString());
     }
 }
