@@ -29,14 +29,8 @@
             android:name=".LoggedOut"
             android:label="@string/app_name" />
         <activity
-<<<<<<< HEAD
             android:name=".MainMenuActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme" />
-=======
-            android:name=".MainMenu"
             android:label="@string/app_name" />
->>>>>>> b05f5bd795bc393cb58e0341422025f07faaa98a
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" />
@@ -45,17 +39,9 @@
             android:label="@string/title_activity_profile"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".MovieSearchActivity"
-<<<<<<< HEAD
-            android:label="@string/title_activity_movie_search"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".MovieSearchActivity" />
         <activity
-            android:name=".DisplayMoviesActivity"
-            android:label="@string/title_activity_display_movies"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-=======
-            android:label="@string/title_activity_movie_search" />
->>>>>>> b05f5bd795bc393cb58e0341422025f07faaa98a
+            android:name=".DisplayMoviesActivity" />
     </application>
 
 </manifest>
