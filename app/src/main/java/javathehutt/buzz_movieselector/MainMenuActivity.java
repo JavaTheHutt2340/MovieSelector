@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -60,8 +61,7 @@ public class MainMenuActivity extends Activity {
     }
 
     public void searchMovies(View v){
-        SearchView searchBar = (SearchView) findViewById(R.id.searchView);
-        if (searchBar.isIconified() || searchBar.getQuery() == null || searchBar.getQuery() == "") {
+        if (searchBar.isIconified() || searchBar.getQuery().length() == 0) {
             Context context = getApplicationContext();
             CharSequence text = "Please enter movie to search!";
             int duration = Toast.LENGTH_LONG;
