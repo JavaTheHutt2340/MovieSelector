@@ -57,6 +57,10 @@ public class MainMenuActivity extends Activity {
         finish();
     }
 
+    /*
+    * method for onClick for search movie
+    * @param v the view
+     */
     public void searchMovies(View v){
         Intent i = new Intent(this, MovieSearchActivity.class);
         startActivity(i);
