@@ -113,8 +113,12 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_movie_search">MovieSearchActivity</string>
+<<<<<<< HEAD
+    <string name="title_activity_display_movies">DisplayMoviesActivity</string>
+=======
     <string name="confirmPassword">Confirm Password</string>
     <string name="nameHint">Enter name here</string>
     <string name="locationHint">Enter location here</string>
     <string name="genreHint">Enter favorite genre</string>
+>>>>>>> b05f5bd795bc393cb58e0341422025f07faaa98a
 </resources>

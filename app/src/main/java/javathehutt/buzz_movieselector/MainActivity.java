@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 1) {
-            Intent intent = new Intent(this, MainMenu.class);
+            Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
         }
     }

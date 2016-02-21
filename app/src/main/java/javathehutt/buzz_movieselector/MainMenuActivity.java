@@ -14,7 +14,11 @@ import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
+<<<<<<< HEAD:app/src/main/java/javathehutt/buzz_movieselector/MainMenuActivity.java
+public class MainMenuActivity extends AppCompatActivity {
+=======
 public class MainMenu extends Activity {
+>>>>>>> b05f5bd795bc393cb58e0341422025f07faaa98a:app/src/main/java/javathehutt/buzz_movieselector/MainMenu.java
 
     private User u;
 

@@ -38,7 +38,7 @@ public class LoginActivity extends Activity {
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                Intent intent = new Intent(this, MainMenu.class);
+                Intent intent = new Intent(this, MainMenuActivity.class);
                 startActivity(intent);
                 finish();
             } else {
