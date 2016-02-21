@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import javathehutt.buzz_movieselector.MainMenuActivity;
 import javathehutt.buzz_movieselector.MovieSearchActivity;
 import javathehutt.buzz_movieselector.DisplayMoviesActivity;
-import javathehutt.buzz_movieselector.R;
 
 
 /**
@@ -152,7 +151,6 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      * @param movies List of Movie to display
      */
     private void displayMovies(List<Movie> movies) {
-        DisplayMoviesActivity displayMoviesActivity = new DisplayMoviesActivity();
         ArrayAdapter adapter = new ArrayAdapter(context,
                 android.R.layout.simple_list_item_1, movies);
         ListView listView = DisplayMoviesActivity.getListView();
