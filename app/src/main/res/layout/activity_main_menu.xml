@@ -16,10 +16,7 @@
         android:id="@+id/profileButton"
         android:longClickable="false"
         android:onClick="openProfileClick"
-        android:layout_above="@+id/button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="77dp" />
+        android:layout_below="@+id/searchButton" />
 
     <Button
         android:layout_width="wrap_content"
@@ -28,18 +25,13 @@
         android:id="@+id/button"
         android:onClick="logOutClick"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="106dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/findMovies"
         android:onClick="searchMovies"
-        android:id="@+id/searchButton"
-        android:layout_below="@+id/searchView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp" />
+        android:id="@+id/searchButton" />
 
 </RelativeLayout>
