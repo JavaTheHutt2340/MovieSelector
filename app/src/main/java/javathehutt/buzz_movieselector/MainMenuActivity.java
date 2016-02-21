@@ -68,8 +68,10 @@ public class MainMenuActivity extends Activity {
             toast.show();
         } else {
             String searchText = searchBar.getQuery().toString();
-            RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
-            RTJSON.searchMovieByName(searchText, 12);
+            Intent intent = new Intent(this, DisplayMoviesActivity.class);
+            intent.putExtra("text", searchText);
+            startActivity(intent);
+            finish();
         }
     }
 }
