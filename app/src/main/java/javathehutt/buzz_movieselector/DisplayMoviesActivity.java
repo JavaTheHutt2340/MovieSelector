@@ -30,7 +30,20 @@ public class DisplayMoviesActivity extends Activity {
         displayMoviesView = (ListView) findViewById(R.id.displayMoviesView);
         String searchText = (getIntent().getStringExtra("text"));
         RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
-        RTJSON.searchMovieByName(searchText, 12);
+        Bundle bundle = getIntent().getExtras();
+        int state = bundle.getInt("key");
+        switch(state) {
+            case 1:
+                RTJSON.newDVDReleases(12);
+                break;
+            case 2:
+                RTJSON.searchMovieByName(searchText, 12);
+                break;
+            case 3:
+                RTJSON.newMovieReleases(12);
+                break;
+        }
+
     }
 
     public Context getContext() {
