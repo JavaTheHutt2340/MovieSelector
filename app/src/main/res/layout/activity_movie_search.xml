@@ -10,7 +10,7 @@
     tools:context=".MainMenuActivity">
 
     <SearchView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
         android:layout_alignParentTop="true"
@@ -26,28 +26,30 @@
         android:text="Search"
         android:onClick="searchMoviesClick"
         android:id="@+id/searchButton"
+        android:layout_alignLeft="@+id/TheatreReleases"
+        android:layout_alignRight="@+id/TheatreReleases"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/searchView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New DVD&apos;s"
+        android:text="@string/newDVDS"
         android:onClick="dVDReleasesClick"
         android:id="@+id/dVDReleases"
+        android:layout_alignLeft="@+id/TheatreReleases"
+        android:layout_alignRight="@+id/TheatreReleases"
         android:layout_below="@+id/searchButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NEW IN THEATERS"
+        android:text="@string/newInTheaters"
         android:onClick="inTheatreClick"
         android:id="@+id/TheatreReleases"
         android:layout_below="@+id/dVDReleases"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
