@@ -91,7 +91,8 @@ public class Movie implements Serializable{
     }
     @Override
     public String toString() {
-        return "Title: " + name + " Year:" + year  + " Rating: " + getCriticsRating()
-                + " Critics Score: " + getCriticsScore() + "\n" + "Synopsis: " + synopsis + "\n";
+        return "Title: " + name + "\nYear: " + year  + "\nRating: " + getCriticsRating()
+                + " Critics Score: " + getCriticsScore() + "\nSynopsis: " + synopsis + "\n";
+        //TODO overhaul this to make it limited and then click to give rest of info
     }
 }
