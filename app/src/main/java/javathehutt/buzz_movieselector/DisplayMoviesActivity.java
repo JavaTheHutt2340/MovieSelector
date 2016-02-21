@@ -31,7 +31,6 @@ public class DisplayMoviesActivity extends Activity {
         String searchText = (getIntent().getStringExtra("text"));
         RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
         RTJSON.searchMovieByName(searchText, 12);
-
     }
 
     public Context getContext() {
