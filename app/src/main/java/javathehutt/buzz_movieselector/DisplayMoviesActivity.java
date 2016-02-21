@@ -46,10 +46,18 @@ public class DisplayMoviesActivity extends Activity {
 
     }
 
+    /*
+    * gets the context
+    * @return the Context
+     */
     public Context getContext() {
         return this;
     }
 
+    /*
+    * gets the list view
+    * @return displayMovieListView
+     */
     public static ListView getListView() {
         return displayMoviesView;
     }

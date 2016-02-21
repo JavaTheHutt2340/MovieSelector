@@ -30,6 +30,10 @@ public class MovieSearchActivity extends Activity {
 
     private RottenTomatoesJSON json;
 
+    /*
+    * creates the starts the Display Movie activity
+    * @param v the view
+     */
     public void dVDReleasesClick(View v) {
         Intent i = new Intent(this, DisplayMoviesActivity.class);
         Bundle bundle = new Bundle();
@@ -38,6 +42,10 @@ public class MovieSearchActivity extends Activity {
         startActivity(i);
     }
 
+    /*
+    * creates the starts the Display Movie activity
+    * @param v the view
+     */
     public void searchMoviesClick(View v) {
         if (searchBar.isIconified() || searchBar.getQuery().length() == 0) {
             Context context = getApplicationContext();
@@ -57,6 +65,10 @@ public class MovieSearchActivity extends Activity {
 
     }
 
+    /*
+    * creates the starts the Display Movie activity
+    * @param v the view
+     */
     public void inTheatreClick(View v) {
         Intent i = new Intent(this, DisplayMoviesActivity.class);
         Bundle bundle = new Bundle();
