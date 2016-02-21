@@ -18,7 +18,6 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 public class MainMenuActivity extends Activity {
 
     private User u;
-    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +25,6 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_main_menu);
         UserManager a = new UserMapManager();
         u = a.lastLogIn();
-        searchBar = (SearchView) findViewById(R.id.searchView);
-        searchBar.setQueryHint("Search Movie");
     }
 
     /**
@@ -61,23 +58,7 @@ public class MainMenuActivity extends Activity {
     }
 
     public void searchMovies(View v){
-        if (searchBar.isIconified() || searchBar.getQuery().length() == 0) {
-            Context context = getApplicationContext();
-            CharSequence text = "Please enter movie to search!";
-            int duration = Toast.LENGTH_LONG;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        } else {
-            String searchText = searchBar.getQuery().toString();
-            Intent intent = new Intent(this, DisplayMoviesActivity.class);
-            intent.putExtra("text", searchText);
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        searchBar.setQuery("", false);
+        Intent i = new Intent(this, MovieSearchActivity.class);
+        startActivity(i);
     }
 }
