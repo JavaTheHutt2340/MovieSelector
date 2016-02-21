@@ -9,8 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
+import android.app.Activity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
 
     EditText etUsername, etPassword;
 

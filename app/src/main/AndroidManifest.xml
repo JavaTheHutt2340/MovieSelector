@@ -9,14 +9,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@android:style/Theme.Material" >
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,33 +24,38 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".LoggedOut"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme" />
+            android:label="@string/app_name" />
         <activity
+<<<<<<< HEAD
             android:name=".MainMenuActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
+=======
+            android:name=".MainMenu"
+            android:label="@string/app_name" />
+>>>>>>> b05f5bd795bc393cb58e0341422025f07faaa98a
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_register" />
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".MovieSearchActivity"
+<<<<<<< HEAD
             android:label="@string/title_activity_movie_search"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DisplayMoviesActivity"
             android:label="@string/title_activity_display_movies"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+=======
+            android:label="@string/title_activity_movie_search" />
+>>>>>>> b05f5bd795bc393cb58e0341422025f07faaa98a
     </application>
 
 </manifest>

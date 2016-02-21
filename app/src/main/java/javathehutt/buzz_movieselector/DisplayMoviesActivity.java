@@ -1,6 +1,7 @@
 package javathehutt.buzz_movieselector;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,33 +21,24 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
  */
 public class DisplayMoviesActivity extends AppCompatActivity {
 
-    ListView displayMoviesView;
-    Context context = getApplicationContext();
+    static ListView displayMoviesView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_movies);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         displayMoviesView = (ListView) findViewById(R.id.displayMoviesView);
-        RottenTomatoesJSON rottenTomatoesJSON = new RottenTomatoesJSON(context);
-        rottenTomatoesJSON.newMovieReleases(10);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        String searchText = (getIntent().getStringExtra("text"));
+        RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
+        RTJSON.searchMovieByName(searchText, 12);
+
     }
 
     public Context getContext() {
-        return context;
+        return this;
     }
 
-    public ListView getListView() {
+    public static ListView getListView() {
         return displayMoviesView;
     }
 }

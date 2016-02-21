@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.ArrayList;
 
+import javathehutt.buzz_movieselector.MainMenuActivity;
 import javathehutt.buzz_movieselector.MovieSearchActivity;
 import javathehutt.buzz_movieselector.DisplayMoviesActivity;
 import javathehutt.buzz_movieselector.R;
@@ -31,11 +32,13 @@ import javathehutt.buzz_movieselector.R;
  */
 public class RottenTomatoesJSON implements RottenTomatoes {
     private static RequestQueue queue;
+    Context context;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
      * @param context
      */
     public RottenTomatoesJSON(Context context) {
+        this.context = context;
         if (null == queue) {
             queue = Volley.newRequestQueue(context);
         }
@@ -150,9 +153,9 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      */
     private void displayMovies(List<Movie> movies) {
         DisplayMoviesActivity displayMoviesActivity = new DisplayMoviesActivity();
-        ArrayAdapter adapter = new ArrayAdapter(displayMoviesActivity.getContext()
-                , android.R.layout.simple_list_item_1, movies);
-        ListView listView = displayMoviesActivity.getListView();
+        ArrayAdapter adapter = new ArrayAdapter(context,
+                android.R.layout.simple_list_item_1, movies);
+        ListView listView = DisplayMoviesActivity.getListView();
         listView.setAdapter(adapter);
     }
 }

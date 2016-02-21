@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.app.Activity;
 
 import javathehutt.buzz_movieselector.model.RegUser;
 import javathehutt.buzz_movieselector.model.UserManager;
@@ -18,7 +19,7 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
  * @author Saqib Ali
  * @version 1.0
  */
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends Activity {
 
     EditText etUsername, etPassword, etConfirmPassword;
     UserManager userMapManager = new UserMapManager();
