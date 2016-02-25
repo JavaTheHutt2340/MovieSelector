@@ -9,6 +9,7 @@ public abstract class User {
     private String realName;
     private String location;
     private String favoriteGenre;
+    private String major;
     private boolean loggedIn;
 
 
@@ -22,6 +23,7 @@ public abstract class User {
         this.realName = "";
         this.location = "";
         this.favoriteGenre = "";
+        this.major = "";
         loggedIn = false;
     }
     /*
@@ -70,6 +72,12 @@ public abstract class User {
     public String getFavoriteGenre() { return favoriteGenre; }
 
     /*
+    * return the users major
+    * @return String the users major
+     */
+    public String getMajor() { return major; }
+
+    /*
      * sets the realName of the User
      * @param s the new realName
      */
@@ -91,6 +99,14 @@ public abstract class User {
      */
     public void setFavoriteGenre(String s) {
         favoriteGenre = s;
+    }
+
+    /*
+     * sets the major of the User
+     * @param s the new major
+     */
+    public void setMajor(String s) {
+        major = s;
     }
 
     /*

@@ -45,6 +45,9 @@ public class ProfileActivity extends Activity {
 
         TextView genre = (TextView) findViewById(R.id.genreProfileEdit);
         genre.setText(u.getFavoriteGenre());
+
+        TextView major = (TextView) findViewById(R.id.major);
+        major.setText(u.getMajor());
     }
 
     /**
@@ -62,6 +65,9 @@ public class ProfileActivity extends Activity {
 
         TextView genre = (TextView) findViewById(R.id.genreProfileEdit);
         u.setFavoriteGenre(genre.getText().toString());
+
+        TextView major = (TextView) findViewById(R.id.major);
+        u.setMajor(major.getText().toString());
 
         //transfer focus to the dummy element to prevent cursor from going to EditText
         LinearLayout focusHolder = (LinearLayout)findViewById(R.id.focusHolder);
