@@ -103,11 +103,11 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                         //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
                         JSONArray array = null;
                         try {
-                            Log.i("test", resp.names() + "");
+                            //Log.i("test", resp.names() + "");
                             //Log.i("test", resp.getString("movies") + "");
                             array = resp.getJSONArray("movies");
                         } catch (JSONException e) {
-                            Log.i("test", "fail");
+                            //Log.i("test", "fail");
                             e.printStackTrace();
                         }
                         //From that object, we extract the array of actual data labeled result
