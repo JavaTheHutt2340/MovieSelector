@@ -50,5 +50,14 @@
             android:longClickable="false"
             android:onClick="userLoginButtonClick" />
     </LinearLayout>
+    <fragment
+        android:layout_height="@dimen/button_height"
+        android:layout_width="match_parent"
+        android:name="javathehutt.buzz_movieselector.FacebookFragment"
+        android:id="@+id/facebookLoginButton"
+        tools:layout="@layout/fragment_facebook"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout" />
 
 </RelativeLayout>

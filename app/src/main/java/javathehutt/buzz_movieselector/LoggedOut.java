@@ -7,12 +7,16 @@
 package javathehutt.buzz_movieselector;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.app.Activity;
 
-public class LoggedOut extends Activity {
+import com.facebook.FacebookSdk;
+
+public class LoggedOut extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
     /**
      * creates and sets the screen
      * @param savedInstanceState
@@ -20,6 +24,7 @@ public class LoggedOut extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_logged_out);
     }
 
@@ -40,5 +45,17 @@ public class LoggedOut extends Activity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 1) {
+            Intent intent = new Intent(this, MainMenuActivity.class);
+            startActivity(intent);
+        }
     }
 }

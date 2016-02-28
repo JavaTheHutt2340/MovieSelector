@@ -2,7 +2,9 @@ package javathehutt.buzz_movieselector;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -11,7 +13,9 @@ import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 import android.app.Activity;
 
-public class LoginActivity extends Activity {
+import com.facebook.FacebookSdk;
+
+public class LoginActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener {
 
     EditText etUsername, etPassword;
 
@@ -20,6 +24,7 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        FacebookSdk.sdkInitialize(this);
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -64,5 +69,17 @@ public class LoginActivity extends Activity {
      */
     public void cancelButtonClick(View v) {
         finish();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 1) {
+            Intent intent = new Intent(this, MainMenuActivity.class);
+            startActivity(intent);
+        }
     }
 }

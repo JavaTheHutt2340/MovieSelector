@@ -31,11 +31,11 @@
         android:minWidth="200dp"
         android:onClick="returnHome"
         android:minHeight="100dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/LogOutToIn"
-        android:layout_alignEnd="@+id/LogOutToIn" />
+        android:layout_alignEnd="@+id/LogOutToIn"
+        android:layout_above="@+id/fragment" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -57,5 +57,14 @@
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="javathehutt.buzz_movieselector.FacebookFragment"
+        tools:layout="@layout/fragment_facebook"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/fragment" />
 
 </RelativeLayout>
