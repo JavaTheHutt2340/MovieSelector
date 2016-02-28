@@ -2,7 +2,10 @@ package javathehutt.buzz_movieselector.movie;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import javathehutt.buzz_movieselector.MainMenuActivity;
 import javathehutt.buzz_movieselector.MovieSearchActivity;
 import javathehutt.buzz_movieselector.DisplayMoviesActivity;
+import javathehutt.buzz_movieselector.MovieViewActivity;
 
 
 /**
@@ -32,6 +36,7 @@ import javathehutt.buzz_movieselector.DisplayMoviesActivity;
 public class RottenTomatoesJSON implements RottenTomatoes {
     private static RequestQueue queue;
     Context context;
+    Intent ratingsIntent;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
      * @param context
@@ -103,9 +108,10 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                         //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
                         JSONArray array = null;
                         try {
-                            Log.i("test", resp.names() + "");
+
                             //Log.i("test", resp.getString("movies") + "");
                             array = resp.getJSONArray("movies");
+                            Log.i("test", array.toString() + "");
                         } catch (JSONException e) {
                             Log.i("test", "fail");
                             e.printStackTrace();
@@ -155,5 +161,14 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                 android.R.layout.simple_list_item_1, movies);
         ListView listView = DisplayMoviesActivity.getListView();
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View view, int pos,
+                                    long arg3) {
+                //Here pos is the position of row clicked
+                ratingsIntent = new Intent(context, MovieViewActivity.class);
+                context.startActivity(ratingsIntent);
+            }
+        });
     }
 }
