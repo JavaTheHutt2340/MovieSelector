@@ -2,25 +2,67 @@ package javathehutt.buzz_movieselector;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import android.content.pm.Signature;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import javathehutt.buzz_movieselector.movie.RottenTomatoes;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
+    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_welcome_screen);
 
-        /*RottenTomatoesJSON r = new RottenTomatoesJSON(MainActivity.this);
-        r.newMovieReleases(10);*/ //TODO this is how to use the class
+        //This code will create Facebook hash for android development
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "javathehutt.buzz_movieselector",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++" + e.toString());
+
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++" + e.toString());
+        }
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logs 'install' and 'app activate' App Events.
+        // Track metrics for app using Facebook tools
+        AppEventsLogger.activateApp(this);
+    }
+
+
 
     /**
      * Method called when User
@@ -36,6 +78,7 @@ public class MainActivity extends Activity {
         if (resultCode == 1) {
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
+            callbackManager.onActivityResult(requestCode, resultCode, intent);
         }
     }
 
@@ -46,6 +89,10 @@ public class MainActivity extends Activity {
     public void loginButtonClick(View v) {
         Intent login = new Intent(this, LoginActivity.class);
         startActivityForResult(login, 1);
+    }
+
+    public void onFragmentInteraction(Uri urit) {
+
     }
 }
 
