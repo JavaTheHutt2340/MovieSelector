@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.app.Activity;
 
+import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 public class LoggedOut extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
@@ -21,10 +22,12 @@ public class LoggedOut extends FragmentActivity implements FacebookFragment.OnFr
      * creates and sets the screen
      * @param savedInstanceState
      */
+    CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
+        callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_logged_out);
     }
 
@@ -56,6 +59,7 @@ public class LoggedOut extends FragmentActivity implements FacebookFragment.OnFr
         if (resultCode == 1) {
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
+            callbackManager.onActivityResult(requestCode, resultCode, intent);
         }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,13 +73,15 @@ public class FacebookFragment extends Fragment {
             public void onSuccess(LoginResult loginResult) {
                 Profile fbProfile = Profile.getCurrentProfile();
                 if (fbProfile != null) {
-                    Intent i = new Intent(getContext(), MainMenuActivity.class);
+                    Intent i = new Intent();
+                    i.setClass(getActivity(), MainMenuActivity.class);
                     FacebookUser u = new FacebookUser(fbProfile);
                     UserManager userManager = new UserMapManager();
                     userManager.addUser(u);
+                    Log.d("frag", u.toString());
                     userManager.handleLogInRequest(fbProfile.getId(), fbProfile.getId());
-                    callbackManager.onActivityResult(1, 1, new Intent());
                     startActivity(i);
+                    callbackManager.onActivityResult(1, 1, new Intent());
                 }
             }
 

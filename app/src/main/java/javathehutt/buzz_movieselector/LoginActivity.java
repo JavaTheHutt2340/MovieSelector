@@ -13,10 +13,11 @@ import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
 import android.app.Activity;
 
+import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 public class LoginActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener {
-
+    CallbackManager callbackManager;
     EditText etUsername, etPassword;
 
 
@@ -26,6 +27,7 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
         setContentView(R.layout.activity_login);
         FacebookSdk.sdkInitialize(this);
 
+        callbackManager = CallbackManager.Factory.create();
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
     }
@@ -80,6 +82,7 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
         if (resultCode == 1) {
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
+            callbackManager.onActivityResult(requestCode, resultCode, intent);
         }
     }
 }

@@ -17,6 +17,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import android.content.pm.Signature;
 
+import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
@@ -24,11 +25,13 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoes;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MainActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
+    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_welcome_screen);
 
         //This code will create Facebook hash for android development
@@ -75,6 +78,7 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
         if (resultCode == 1) {
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
+            callbackManager.onActivityResult(requestCode, resultCode, intent);
         }
     }
 
