@@ -37,18 +37,19 @@
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="@dimen/button_height"
-            android:text="@string/cancel_button"
-            android:id="@+id/cancelButton"
-            android:onClick="cancelButtonClick" />
+            android:text="@string/login_button"
+            android:id="@+id/userLoginButton"
+            android:longClickable="false"
+            android:onClick="userLoginButtonClick" />
 
         <Button
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="@dimen/button_height"
-            android:text="@string/login_button"
-            android:id="@+id/userLoginButton"
-            android:longClickable="false"
-            android:onClick="userLoginButtonClick" />
+            android:text="@string/cancel_button"
+            android:id="@+id/cancelButton"
+            android:onClick="cancelButtonClick" />
+
     </LinearLayout>
     <fragment
         android:layout_height="@dimen/button_height"

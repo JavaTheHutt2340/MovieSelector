@@ -48,18 +48,18 @@
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="@dimen/button_height"
-            android:text="@string/cancel_button"
-            android:id="@+id/cancelButton"
-            android:onClick="cancelClick"/>
+            android:text="@string/register_button"
+            android:id="@+id/userRegisterButton"
+            android:longClickable="false"
+            android:onClick="registerButtonClick"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="@dimen/button_height"
-            android:text="@string/register_button"
-            android:id="@+id/userRegisterButton"
-            android:longClickable="false"
-            android:onClick="registerButtonClick"/>
+            android:text="@string/cancel_button"
+            android:id="@+id/cancelButton"
+            android:onClick="cancelClick"/>
 
     </LinearLayout>
 
