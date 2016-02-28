@@ -120,4 +120,6 @@
     <string name="genreHint">Enter favorite genre</string>
     <string name="findMovies">Find Movies</string>
     <string name="title_activity_movie_view">MovieViewActivity</string>
+    <string name="newDVDS">New DVDs</string>
+    <string name="newInTheaters">New in Theaters</string>
 </resources>

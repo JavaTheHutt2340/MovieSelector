@@ -50,7 +50,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     /**
      * Method to call for new Movie Releases
      * Generates URL, sends into passOnMoviesList()
-     * TODO: associate with button
+     * @param limit most movies per page
      */
     @Override
     public void newMovieReleases(int limit) {
@@ -62,7 +62,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     /**
      * Method to call for new DVD movie releases
      * Generates URL, sends into passOnMoviesList()
-     * TODO: associate with button
+     * @param limit most movies per page
      */
     @Override
     public void newDVDReleases(int limit) {
@@ -74,8 +74,8 @@ public class RottenTomatoesJSON implements RottenTomatoes {
 
     /**
      * Method to search for movie based on name
-     * TODO: associate with button and search field, remove name parameter
      * @param name title of movie
+     * @param limit most movies per page
      */
     @Override
     public void searchMovieByName(String name, int limit) {
@@ -108,12 +108,11 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                         //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
                         JSONArray array = null;
                         try {
-
                             //Log.i("test", resp.getString("movies") + "");
                             array = resp.getJSONArray("movies");
                             Log.i("test", array.toString() + "");
                         } catch (JSONException e) {
-                            Log.i("test", "fail");
+                            //Log.i("test", "fail");
                             e.printStackTrace();
                         }
                         //From that object, we extract the array of actual data labeled result
