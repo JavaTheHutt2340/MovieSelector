@@ -87,8 +87,6 @@ public class MainActivity extends Activity {
         Intent login = new Intent(this, LoginActivity.class);
         startActivityForResult(login, 1);
     }
-
-
 }
 
 
