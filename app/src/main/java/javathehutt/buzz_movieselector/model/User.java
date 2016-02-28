@@ -13,6 +13,7 @@ public abstract class User {
     private boolean loggedIn;
 
 
+
     /*
     * @param username the users username
     * @param password the users password
