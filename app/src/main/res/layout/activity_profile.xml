@@ -102,17 +102,17 @@
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="@dimen/button_height"
-            android:text="@string/title_activity_main_menu"
-            android:id="@+id/mainMenuButton"
-            android:onClick="mainMenuClick"/>
+            android:text="@string/updateProfile"
+            android:id="@+id/updateProfile"
+            android:onClick="updateProfileClick" />
 
         <Button
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="@dimen/button_height"
-            android:text="@string/updateProfile"
-            android:id="@+id/updateProfile"
-            android:onClick="updateProfileClick" />
+            android:text="@string/title_activity_main_menu"
+            android:id="@+id/mainMenuButton"
+            android:onClick="mainMenuClick"/>
 
     </LinearLayout>
 
