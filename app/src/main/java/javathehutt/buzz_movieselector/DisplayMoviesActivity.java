@@ -61,4 +61,9 @@ public class DisplayMoviesActivity extends Activity {
     public static ListView getListView() {
         return displayMoviesView;
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

@@ -155,7 +155,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      *  with new movies to display
      * @param movies List of Movie to display
      */
-    private void displayMovies(List<Movie> movies) {
+    private void displayMovies(final List<Movie> movies) {
         ArrayAdapter adapter = new ArrayAdapter(context,
                 android.R.layout.simple_list_item_1, movies);
         ListView listView = DisplayMoviesActivity.getListView();
@@ -166,6 +166,9 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                                     long arg3) {
                 //Here pos is the position of row clicked
                 ratingsIntent = new Intent(context, MovieViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("movie", movies.get(pos).getName() + movies.get(pos).getYear());
+                ratingsIntent.putExtras(bundle);
                 context.startActivity(ratingsIntent);
             }
         });
