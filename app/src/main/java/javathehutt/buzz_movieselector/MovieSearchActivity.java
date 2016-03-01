@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.app.Activity;
 import android.widget.SearchView;
@@ -81,5 +82,11 @@ public class MovieSearchActivity extends Activity {
     public void onResume() {
         super.onResume();
         searchBar.setQuery("", false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("test", "MovieSearchActivity closed");
     }
 }

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.app.Activity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Adapter;
@@ -65,5 +66,11 @@ public class DisplayMoviesActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("test", "DisplayMoviesActivity closed");
     }
 }

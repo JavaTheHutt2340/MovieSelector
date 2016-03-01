@@ -34,7 +34,7 @@ public class MovieViewActivity extends Activity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                Toast.makeText(getApplicationContext(), "Your Selected Ratings  : " + String.valueOf(rating), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Your Selected Ratings  : " + String.valueOf(rating), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -42,5 +42,16 @@ public class MovieViewActivity extends Activity {
     public void ratingButtonClick (View v) {
         manager.addRatedMovie(title, ratingBar.getRating());
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("test", "MovieViewActivity closed");
     }
 }

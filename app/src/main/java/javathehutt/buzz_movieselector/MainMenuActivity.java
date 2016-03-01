@@ -65,4 +65,10 @@ public class MainMenuActivity extends Activity {
         Intent i = new Intent(this, MovieSearchActivity.class);
         startActivity(i);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("test", "mainMenuClosed closed");
+    }
 }
