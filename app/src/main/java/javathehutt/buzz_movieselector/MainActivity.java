@@ -94,6 +94,12 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
     public void onFragmentInteraction(Uri urit) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("test", "MainActivity closed");
+    }
 }
 
 

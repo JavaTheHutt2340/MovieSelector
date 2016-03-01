@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
@@ -88,5 +89,16 @@ public class ProfileActivity extends Activity {
      */
     public void mainMenuClick(View v) {
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("test", "profile activity closed");
     }
 }
