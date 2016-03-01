@@ -110,7 +110,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                         try {
                             //Log.i("test", resp.getString("movies") + "");
                             array = resp.getJSONArray("movies");
-                            Log.i("test", array.toString() + "");
+                            //Log.i("test", array.toString() + "");
                         } catch (JSONException e) {
                             //Log.i("test", "fail");
                             e.printStackTrace();
