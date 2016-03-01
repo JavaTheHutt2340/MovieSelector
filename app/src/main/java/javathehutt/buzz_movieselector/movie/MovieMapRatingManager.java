@@ -17,6 +17,7 @@ public class MovieMapRatingManager implements MovieRatingManager {
         }
     }
 
+    @Override
     public void addRatedMovie(String s, float rating) {
         if (s == null) {
             throw new IllegalArgumentException("cannot add a null value to the map");
@@ -25,11 +26,11 @@ public class MovieMapRatingManager implements MovieRatingManager {
         ratingMap.put(title, rating);
     }
 
+    @Override
     public float getRating (String s) {
         if (s == null) {
             throw new IllegalArgumentException("cannot get a rating from a null string");
         }
-        Log.i("test", s);
         Float rating = ratingMap.get(s);
         return rating == null ? 0.0f : rating;
     }
