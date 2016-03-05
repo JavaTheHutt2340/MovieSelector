@@ -21,8 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javathehutt.buzz_movieselector.MainMenuActivity;
 import javathehutt.buzz_movieselector.MovieSearchActivity;
@@ -115,7 +117,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                             e.printStackTrace();
                         }
                         //From that object, we extract the array of actual data labeled result
-                        ArrayList<Movie> movies = new ArrayList<>();
+                        Set<Movie> movies = new HashSet<>();
                         for (int i = 0; i < array.length(); i++) {
                             try {
                                 //for each array element, we have to create an object
@@ -154,11 +156,14 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      *  with new movies to display
      * @param movies List of Movie to display
      */
-    private void displayMovies(final List<Movie> movies) {
-        ArrayAdapter adapter = DisplayMoviesActivity.getAdapter();
+    private void displayMovies(final Set<Movie> movies) {
+        final ArrayAdapter<Movie> adapter = DisplayMoviesActivity.getAdapter();
         adapter.addAll(movies);
         ListView listView = DisplayMoviesActivity.getListView();
-        context.sendBroadcast(new Intent());
+        Intent i = new Intent();
+        i.setAction("test");
+        context.sendBroadcast(i);
+        Log.i("test2", "message broadcast");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int pos,
@@ -166,7 +171,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                 //Here pos is the position of row clicked
                 ratingsIntent = new Intent(context, MovieViewActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("movie", movies.get(pos).getName() + movies.get(pos).getYear());
+                bundle.putString("movie", adapter.getItem(pos).getName() + adapter.getItem(pos).getYear());
                 ratingsIntent.putExtras(bundle);
                 context.startActivity(ratingsIntent);
             }

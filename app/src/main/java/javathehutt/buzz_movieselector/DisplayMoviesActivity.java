@@ -38,6 +38,8 @@ public class DisplayMoviesActivity extends Activity {
 
     static ListView displayMoviesView;
     private static ArrayAdapter movieAdapter;
+    private RottenTomatoesJSON RTJSON;
+    private int state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,13 @@ public class DisplayMoviesActivity extends Activity {
                 new ArrayList<javathehutt.buzz_movieselector.movie.Movie>());
         displayMoviesView.setAdapter(movieAdapter);
         String searchText = (getIntent().getStringExtra("text"));
-        RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
+        this.registerReceiver(new Receiver(), new IntentFilter("test"));
+        RTJSON = new RottenTomatoesJSON(this);
         Bundle bundle = getIntent().getExtras();
-        int state = bundle.getInt("key");
+        state = bundle.getInt("key");
         switch(state) {
             case 1:
-                RTJSON.newDVDReleases(12, 1);
+                RTJSON.newDVDReleases(1, 1);
                 break;
             case 2:
                 RTJSON.searchMovieByName(searchText, 12, 1);
@@ -62,13 +65,29 @@ public class DisplayMoviesActivity extends Activity {
                 RTJSON.newMovieReleases(12, 1);
                 break;
         }
-        this.registerReceiver(new Receiver(), new IntentFilter());
+
     }
 
     private class Receiver extends BroadcastReceiver {
+        private int count = 2;
+        private final int totalNumber = 12;
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("test2", "hi");
+            Log.i("test2", "message received");
+            if (movieAdapter.getCount() < totalNumber) {
+                switch(state) {
+                    case 1:
+                        RTJSON.newDVDReleases(12, count++);
+                        break;
+                    case 2:
+                        String searchText = (getIntent().getStringExtra("text"));
+                        RTJSON.searchMovieByName(searchText, 12, count++);
+                        break;
+                    case 3:
+                        RTJSON.newMovieReleases(12, count++);
+                        break;
+                }
+            }
         }
     }
 
