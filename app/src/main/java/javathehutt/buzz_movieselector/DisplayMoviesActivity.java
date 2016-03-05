@@ -56,7 +56,7 @@ public class DisplayMoviesActivity extends Activity {
         state = bundle.getInt("key");
         switch(state) {
             case 1:
-                RTJSON.newDVDReleases(1, 1);
+                RTJSON.newDVDReleases(12, 1);
                 break;
             case 2:
                 RTJSON.searchMovieByName(searchText, 12, 1);
@@ -71,20 +71,22 @@ public class DisplayMoviesActivity extends Activity {
     private class Receiver extends BroadcastReceiver {
         private int count = 2;
         private final int totalNumber = 12;
+        private final int increment = 12;
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.i("test2", "message received");
-            if (movieAdapter.getCount() < totalNumber) {
+            if (movieAdapter.getCount() < totalNumber && count < 30) {
+                Log.i("test2", "count" + movieAdapter.getCount());
                 switch(state) {
                     case 1:
-                        RTJSON.newDVDReleases(12, count++);
+                        RTJSON.newDVDReleases(increment, count++);
                         break;
                     case 2:
-                        String searchText = (getIntent().getStringExtra("text"));
-                        RTJSON.searchMovieByName(searchText, 12, count++);
+                        String searchText = (getIntent().getStringExtra("text"));//TODO INFINITE LOOP ISSUES HERE
+                        RTJSON.searchMovieByName(searchText, increment, count++);
                         break;
                     case 3:
-                        RTJSON.newMovieReleases(12, count++);
+                        RTJSON.newMovieReleases(increment, count++);
                         break;
                 }
             }

@@ -131,9 +131,10 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                                 String critics_rating = rating.optString("critics_rating");
                                 int critics_score = rating.optInt("critics_score");
                                 Movie m = new Movie(title, year, critics_rating, critics_score, synopsis);
+                                //TODO FILTER HERE
+
                                 //save the object for later
                                 movies.add(m);
-
                             } catch (JSONException e) {
                                 Log.d("VolleyApp", "Failed to get JSON object");
                                 e.printStackTrace();
