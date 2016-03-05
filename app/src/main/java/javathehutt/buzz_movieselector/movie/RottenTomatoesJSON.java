@@ -3,6 +3,7 @@ package javathehutt.buzz_movieselector.movie;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,10 +54,10 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      * @param limit most movies per page
      */
     @Override
-    public void newMovieReleases(int limit) {
+    public void newMovieReleases(int limit, int page) {
         String url =
                 "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey="
-                        + KEY + "&limit=" + limit;
+                        + KEY + "&limit=" + limit + "&page=" + page;
         passOnMoviesList(url);
     }
     /**
@@ -65,10 +66,10 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      * @param limit most movies per page
      */
     @Override
-    public void newDVDReleases(int limit) {
+    public void newDVDReleases(int limit, int page) {
         String url =
                 "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?apikey="
-                        + KEY + "&page_limit=" + limit;
+                        + KEY + "&page_limit=" + limit + "&page=" + page;
         passOnMoviesList(url);
     }
 
@@ -78,7 +79,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      * @param limit most movies per page
      */
     @Override
-    public void searchMovieByName(String name, int limit) {
+    public void searchMovieByName(String name, int limit, int page) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException();
         }
@@ -88,7 +89,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
             name += nameParts[i] + "%20";
         }
         name += nameParts[nameParts.length - 1];
-        String url = URL + KEY +"&q=" + name + "&page_limit=" + limit;
+        String url = URL + KEY +"&q=" + name + "&page_limit=" + limit  + "&page=" + page;
         passOnMoviesList(url);
     }
 
@@ -102,15 +103,13 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                 (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject resp) {
-                        //handle a valid response coming back.  Getting this string mainly for debug
-                        //printing first 500 chars of the response.  Only want to do this for debug
-
+                        Log.i("test", "rest response receved");
                         //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
                         JSONArray array = null;
                         try {
                             //Log.i("test", resp.getString("movies") + "");
                             array = resp.getJSONArray("movies");
-                            //Log.i("test", array.toString() + "");
+                           // Log.i("test", array. + "");
                         } catch (JSONException e) {
                             //Log.i("test", "fail");
                             e.printStackTrace();
@@ -122,6 +121,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                                 //for each array element, we have to create an object
                                 JSONObject jsonObject = array.getJSONObject(i);
                                 assert jsonObject != null;
+                                Log.i("test", jsonObject.names().toString());
                                 String title = jsonObject.optString("title");
                                 int year = jsonObject.optInt("year");
                                 String synopsis = jsonObject.optString("synopsis");
@@ -131,10 +131,9 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                                 Movie m = new Movie(title, year, critics_rating, critics_score, synopsis);
                                 //save the object for later
                                 movies.add(m);
+
                             } catch (JSONException e) {
-                                Log.i("test", "fail");
                                 Log.d("VolleyApp", "Failed to get JSON object");
-                                Log.d("test", e.getStackTrace().toString());
                                 e.printStackTrace();
                             }
                         }
@@ -156,10 +155,10 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      * @param movies List of Movie to display
      */
     private void displayMovies(final List<Movie> movies) {
-        ArrayAdapter adapter = new ArrayAdapter(context,
-                android.R.layout.simple_list_item_1, movies);
+        ArrayAdapter adapter = DisplayMoviesActivity.getAdapter();
+        adapter.addAll(movies);
         ListView listView = DisplayMoviesActivity.getListView();
-        listView.setAdapter(adapter);
+        context.sendBroadcast(new Intent());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int pos,
