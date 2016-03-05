@@ -13,17 +13,17 @@ public interface RottenTomatoes {
      * @param name String representing movie to search
      * @param limit number of movies to take in
      */
-    void searchMovieByName(String name, int limit);
+    void searchMovieByName(String name, int limit, int page);
 
     /**
      * Method to send a List of Movie from recent movies query to an Intent
      * @param limit number of movies to take in
      */
-    void newMovieReleases(int limit);
+    void newMovieReleases(int limit, int page);
 
     /**
      * Method to send a List of Movie from recent DVD releases to an Intent
      * @param limit number of movies to take in
      */
-    void newDVDReleases(int limit);
+    void newDVDReleases(int limit, int page);
 }
