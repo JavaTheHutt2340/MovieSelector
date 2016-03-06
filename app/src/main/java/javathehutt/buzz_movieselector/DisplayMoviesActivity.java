@@ -1,16 +1,30 @@
 package javathehutt.buzz_movieselector;
 
+import android.app.ListActivity;
+import android.app.VoiceInteractor;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Movie;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableContainer;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.app.Activity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Adapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
@@ -23,28 +37,60 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 public class DisplayMoviesActivity extends Activity {
 
     static ListView displayMoviesView;
+    private static ArrayAdapter movieAdapter;
+    private RottenTomatoesJSON RTJSON;
+    private int state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_movies);
         displayMoviesView = (ListView) findViewById(R.id.displayMoviesView);
+        movieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                new ArrayList<javathehutt.buzz_movieselector.movie.Movie>());
+        displayMoviesView.setAdapter(movieAdapter);
         String searchText = (getIntent().getStringExtra("text"));
-        RottenTomatoesJSON RTJSON = new RottenTomatoesJSON(this);
+        this.registerReceiver(new Receiver(), new IntentFilter("test"));
+        RTJSON = new RottenTomatoesJSON(this);
         Bundle bundle = getIntent().getExtras();
-        int state = bundle.getInt("key");
+        state = bundle.getInt("key");
         switch(state) {
             case 1:
-                RTJSON.newDVDReleases(12);
+                RTJSON.newDVDReleases(12, 1);
                 break;
             case 2:
-                RTJSON.searchMovieByName(searchText, 12);
+                RTJSON.searchMovieByName(searchText, 12, 1);
                 break;
             case 3:
-                RTJSON.newMovieReleases(12);
+                RTJSON.newMovieReleases(12, 1);
                 break;
         }
 
+    }
+
+    private class Receiver extends BroadcastReceiver {
+        private int count = 2;
+        private final int totalNumber = 12;
+        private final int increment = 12;
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i("test2", "message received");
+            if (movieAdapter.getCount() < totalNumber && count < 30) {
+                Log.i("test2", "count" + movieAdapter.getCount());
+                switch(state) {
+                    case 1:
+                        RTJSON.newDVDReleases(increment, count++);
+                        break;
+                    case 2:
+                        String searchText = (getIntent().getStringExtra("text"));//TODO INFINITE LOOP ISSUES HERE
+                        RTJSON.searchMovieByName(searchText, increment, count++);
+                        break;
+                    case 3:
+                        RTJSON.newMovieReleases(increment, count++);
+                        break;
+                }
+            }
+        }
     }
 
     /*
@@ -53,6 +99,10 @@ public class DisplayMoviesActivity extends Activity {
      */
     public Context getContext() {
         return this;
+    }
+
+    public static ArrayAdapter getAdapter() {
+        return movieAdapter;
     }
 
     /*
@@ -65,6 +115,7 @@ public class DisplayMoviesActivity extends Activity {
 
     @Override
     public void onBackPressed() {
+        //displayMoviesView.
         finish();
     }
 
