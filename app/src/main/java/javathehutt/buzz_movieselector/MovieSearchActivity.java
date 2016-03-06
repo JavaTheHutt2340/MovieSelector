@@ -10,9 +10,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.app.Activity;
+import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javathehutt.buzz_movieselector.model.User;
+import javathehutt.buzz_movieselector.model.UserManager;
+import javathehutt.buzz_movieselector.model.UserMapManager;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MovieSearchActivity extends Activity {
@@ -74,6 +81,20 @@ public class MovieSearchActivity extends Activity {
         Intent i = new Intent(this, DisplayMoviesActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("key", 3);
+        i.putExtras(bundle);
+        startActivity(i);
+    }
+
+    public void recommendClick(View v) {
+        Intent i = new Intent(this, DisplayMoviesActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("key", 1);
+        UserManager manager = new UserMapManager();
+        User u = manager.getCurrentUser();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(u.getFavoriteGenre());
+        list.add(u.getMajor());
+        bundle.putStringArrayList("recommend", list);
         i.putExtras(bundle);
         startActivity(i);
     }

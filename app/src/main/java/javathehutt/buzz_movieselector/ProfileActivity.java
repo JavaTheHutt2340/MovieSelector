@@ -7,9 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.app.Activity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
@@ -49,6 +54,12 @@ public class ProfileActivity extends Activity {
 
         TextView major = (TextView) findViewById(R.id.major);
         major.setText(u.getMajor());
+
+        Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                new ArrayList<>(Arrays.asList(javathehutt.buzz_movieselector.model.User.getGenres())));
+        genreSpinner.setAdapter(adapter);
+        genreSpinner.setSelection(u.getFavoriteGenreNum());
     }
 
     /**
@@ -64,8 +75,11 @@ public class ProfileActivity extends Activity {
         TextView location = (TextView) findViewById(R.id.locationProfileEdit);
         u.setLocation(location.getText().toString());
 
-        TextView genre = (TextView) findViewById(R.id.genreProfileEdit);
-        u.setFavoriteGenre(genre.getText().toString());
+        /*TextView genre = (TextView) findViewById(R.id.genreProfileEdit);
+        u.setFavoriteGenre(genre.getText().toString());*/
+
+        Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
+        u.setFavoriteGenre(genreSpinner.getSelectedItemPosition());
 
         TextView major = (TextView) findViewById(R.id.major);
         u.setMajor(major.getText().toString());

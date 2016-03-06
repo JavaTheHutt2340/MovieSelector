@@ -8,9 +8,13 @@ public abstract class User {
     private String password;
     private String realName;
     private String location;
-    private String favoriteGenre;
+    //private String favoriteGenre;
     private String major;
     private boolean loggedIn;
+    private int favoriteGenre;
+    private static String[] genres = {"Action & Adventure", "Animation", "Art House & International",
+            "Classics", "Comedy", "Drama", "Horror", "Kids & Family", "Mystery & Suspense", "Romance", "Science Fiction & Fantasy",
+            "Documentary", "Musical & Performing Arts", "Special Interest", "Sports & Fitness", "Television", "Western"};
 
 
 
@@ -23,7 +27,7 @@ public abstract class User {
         this.password = password;
         this.realName = "";
         this.location = "";
-        this.favoriteGenre = "";
+        //this.favoriteGenre = "";
         this.major = "";
         loggedIn = false;
     }
@@ -33,6 +37,14 @@ public abstract class User {
      */
     public boolean isAdmin() {
         return this instanceof AdminUser;
+    }
+
+    public static String[] getGenres() {
+        return genres;
+    }
+
+    public int getFavoriteGenreNum() {
+        return favoriteGenre;
     }
 
     /*
@@ -70,7 +82,7 @@ public abstract class User {
     * return the users favorite genre
     * @return String the users favorite genre
      */
-    public String getFavoriteGenre() { return favoriteGenre; }
+    public String getFavoriteGenre() { return genres[favoriteGenre]; }
 
     /*
     * return the users major
@@ -98,8 +110,8 @@ public abstract class User {
      * sets the favoriteGenre of the User
      * @param s the new favoriteGenre
      */
-    public void setFavoriteGenre(String s) {
-        favoriteGenre = s;
+    public void setFavoriteGenre(int i) {
+        favoriteGenre = i;
     }
 
     /*
