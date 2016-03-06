@@ -119,6 +119,14 @@ public abstract class User {
         loggedIn = result;
         return result;
     }
+
+    /**
+     * standard getter method for loggedIn
+     * @return true if loggedIn
+     */
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
     /*
     * determines if the two objects are equal
     * @param o the other object ot compare

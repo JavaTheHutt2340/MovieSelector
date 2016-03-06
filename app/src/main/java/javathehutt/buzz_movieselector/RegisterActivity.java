@@ -42,7 +42,7 @@ public class RegisterActivity extends Activity {
      * Checks if fields are valid when entering register information.
      * @return true if fields are valid or false if not.
      */
-    public boolean validFields(){
+    private boolean validFields(){
         return etConfirmPassword.getText().toString().equals(etPassword.getText().toString())
                 && etUsername.getText().toString().length() > 0
                 && etPassword.getText().toString().length() > 0;
@@ -52,7 +52,7 @@ public class RegisterActivity extends Activity {
      * ensures password contains no space characters
      * @return true if password allowed
      */
-    public boolean validPassword(){
+    private boolean validPassword(){
         return etPassword.getText().toString().indexOf(" ") == -1;
     }
     /**

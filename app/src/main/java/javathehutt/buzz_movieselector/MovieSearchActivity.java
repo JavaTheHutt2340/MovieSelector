@@ -18,6 +18,7 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 public class MovieSearchActivity extends Activity {
 
     private SearchView searchBar;
+    private RottenTomatoesJSON json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,6 @@ public class MovieSearchActivity extends Activity {
         searchBar.setQueryHint("Search Movie");
     }
 
-    private RottenTomatoesJSON json;
 
     /*
     * creates the starts the Display Movie activity
