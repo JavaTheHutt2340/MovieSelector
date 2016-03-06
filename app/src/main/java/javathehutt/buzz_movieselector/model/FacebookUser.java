@@ -15,7 +15,7 @@ public class FacebookUser extends RegUser{
         setRealName(facebookProfile.getFirstName() + " " + facebookProfile.getLastName());
         facebookProfile = p;
     }
-
+    @Override
     public boolean logIn(String password) {
         if(Profile.getCurrentProfile().equals(facebookProfile) && super.logIn(password)) {
             return true;

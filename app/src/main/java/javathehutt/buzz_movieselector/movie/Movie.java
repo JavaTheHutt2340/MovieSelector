@@ -9,6 +9,7 @@ public class Movie implements Serializable{
     private String criticsRating;
     private int criticsScore;
     private String synopsis;
+    private String url;
     /**
      * Standard constructor for movie
      * @param name of movie
@@ -17,12 +18,13 @@ public class Movie implements Serializable{
      * @param criticsScore representing numerical grade 0 - 100
      * @param synopsis String summary
      */
-    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis) {
+    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis, String url) {
         this.name = name;
         this.year = year;
         this.criticsRating = criticsRating;
         this.criticsScore = criticsScore;
         this.synopsis = synopsis;
+        this.url = url;
     }
 
     /**
@@ -88,6 +90,10 @@ public class Movie implements Serializable{
         }
         Movie m = (Movie) o;
         return m.name.equals(name) && m.year == year;
+    }
+
+    public String getUrl() {
+        return url;
     }
     @Override
     public String toString() {

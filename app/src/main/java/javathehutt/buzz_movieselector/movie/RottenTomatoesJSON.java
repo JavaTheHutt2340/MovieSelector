@@ -100,7 +100,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
          *  if information is obtained, create Movie list, and pass on to displayMovies
          * @param url specific String URL based on specific movie to view
          */
-    public void passOnMoviesList(String url) {
+    private void passOnMoviesList(String url) {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
                     @Override
@@ -130,9 +130,10 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                                 JSONObject rating = jsonObject.getJSONObject("ratings");
                                 String critics_rating = rating.optString("critics_rating");
                                 int critics_score = rating.optInt("critics_score");
-                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis);
+                                JSONObject links = jsonObject.getJSONObject("links");
+                                String details = links.getString("self");
+                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, details);
                                 //TODO FILTER HERE
-
                                 //save the object for later
                                 movies.add(m);
                             } catch (JSONException e) {
@@ -150,6 +151,12 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                     }
                 });
         queue.add(jsObjRequest);
+    }
+
+    public void similarMovies(Movie m) {
+        String url = m.getUrl();
+        String[] temp = url.split(".json");
+
     }
 
     /**

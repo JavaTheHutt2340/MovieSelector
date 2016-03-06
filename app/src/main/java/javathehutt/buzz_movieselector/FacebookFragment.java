@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -68,9 +69,12 @@ public class FacebookFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_facebook, container, false);
         button = (LoginButton) v.findViewById(R.id.login_button);
+        button.setReadPermissions("public_profile", "email", "user_friends");
         button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(getContext(), "Logged in successfully!", Toast.LENGTH_SHORT).show();
+                Log.i("D", "Facebook login successful.");
                 Profile fbProfile = Profile.getCurrentProfile();
                 if (fbProfile != null) {
                     Intent i = new Intent();
@@ -87,12 +91,15 @@ public class FacebookFragment extends Fragment {
 
             @Override
             public void onCancel() {
-
+                Toast.makeText(getContext(), "Log In Cancelled!", Toast.LENGTH_SHORT).show();
+                Log.i("D", "Facebook login cancelled.");
             }
 
             @Override
             public void onError(FacebookException error) {
-
+                Toast.makeText(getContext(), "Log In Error!", Toast.LENGTH_SHORT).show();
+                Log.e("D", "Facebook login cancelled.");
+                Log.e("D", error.toString());
             }
         });
         button.setFragment(this);
