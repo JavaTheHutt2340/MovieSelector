@@ -9,11 +9,11 @@ public interface MovieRatingManager {
     * @param the title and year of the movie
     * @param the given rating
      */
-    void addRatedMovie(String s, float rating);
+    void addRatedMovie(Movie m, float rating);
 
     /*
     * gets a rating for a movie
     * @param s the title and year of the movie
      */
-    float getRating(String s);
+    float getRating(Movie m);
 }

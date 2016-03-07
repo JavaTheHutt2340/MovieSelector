@@ -179,7 +179,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                 //Here pos is the position of row clicked
                 ratingsIntent = new Intent(context, MovieViewActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("movie", adapter.getItem(pos).getName() + adapter.getItem(pos).getYear());
+                bundle.putSerializable("object", adapter.getItem(pos));
                 ratingsIntent.putExtras(bundle);
                 context.startActivity(ratingsIntent);
             }
