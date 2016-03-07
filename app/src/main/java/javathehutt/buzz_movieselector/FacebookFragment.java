@@ -19,9 +19,8 @@ import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.FacebookUser;
-import javathehutt.buzz_movieselector.model.UserManager;
-import javathehutt.buzz_movieselector.model.UserMapManager;
 
 
 /**
@@ -35,6 +34,7 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
 public class FacebookFragment extends Fragment {
     private CallbackManager callbackManager;
     private LoginButton button;
+    DatabaseHelper helper = new DatabaseHelper(this.getContext());
 
     private OnFragmentInteractionListener mListener;
 
@@ -80,10 +80,9 @@ public class FacebookFragment extends Fragment {
                     Intent i = new Intent();
                     i.setClass(getActivity(), MainMenuActivity.class);
                     FacebookUser u = new FacebookUser(fbProfile);
-                    UserManager userManager = new UserMapManager();
-                    userManager.addUser(u);
+                    helper.addUser(u);
                     Log.d("frag", u.toString());
-                    userManager.handleLogInRequest(fbProfile.getId(), fbProfile.getId());
+                    helper.handleLogInRequest(fbProfile.getId(), fbProfile.getId());
                     startActivity(i);
                     callbackManager.onActivityResult(1, 1, new Intent());
                 }

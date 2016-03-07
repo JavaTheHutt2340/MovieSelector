@@ -1,30 +1,16 @@
 package javathehutt.buzz_movieselector;
 
-import android.app.ListActivity;
-import android.app.VoiceInteractor;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Movie;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
 import android.os.Bundle;
-import android.os.Message;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.app.Activity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Adapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 

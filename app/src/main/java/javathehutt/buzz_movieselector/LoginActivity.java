@@ -5,21 +5,20 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import javathehutt.buzz_movieselector.model.UserManager;
-import javathehutt.buzz_movieselector.model.UserMapManager;
-import android.app.Activity;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
+
 public class LoginActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener {
     CallbackManager callbackManager;
     EditText etUsername, etPassword;
+    DatabaseHelper helper = new DatabaseHelper(this);
 
 
     @Override
@@ -38,9 +37,8 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
      * @param v
      */
     public void userLoginButtonClick(View v) {
-        UserManager userManager = new UserMapManager();
-        if (userManager.isInSystem(etUsername.getText().toString().toLowerCase())) {
-            if (userManager.handleLogInRequest(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString())) {
+        if (helper.isInSystem(etUsername.getText().toString().toLowerCase())) {
+            if (helper.handleLogInRequest(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString())) {
                 Context context = getApplicationContext();
                 CharSequence text = "Log In Successful!";
                 int duration = Toast.LENGTH_SHORT;

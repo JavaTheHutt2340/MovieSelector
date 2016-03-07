@@ -1,7 +1,5 @@
 package javathehutt.buzz_movieselector.movie;
 
-import android.util.Log;
-
 import java.util.HashMap;
 import java.util.Map;
 
