@@ -8,12 +8,10 @@ package javathehutt.buzz_movieselector;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.app.Activity;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
