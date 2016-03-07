@@ -88,7 +88,7 @@ public class MovieSearchActivity extends Activity {
     public void recommendClick(View v) {
         Intent i = new Intent(this, DisplayMoviesActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("key", 1);
+        bundle.putInt("key", 4);
         UserManager manager = new UserMapManager();
         User u = manager.getCurrentUser();
         ArrayList<String> list = new ArrayList<>();

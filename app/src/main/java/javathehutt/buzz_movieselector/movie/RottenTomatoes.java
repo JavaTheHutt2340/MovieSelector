@@ -25,5 +25,5 @@ public interface RottenTomatoes {
      * Method to send a List of Movie from recent DVD releases to an Intent
      * @param limit number of movies to take in
      */
-    void newDVDReleases(int limit, int page);
+    void newDVDReleases(int limit, int page, boolean b);
 }
