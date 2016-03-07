@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by JasonGibson on 2/29/16.
  */
 public class MovieMapRatingManager implements MovieRatingManager {
-    private static Map<String, Float> ratingMap;
+    private static Map<Movie, Float> ratingMap;
 
     public MovieMapRatingManager() {
         if (ratingMap == null) {
@@ -18,16 +18,15 @@ public class MovieMapRatingManager implements MovieRatingManager {
     }
 
     @Override
-    public void addRatedMovie(String s, float rating) {
+    public void addRatedMovie(Movie s, float rating) {
         if (s == null) {
             throw new IllegalArgumentException("cannot add a null value to the map");
         }
-        String title = s;
-        ratingMap.put(title, rating);
+        ratingMap.put(s, rating);
     }
 
     @Override
-    public float getRating (String s) {
+    public float getRating (Movie s) {
         if (s == null) {
             throw new IllegalArgumentException("cannot get a rating from a null string");
         }
