@@ -50,9 +50,6 @@ public class ProfileActivity extends Activity {
         TextView location = (TextView) findViewById(R.id.locationProfileEdit);
         location.setText(u.getLocation());
 
-        TextView genre = (TextView) findViewById(R.id.genreProfileEdit);
-        genre.setText(u.getFavoriteGenre());
-
         TextView major = (TextView) findViewById(R.id.major);
         major.setText(u.getMajor());
 
