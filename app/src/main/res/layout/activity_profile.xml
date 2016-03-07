@@ -60,7 +60,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/genreSpinner"
             android:layout_below="@+id/linearLayout2"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -141,7 +142,5 @@
             android:hint="Enter Major here"
             android:id="@+id/major" />
     </LinearLayout>
-
-
 
 </RelativeLayout>

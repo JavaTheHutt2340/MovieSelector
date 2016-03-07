@@ -27,6 +27,10 @@ public class Movie implements Serializable{
         this.url = url;
     }
 
+    public Movie() {
+        this(null, 0, null, 0, null, null);
+    }
+
     /**
      * Accessor method to get name of Movie
      * @return String representing name of Movie
@@ -35,12 +39,20 @@ public class Movie implements Serializable{
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     /**
      * Accessor method to get year of Movie
      * @return int representing year of Movie
      */
     public int getYear() {
         return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     /**
@@ -54,6 +66,10 @@ public class Movie implements Serializable{
         return criticsRating;
     }
 
+    public void setCriticsRating(String criticsRating) {
+        this.criticsRating = criticsRating;
+    }
+
     /**
      * Accessor method to get critics score
      * @return String 0 - 100 or "No rating yet" string
@@ -62,6 +78,10 @@ public class Movie implements Serializable{
         if (criticsScore != -1)
             return "" + criticsScore;
         return "No rating yet";
+    }
+
+    public void setCriticsScore(int criticsScore) {
+        this.criticsScore = criticsScore;
     }
 
     /**
@@ -73,6 +93,11 @@ public class Movie implements Serializable{
             return synopsis;
         return "No synopsis";
     }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
     @Override
     public int hashCode() {
         int h = 17;
