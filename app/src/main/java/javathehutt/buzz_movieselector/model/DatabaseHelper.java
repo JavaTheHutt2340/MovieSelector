@@ -19,7 +19,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "users";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
-    private static final String TABLE_CREATE = "CREATE TABLE IF NOT EXISTS users (username text not null , password text not null);";
+    private static final String COLUMN_NAME = "name";
+    private static final String COLUMN_GENRE = "genre";
+    private static final String COLUMN_LOCATION = "location";
+    private static final String COLUMN_MAJOR = "major";
+    private static final String TABLE_CREATE = "CREATE TABLE IF NOT EXISTS " +
+            TABLE_NAME + " (" +
+            COLUMN_USERNAME + " text not null , " +
+            COLUMN_PASSWORD + " text not null , " +
+            COLUMN_NAME     + " text not null , " +
+            COLUMN_GENRE    + " int not null , " +
+            COLUMN_LOCATION + " text not null , " +
+            COLUMN_MAJOR    + " text not null );";
     private static User currentUser;
 
     SQLiteDatabase db;
@@ -43,15 +54,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean handleLogInRequest(String username, String password) {
         db = this.getReadableDatabase();
-        String query = "select username, password from " + TABLE_NAME + " where username like \'" + username + "\'";
+        String query = "select * from " + TABLE_NAME + " where username like \'" + username + "\'";
         Cursor cursor = db.rawQuery(query , null);
 
         if(cursor.moveToFirst()){
-            if (username.equals(cursor.getString(0)) && password.equals(cursor.getString(1))) {
+            if (password.equals(cursor.getString(1))) {
                 currentUser = new RegUser(username, password);
+                currentUser.setRealName(cursor.getString(2));
+                currentUser.setFavoriteGenre(cursor.getInt(3));
+                currentUser.setLocation(cursor.getString(4));
+                currentUser.setMajor(cursor.getString(5));
+
+                cursor.close();
                 return true;
             }
         }
+        cursor.close();
         return false;
     }
 
@@ -61,8 +79,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values.put(COLUMN_USERNAME, u.getUsername());
         values.put(COLUMN_PASSWORD, u.getPassword());
+        values.put(COLUMN_NAME, u.getRealName());
+        values.put(COLUMN_GENRE, u.getFavoriteGenreNum());
+        values.put(COLUMN_LOCATION, u.getLocation());
+        values.put(COLUMN_MAJOR, u.getMajor());
 
         db.insert(TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void updateUser(User u) {
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_NAME, u.getRealName());
+        values.put(COLUMN_GENRE, u.getFavoriteGenreNum());
+        values.put(COLUMN_LOCATION, u.getLocation());
+        values.put(COLUMN_MAJOR, u.getMajor());
+
+        db.update(TABLE_NAME, values, "username like \'" + u.getUsername() + "\'", null);
         db.close();
     }
 

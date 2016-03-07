@@ -8,7 +8,6 @@ public abstract class User {
     private String password;
     private String realName;
     private String location;
-    //private String favoriteGenre;
     private String major;
     private boolean loggedIn;
     private int favoriteGenre;
@@ -27,7 +26,7 @@ public abstract class User {
         this.password = password;
         this.realName = "";
         this.location = "";
-        //this.favoriteGenre = "";
+        this.favoriteGenre = 0;
         this.major = "";
         loggedIn = false;
     }

@@ -16,8 +16,6 @@ import java.util.Arrays;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.User;
-import javathehutt.buzz_movieselector.model.UserManager;
-import javathehutt.buzz_movieselector.model.UserMapManager;
 
 /**
  * Java controller for Profile screen
@@ -71,14 +69,13 @@ public class ProfileActivity extends Activity {
         TextView location = (TextView) findViewById(R.id.locationProfileEdit);
         u.setLocation(location.getText().toString());
 
-        /*TextView genre = (TextView) findViewById(R.id.genreProfileEdit);
-        u.setFavoriteGenre(genre.getText().toString());*/
-
         Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
         u.setFavoriteGenre(genreSpinner.getSelectedItemPosition());
 
         TextView major = (TextView) findViewById(R.id.major);
         u.setMajor(major.getText().toString());
+
+        helper.updateUser(u);
 
         //transfer focus to the dummy element to prevent cursor from going to EditText
         LinearLayout focusHolder = (LinearLayout)findViewById(R.id.focusHolder);

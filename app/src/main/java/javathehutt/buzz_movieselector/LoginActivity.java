@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import javathehutt.buzz_movieselector.model.DatabaseHelper;
-
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
 
 public class LoginActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener {
     CallbackManager callbackManager;
