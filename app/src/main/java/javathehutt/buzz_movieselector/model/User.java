@@ -67,6 +67,11 @@ public abstract class User {
      */
     public String getUsername() { return username; }
     /*
+    * returns the password
+    * @param String the password the users password
+     */
+    public String getPassword() { return password; }
+    /*
     * return the real name of the user
     * @return String realName the users realName
      */

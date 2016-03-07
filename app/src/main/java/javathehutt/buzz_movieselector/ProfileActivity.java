@@ -1,8 +1,6 @@
 package javathehutt.buzz_movieselector;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.app.Activity;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.model.UserManager;
 import javathehutt.buzz_movieselector.model.UserMapManager;
@@ -30,6 +28,7 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
 public class ProfileActivity extends Activity {
 
     private User u;
+    DatabaseHelper helper = new DatabaseHelper(this);
 
     /**
      * creates the activity, sets screen, and sets values in TextViews based on User attributes
@@ -39,8 +38,7 @@ public class ProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        UserManager a = new UserMapManager();
-        u = a.lastLogIn();
+        u = helper.lastLogIn();
 
         TextView realName = (TextView) findViewById(R.id.realNameEdit);
         realName.setText(u.getRealName());

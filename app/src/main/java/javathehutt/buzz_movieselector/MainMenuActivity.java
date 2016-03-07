@@ -10,21 +10,20 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import android.app.Activity;
 
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.User;
-import javathehutt.buzz_movieselector.model.UserManager;
-import javathehutt.buzz_movieselector.model.UserMapManager;
-import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MainMenuActivity extends Activity {
 
     private User u;
+    DatabaseHelper db = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        UserManager a = new UserMapManager();
-        u = a.lastLogIn();
+        u = db.lastLogIn();
+        System.out.println(u.getUsername());
     }
 
     /**
