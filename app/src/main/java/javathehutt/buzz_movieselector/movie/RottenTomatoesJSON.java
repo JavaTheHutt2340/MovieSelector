@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -107,29 +108,11 @@ public class RottenTomatoesJSON implements RottenTomatoes {
          * @param url specific String URL based on specific movie to view
          */
     private void passOnMoviesList(String url) {
-        final Set<Movie> movies = new HashSet<>();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
-                    Set<Movie> movies = new HashSet<>(12);
-                    class Receiver extends BroadcastReceiver {
-                        @Override
-                        public void onReceive(Context context, Intent intent) {
-                            Bundle bundle = intent.getExtras();
-                            Log.i("test2", "message received JSON " + bundle.getString("title"));
-                            movies.add(new Movie(bundle.getString("title"), bundle.getInt("year"), bundle.getString("critics_rating"),
-                                    bundle.getInt("critics_score"), bundle.getString("synopsis"), null));
-                            //if (bundle.getInt("end") != 0) {
-                                Log.i("test3", "display");
-                                displayMovies(movies);
-                            /*} else {
-                                Log.i("test3", "no display " + bundle.getInt("end"));
-                            }*/
-                        }
-                    }
-
                     @Override
                     public void onResponse(JSONObject resp) {
-                        context.registerReceiver(new Receiver(), new IntentFilter("test2"));
+                        //context.registerReceiver(new Receiver(), new IntentFilter("test2"));
                         Log.i("test", "rest response received");
                         //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
                         JSONArray array = null;
@@ -154,7 +137,10 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                                 e.printStackTrace();
                             }
                         }
-                    addMovie(list);
+                        for (int i = 0; i < list.size(); i++) {
+                            Task task = new Task();
+                            task.execute(list.get(i), i + "");
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -163,56 +149,6 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                     }
                 });
         queue.add(jsObjRequest);
-    }
-
-    public void addMovie(List<String> ids) {
-        final HashSet<Movie> movies = new HashSet<>(ids.size());
-        for (String id : ids) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            String url = "http://api.rottentomatoes.com/api/public/v1.0/movies/" + id + ".json?apikey=" + KEY;
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject resp) {
-                            Log.i("test2", "rest response received for individual movie");
-                            //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
-                            //From that object, we extract the array of actual data labeled result
-                            try {
-                                //for each array element, we have to create an object
-                                Intent message = new Intent();
-                                Bundle bundle = new Bundle();
-                                message.setAction("test2");
-                                assert resp != null;
-                                //Log.i("test", resp.names().toString());
-                                bundle.putString("title", resp.optString("title"));
-                                bundle.putInt("year", resp.optInt("year"));
-                                bundle.putString("synopsis", resp.optString("synopsis"));
-                                JSONObject rating = resp.getJSONObject("ratings");
-                                bundle.putString("critics_rating", rating.optString("critics_rating"));
-                                bundle.putInt("critics_score", rating.optInt("critics_score"));
-                                bundle.putString("genres", resp.optString("genres"));
-                                JSONObject links = resp.getJSONObject("links");
-                                String details = links.getString("self");
-                                message.putExtras(bundle);
-                                context.sendBroadcast(message);
-                            } catch (JSONException e) {
-                                Log.d("volley", "Failed to get JSON object");
-                                e.printStackTrace();
-                            }
-                            //sends movies list to method to be formatted for xml layout
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.i("volley", "failure");
-                        }
-                    });
-            queue.add(jsObjRequest);
-        }
     }
 
     public void similarMovies(Movie m) {
@@ -231,8 +167,35 @@ public class RottenTomatoesJSON implements RottenTomatoes {
             Log.i("print", m.getName());
         }
         final ArrayAdapter<Movie> adapter = DisplayMoviesActivity.getAdapter();
-        adapter.clear();
         adapter.addAll(movies);
+        ListView listView = DisplayMoviesActivity.getListView();
+        listView.setAdapter(adapter);
+        Intent i = new Intent();
+        i.setAction("test");
+        context.sendBroadcast(i);
+        Log.i("test2", "message broadcast");
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View view, int pos,
+                                    long arg3) {
+                //Here pos is the position of row clicked
+                ratingsIntent = new Intent(context, MovieViewActivity.class);
+                Bundle bundle = new Bundle();
+        bundle.putSerializable("object", adapter.getItem(pos));
+                ratingsIntent.putExtras(bundle);
+                context.startActivity(ratingsIntent);
+            }
+        });
+    }
+
+    /**
+     * Called when request from requestQuery is completed
+     *  with new movies to display
+     * @param movie a Movie to display
+     */
+    private void displayMovie(Movie movie) {
+        final ArrayAdapter<Movie> adapter = DisplayMoviesActivity.getAdapter();
+        adapter.add(movie);
         ListView listView = DisplayMoviesActivity.getListView();
         listView.setAdapter(adapter);
         Intent i = new Intent();
@@ -251,5 +214,71 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                 context.startActivity(ratingsIntent);
             }
         });
+    }
+
+
+    private class Task extends AsyncTask<String, Movie, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                Log.i("task", params[1]);
+                if (params[1] != null) {
+                    Thread.sleep(Long.valueOf(params[1]) * 75);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            String url = "http://api.rottentomatoes.com/api/public/v1.0/movies/" + params[0] + ".json?apikey=" + KEY;
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                    (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject resp) {
+                            Log.i("test2", "rest response received for individual movie");
+                            //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
+                            //From that object, we extract the array of actual data labeled result
+                            try {
+                                //for each array element, we have to create an object
+                                assert resp != null;
+                                //Log.i("test", resp.names().toString());
+                                String title = resp.optString("title");
+                                int year = resp.optInt("year");
+                                String synopsis = resp.optString("synopsis");
+                                JSONObject rating = resp.getJSONObject("ratings");
+                                String critics_rating = rating.optString("critics_rating");
+                                int critics_score = rating.optInt("critics_score");
+                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, null);
+                                publishProgress(m);
+                            } catch (JSONException e) {
+                                Log.d("volley", "Failed to get JSON object");
+                                e.printStackTrace();
+                            }
+                            //sends movies list to method to be formatted for xml layout
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("volley", "failure");
+                        }
+                    });
+            queue.add(jsObjRequest);
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Movie... params) {
+            displayMovie(params[0]);
+            Log.i("task", params[0].getName());
+        }
+
+        /*@Override
+        protected void onPostExecute(Result) {
+
+        }*/
     }
 }

@@ -50,7 +50,7 @@ public class DisplayMoviesActivity extends Activity {
                 new ArrayList<javathehutt.buzz_movieselector.movie.Movie>());
         displayMoviesView.setAdapter(movieAdapter);
         String searchText = (getIntent().getStringExtra("text"));
-        this.registerReceiver(new Receiver(), new IntentFilter("test"));
+        //this.registerReceiver(new Receiver(), new IntentFilter("test")); //TODO UNCOMMENT THIS
         RTJSON = new RottenTomatoesJSON(this);
         Bundle bundle = getIntent().getExtras();
         state = bundle.getInt("key");
@@ -68,14 +68,14 @@ public class DisplayMoviesActivity extends Activity {
 
     }
 
-    private class Receiver extends BroadcastReceiver {
+    /*private class Receiver extends BroadcastReceiver {
         private int count = 2;
         private final int totalNumber = 12;
         private final int increment = 12;
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.i("test2", "message received");
-            if (movieAdapter.getCount() < totalNumber && count < 30) {
+            if (movieAdapter.getCount() < totalNumber && count < 30) { //TODO REMEMBER TO UNCOMMENT ABOVE
                 Log.i("test2", "count" + movieAdapter.getCount());
                 switch(state) {
                     case 1:
@@ -91,7 +91,7 @@ public class DisplayMoviesActivity extends Activity {
                 }
             }
         }
-    }
+    }*/
 
     /*
      * gets the context
