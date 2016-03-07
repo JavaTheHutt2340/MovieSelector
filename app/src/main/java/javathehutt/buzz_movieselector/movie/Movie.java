@@ -1,4 +1,6 @@
 package javathehutt.buzz_movieselector.movie;
+import android.util.Log;
+
 import java.io.Serializable;
 /**
  * Created by Mohammed on 2/16/2016.
@@ -10,6 +12,7 @@ public class Movie implements Serializable{
     private int criticsScore;
     private String synopsis;
     private String url;
+    private String[] genre;
     /**
      * Standard constructor for movie
      * @param name of movie
@@ -18,17 +21,18 @@ public class Movie implements Serializable{
      * @param criticsScore representing numerical grade 0 - 100
      * @param synopsis String summary
      */
-    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis, String url) {
+    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis, String url, String genre) {
         this.name = name;
         this.year = year;
         this.criticsRating = criticsRating;
         this.criticsScore = criticsScore;
         this.synopsis = synopsis;
         this.url = url;
+        setGenre(genre);
     }
 
     public Movie() {
-        this(null, 0, null, 0, null, null);
+        this(null, 0, null, 0, null, null, null);
     }
 
     /**
@@ -51,8 +55,32 @@ public class Movie implements Serializable{
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    /*
+     * Accessor method to get the genre of Movie
+     * @return String representing genre of Movie
+     */
+    public String[] getGenre() {
+        return genre;
+    }
+
+    /*
+     * method to handle genre input from JSON
+      * @param s the list of genres
+     */
+    public void setGenre(String s) {
+        s = s.replaceAll("\"","");
+        s = s.substring(1, s.length() - 1);
+        genre = s.split(",");
+    }
+
+    public boolean containsGenre(String s) {
+        for (int i = 0; i < genre.length; i++) {
+            Log.i("genre", name + " " + genre[i] + " bool " + s.equalsIgnoreCase(genre[i]));
+            if (s.equalsIgnoreCase(genre[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -66,10 +94,6 @@ public class Movie implements Serializable{
         return criticsRating;
     }
 
-    public void setCriticsRating(String criticsRating) {
-        this.criticsRating = criticsRating;
-    }
-
     /**
      * Accessor method to get critics score
      * @return String 0 - 100 or "No rating yet" string
@@ -80,10 +104,6 @@ public class Movie implements Serializable{
         return "No rating yet";
     }
 
-    public void setCriticsScore(int criticsScore) {
-        this.criticsScore = criticsScore;
-    }
-
     /**
      * Accessor method to get summary of movie
      * @return String of movie summary
@@ -92,10 +112,6 @@ public class Movie implements Serializable{
         if (synopsis != null && synopsis.length() != 0)
             return synopsis;
         return "No synopsis";
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
     }
 
     @Override
