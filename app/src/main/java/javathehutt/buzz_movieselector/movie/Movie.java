@@ -94,6 +94,10 @@ public class Movie implements Serializable{
         return criticsRating;
     }
 
+    public int getCriticsScoreInt() {
+        return criticsScore;
+    }
+
     /**
      * Accessor method to get critics score
      * @return String 0 - 100 or "No rating yet" string

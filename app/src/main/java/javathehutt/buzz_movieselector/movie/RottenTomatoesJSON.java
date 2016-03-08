@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -162,6 +163,12 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     private void displayMovie(Movie movie) {
         final ArrayAdapter<Movie> adapter = DisplayMoviesActivity.getAdapter();
         adapter.add(movie);
+        adapter.sort(new Comparator<Movie>() {
+            @Override
+            public int compare(Movie lhs, Movie rhs) {
+                return rhs.getCriticsScoreInt() - lhs.getCriticsScoreInt();
+            }
+        });
         ListView listView = DisplayMoviesActivity.getListView();
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
