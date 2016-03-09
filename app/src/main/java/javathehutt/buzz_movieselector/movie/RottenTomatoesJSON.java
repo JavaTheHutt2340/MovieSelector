@@ -1,11 +1,14 @@
 package javathehutt.buzz_movieselector.movie;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -21,15 +24,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 
-import javathehutt.buzz_movieselector.MainMenuActivity;
-import javathehutt.buzz_movieselector.MovieSearchActivity;
 import javathehutt.buzz_movieselector.DisplayMoviesActivity;
 import javathehutt.buzz_movieselector.MovieViewActivity;
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.User;
 
 
 /**
@@ -40,15 +43,19 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     private static RequestQueue queue;
     Context context;
     Intent ratingsIntent;
+    private ArrayAdapter<Movie> adapter;
+    User u;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
      * @param context
      */
     public RottenTomatoesJSON(Context context) {
+        adapter = DisplayMoviesActivity.getAdapter();
         this.context = context;
         if (null == queue) {
             queue = Volley.newRequestQueue(context);
         }
+        u = new DatabaseHelper(context).lastLogIn();
     }
     /**
      * Method to call for new Movie Releases
@@ -60,7 +67,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
         String url =
                 "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey="
                         + KEY + "&limit=" + limit + "&page=" + page;
-        passOnMoviesList(url);
+        passOnMoviesList(url, false);
     }
     /**
      * Method to call for new DVD movie releases
@@ -68,11 +75,11 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      * @param limit most movies per page
      */
     @Override
-    public void newDVDReleases(int limit, int page) {
+    public void newDVDReleases(int limit, int page, boolean b) {
         String url =
                 "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?apikey="
                         + KEY + "&page_limit=" + limit + "&page=" + page;
-        passOnMoviesList(url);
+        passOnMoviesList(url, b);
     }
 
     /**
@@ -92,14 +99,15 @@ public class RottenTomatoesJSON implements RottenTomatoes {
         }
         name += nameParts[nameParts.length - 1];
         String url = URL + KEY +"&q=" + name + "&page_limit=" + limit  + "&page=" + page;
-        passOnMoviesList(url);
+        passOnMoviesList(url, false);
     }
 
     public void similarMovies(String url) {
         url = url.substring(0, url.indexOf(".json")); // remove .json
         url += "/similar.json?apikey=" + KEY; //create the correct URL
         url = "http:" + url;
-        passOnMoviesList(url);
+        adapter.clear();
+        passOnMoviesList(url, false);
     }
 
         /**
@@ -107,12 +115,13 @@ public class RottenTomatoesJSON implements RottenTomatoes {
          *  if information is obtained, create Movie list, and pass on to displayMovies
          * @param url specific String URL based on specific movie to view
          */
-    private void passOnMoviesList(String url) {
+    private void passOnMoviesList(String url, final boolean filter) {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject resp) {
-                        Log.i("test", "rest response receved");
+                        //context.registerReceiver(new Receiver(), new IntentFilter("test2"));
+                        Log.i("test", "rest response received");
                         //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
                         JSONArray array = null;
                         try {
@@ -124,32 +133,22 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                             e.printStackTrace();
                         }
                         //From that object, we extract the array of actual data labeled result
-                        Set<Movie> movies = new HashSet<>();
+                        List<String> list = new ArrayList<>();
                         for (int i = 0; i < array.length(); i++) {
                             try {
                                 //for each array element, we have to create an object
                                 JSONObject jsonObject = array.getJSONObject(i);
                                 assert jsonObject != null;
-                                Log.i("test", jsonObject.names().toString());
-                                String title = jsonObject.optString("title");
-                                int year = jsonObject.optInt("year");
-                                String synopsis = jsonObject.optString("synopsis");
-                                JSONObject rating = jsonObject.getJSONObject("ratings");
-                                String critics_rating = rating.optString("critics_rating");
-                                int critics_score = rating.optInt("critics_score");
-                                JSONObject links = jsonObject.getJSONObject("links");
-                                String details = links.getString("self");
-                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, details);
-                                //TODO FILTER HERE
-                                //save the object for later
-                                movies.add(m);
+                                list.add(jsonObject.optString("id"));
                             } catch (JSONException e) {
                                 Log.d("VolleyApp", "Failed to get JSON object");
                                 e.printStackTrace();
                             }
                         }
-                        //sends movies list to method to be formatted for xml layout
-                        displayMovies(movies);
+                        for (int i = 0; i < list.size(); i++) {
+                            Task task = new Task();
+                            task.execute(list.get(i), i + "", filter ? "true" : "false");
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -169,17 +168,12 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     /**
      * Called when request from requestQuery is completed
      *  with new movies to display
-     * @param movies List of Movie to display
+     * @param movie a Movie to display
      */
-    private void displayMovies(final Set<Movie> movies) {
-        final ArrayAdapter<Movie> adapter = DisplayMoviesActivity.getAdapter();
-        adapter.addAll(movies);
+    private void displayMovie(Movie movie) {;
+        adapter.add(movie);
         ListView listView = DisplayMoviesActivity.getListView();
-        Intent i = new Intent();
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.setAction("test");
-        context.sendBroadcast(i);
-        Log.i("test2", "message broadcast");
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int pos,
@@ -192,5 +186,74 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                 context.startActivity(ratingsIntent);
             }
         });
+    }
+
+
+    private class Task extends AsyncTask<String, Movie, Void> {
+
+        @Override
+        protected Void doInBackground(final String... params) {
+            final Long l = Long.valueOf(params[1]) * 75;
+            try {
+                Log.i("task", params[1]);
+                if (params[1] != null) {
+                    Thread.sleep(l);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            String url = "http://api.rottentomatoes.com/api/public/v1.0/movies/" + params[0] + ".json?apikey=" + KEY;
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                    (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject resp) {
+                            //Log.i("test2", "rest response received for individual movie");
+                            //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
+                            //From that object, we extract the array of actual data labeled result
+                            try {
+                                //for each array element, we have to create an object
+                                assert resp != null;
+                                String title = resp.optString("title");
+                                int year = resp.optInt("year");
+                                String synopsis = resp.optString("synopsis");
+                                JSONObject rating = resp.getJSONObject("ratings");
+                                String critics_rating = rating.optString("critics_rating");
+                                int critics_score = rating.optInt("critics_score");
+                                String genre = resp.optString("genres");
+                                String url = resp.getJSONObject("links").getString("self");
+                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, url, genre);
+                                if (params[2].equals("true")) {
+                                    if (m.containsGenre(u.getFavoriteGenre())) {
+                                        publishProgress(m);
+                                    }
+                                } else {
+                                    publishProgress(m);
+                                }
+                            } catch (JSONException e) {
+                                Log.d("volley", "Failed to get JSON object");
+                                e.printStackTrace();
+                            }
+                            if(l.equals(Long.valueOf("11") * 75)) {
+                                Intent i = new Intent();
+                                i.setAction("test");
+                                context.sendBroadcast(i);
+                                Log.i("test2", "message broadcast");
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("volley", "failure");
+                        }
+                    });
+            queue.add(jsObjRequest);
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Movie... params) {
+            displayMovie(params[0]);
+            Log.i("task", params[0].getName());
+        }
     }
 }

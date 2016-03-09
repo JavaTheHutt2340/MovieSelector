@@ -1,31 +1,19 @@
 package javathehutt.buzz_movieselector;
 
-import android.app.ListActivity;
-import android.app.VoiceInteractor;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Movie;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
 import android.os.Bundle;
-import android.os.Message;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.app.Activity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Adapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 /**
@@ -37,9 +25,10 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 public class DisplayMoviesActivity extends Activity {
 
     static ListView displayMoviesView;
-    private static ArrayAdapter movieAdapter;
+    private static ArrayAdapter<javathehutt.buzz_movieselector.movie.Movie> movieAdapter;
     private RottenTomatoesJSON RTJSON;
     private int state;
+    User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +39,23 @@ public class DisplayMoviesActivity extends Activity {
                 new ArrayList<javathehutt.buzz_movieselector.movie.Movie>());
         displayMoviesView.setAdapter(movieAdapter);
         String searchText = (getIntent().getStringExtra("text"));
-        this.registerReceiver(new Receiver(), new IntentFilter("test"));
+        this.registerReceiver(new Receiver(), new IntentFilter("test")); //TODO UNCOMMENT THIS
         RTJSON = new RottenTomatoesJSON(this);
         Bundle bundle = getIntent().getExtras();
         state = bundle.getInt("key");
+        u = new DatabaseHelper(this).lastLogIn();
         switch(state) {
             case 1:
-                RTJSON.newDVDReleases(12, 1);
+                RTJSON.newDVDReleases(12, 1, false);
                 break;
             case 2:
                 RTJSON.searchMovieByName(searchText, 12, 1);
                 break;
             case 3:
                 RTJSON.newMovieReleases(12, 1);
+                break;
+            case 4:
+                RTJSON.newDVDReleases(12, 1, true);
                 break;
         }
 
@@ -74,12 +67,20 @@ public class DisplayMoviesActivity extends Activity {
         private final int increment = 12;
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("test2", "message received");
-            if (movieAdapter.getCount() < totalNumber && count < 30) {
+            Log.i("test2", "message received " + state);
+            if (state == 4) {
+                Log.i("test2", "called");
+                for (int i = 0; i < movieAdapter.getCount(); i++) {
+                    if (!movieAdapter.getItem(i).containsGenre(u.getFavoriteGenre())) {
+                        movieAdapter.remove(movieAdapter.getItem(i));
+                    }
+                }
+            }
+            if (movieAdapter.getCount() < totalNumber && count < 100) { //TODO REMEMBER TO UNCOMMENT ABOVE
                 Log.i("test2", "count" + movieAdapter.getCount());
                 switch(state) {
                     case 1:
-                        RTJSON.newDVDReleases(increment, count++);
+                        RTJSON.newDVDReleases(increment, count++, false);
                         break;
                     case 2:
                         String searchText = (getIntent().getStringExtra("text"));//TODO INFINITE LOOP ISSUES HERE
@@ -87,6 +88,11 @@ public class DisplayMoviesActivity extends Activity {
                         break;
                     case 3:
                         RTJSON.newMovieReleases(increment, count++);
+                        break;
+                    case 4:
+                        if (movieAdapter.getCount() < 6) {
+                            RTJSON.newDVDReleases(increment, count++, true);
+                        }
                         break;
                 }
             }
@@ -115,7 +121,6 @@ public class DisplayMoviesActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        //displayMoviesView.
         finish();
     }
 

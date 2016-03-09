@@ -1,17 +1,12 @@
 package javathehutt.buzz_movieselector;
 
-import android.content.Context;
-import android.content.Intent;
-import android.media.Rating;
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.media.MediaBrowserCompat;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import javathehutt.buzz_movieselector.movie.Movie;
@@ -49,6 +44,7 @@ public class MovieViewActivity extends Activity {
 
     public void similarMovies (View v) {
         new RottenTomatoesJSON(getApplicationContext()).similarMovies(m);
+        finish();
     }
 
     @Override

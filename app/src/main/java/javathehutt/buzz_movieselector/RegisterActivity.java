@@ -1,18 +1,16 @@
 package javathehutt.buzz_movieselector;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.app.Activity;
 
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.RegUser;
-import javathehutt.buzz_movieselector.model.UserManager;
-import javathehutt.buzz_movieselector.model.UserMapManager;
 
 /**
  * Activity for Registration Screen.
@@ -23,7 +21,7 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
 public class RegisterActivity extends Activity {
 
     EditText etUsername, etPassword, etConfirmPassword;
-    UserManager userMapManager = new UserMapManager();
+    DatabaseHelper helper = new DatabaseHelper(this);
 
     /**
      * Initializes the RegisterActivity class
@@ -62,7 +60,7 @@ public class RegisterActivity extends Activity {
     public void registerButtonClick(View v) {
         int duration = Toast.LENGTH_SHORT;
         Context context = getApplicationContext();
-        if (userMapManager.isInSystem(etUsername.getText().toString())) {
+        if (helper.isInSystem(etUsername.getText().toString())) {
             CharSequence text = "Username is taken.";
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -73,11 +71,11 @@ public class RegisterActivity extends Activity {
                 toast.show();
             } else if (validFields()){
                 RegUser user = new RegUser(etUsername.getText().toString().trim(), etPassword.getText().toString());
-                userMapManager.addUser(user);
+                helper.addUser(user);
                 CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                userMapManager.handleLogInRequest(user.getUsername(), etPassword.getText().toString());
+                System.out.println(helper.handleLogInRequest(user.getUsername(), etPassword.getText().toString()));
                 Intent intent = new Intent(this, MainMenuActivity.class);
                 startActivity(intent);
                 finish();

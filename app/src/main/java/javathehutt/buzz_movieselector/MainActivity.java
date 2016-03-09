@@ -1,31 +1,32 @@
 package javathehutt.buzz_movieselector;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.SearchView;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import android.content.pm.Signature;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.widget.LoginButton;
 
-import javathehutt.buzz_movieselector.movie.RottenTomatoes;
-import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.FacebookUser;
 
 public class MainActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
     CallbackManager callbackManager;
+    //LoginButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,6 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_welcome_screen);
-
         //This code will create Facebook hash for android development
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -73,14 +73,8 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
         Intent register = new Intent(this, RegisterActivity.class);
         startActivity(register);
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == 1) {
-            Intent intent = new Intent(this, MainMenuActivity.class);
-            startActivity(intent);
-            callbackManager.onActivityResult(requestCode, resultCode, intent);
-        }
-    }
+
+
 
     /**
      * Method to allow user to login

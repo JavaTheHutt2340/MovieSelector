@@ -51,6 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/favoriteGenre"
             android:id="@+id/genreProfile" />
@@ -58,9 +59,8 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/genreSpinner"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_centerHorizontal="true" />
+            android:layout_gravity="center"
+            android:id="@+id/genreSpinner" />
 
     </LinearLayout>
 
@@ -73,7 +73,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/text_height"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/location"
             android:id="@+id/locationProfile" />
@@ -127,7 +127,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/text_height"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Major:"
             android:id="@+id/majorProfile" />

@@ -1,31 +1,26 @@
 package javathehutt.buzz_movieselector;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.UserManager;
 import android.util.Log;
 import android.view.View;
-import android.app.Activity;
-import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.User;
-import javathehutt.buzz_movieselector.model.UserManager;
-import javathehutt.buzz_movieselector.model.UserMapManager;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MovieSearchActivity extends Activity {
 
     private SearchView searchBar;
     private RottenTomatoesJSON json;
+    DatabaseHelper helper = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +83,8 @@ public class MovieSearchActivity extends Activity {
     public void recommendClick(View v) {
         Intent i = new Intent(this, DisplayMoviesActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("key", 1);
-        UserManager manager = new UserMapManager();
-        User u = manager.getCurrentUser();
+        User u = helper.lastLogIn();
+        bundle.putInt("key", 4);
         ArrayList<String> list = new ArrayList<>();
         list.add(u.getFavoriteGenre());
         list.add(u.getMajor());

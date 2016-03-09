@@ -11,17 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.FacebookUser;
-import javathehutt.buzz_movieselector.model.UserManager;
-import javathehutt.buzz_movieselector.model.UserMapManager;
+import javathehutt.buzz_movieselector.model.RegUser;
 
 
 /**
@@ -35,6 +41,7 @@ import javathehutt.buzz_movieselector.model.UserMapManager;
 public class FacebookFragment extends Fragment {
     private CallbackManager callbackManager;
     private LoginButton button;
+    DatabaseHelper helper = new DatabaseHelper(this.getContext());
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,6 +71,12 @@ public class FacebookFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -73,20 +86,38 @@ public class FacebookFragment extends Fragment {
         button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getContext(), "Logged in successfully!", Toast.LENGTH_SHORT).show();
-                Log.i("D", "Facebook login successful.");
-                Profile fbProfile = Profile.getCurrentProfile();
-                if (fbProfile != null) {
-                    Intent i = new Intent();
-                    i.setClass(getActivity(), MainMenuActivity.class);
-                    FacebookUser u = new FacebookUser(fbProfile);
-                    UserManager userManager = new UserMapManager();
-                    userManager.addUser(u);
-                    Log.d("frag", u.toString());
-                    userManager.handleLogInRequest(fbProfile.getId(), fbProfile.getId());
-                    startActivity(i);
-                    callbackManager.onActivityResult(1, 1, new Intent());
-                }
+                Log.e("FACEBOOK","ONSUCCESS");
+                final AccessToken accessToken = loginResult.getAccessToken();
+                Log.d("AccessToken", accessToken.toString());
+                GraphRequest request = GraphRequest.newMeRequest(
+                        accessToken,
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                try {
+                                    Log.d("AccessToken", object.toString());
+                                    String name = object.getString("name");
+                                    String link = object.getString("link");
+                                    String id = object.getString("id");
+                                    Log.d("AccessToken", name);
+                                    Log.d("AccessToken", id);
+                                    RegUser u = new FacebookUser(name, id, accessToken);
+                                    DatabaseHelper db = new DatabaseHelper(getContext());
+                                    db.addUser(u);
+                                    db.handleLogInRequest(name, id);
+                                    startActivity(new Intent(getContext() ,MainMenuActivity.class));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,link");
+                request.setParameters(parameters);
+                request.executeAsync();
             }
 
             @Override

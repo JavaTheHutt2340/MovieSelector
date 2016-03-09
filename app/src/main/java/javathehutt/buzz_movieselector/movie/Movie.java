@@ -1,4 +1,6 @@
 package javathehutt.buzz_movieselector.movie;
+import android.util.Log;
+
 import java.io.Serializable;
 /**
  * Created by Mohammed on 2/16/2016.
@@ -10,6 +12,7 @@ public class Movie implements Serializable{
     private int criticsScore;
     private String synopsis;
     private String url;
+    private String[] genre;
     /**
      * Standard constructor for movie
      * @param name of movie
@@ -18,13 +21,18 @@ public class Movie implements Serializable{
      * @param criticsScore representing numerical grade 0 - 100
      * @param synopsis String summary
      */
-    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis, String url) {
+    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis, String url, String genre) {
         this.name = name;
         this.year = year;
         this.criticsRating = criticsRating;
         this.criticsScore = criticsScore;
         this.synopsis = synopsis;
         this.url = url;
+        setGenre(genre);
+    }
+
+    public Movie() {
+        this(null, 0, null, 0, null, null, null);
     }
 
     /**
@@ -35,12 +43,44 @@ public class Movie implements Serializable{
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     /**
      * Accessor method to get year of Movie
      * @return int representing year of Movie
      */
     public int getYear() {
         return year;
+    }
+
+    /*
+     * Accessor method to get the genre of Movie
+     * @return String representing genre of Movie
+     */
+    public String[] getGenre() {
+        return genre;
+    }
+
+    /*
+     * method to handle genre input from JSON
+      * @param s the list of genres
+     */
+    public void setGenre(String s) {
+        s = s.replaceAll("\"","");
+        s = s.substring(1, s.length() - 1);
+        genre = s.split(",");
+    }
+
+    public boolean containsGenre(String s) {
+        for (int i = 0; i < genre.length; i++) {
+            Log.i("genre", name + " " + genre[i] + " bool " + s.equalsIgnoreCase(genre[i]));
+            if (s.equalsIgnoreCase(genre[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -73,6 +113,7 @@ public class Movie implements Serializable{
             return synopsis;
         return "No synopsis";
     }
+
     @Override
     public int hashCode() {
         int h = 17;
@@ -97,8 +138,8 @@ public class Movie implements Serializable{
     }
     @Override
     public String toString() {
-        return "Title: " + name + "\nYear: " + year  + "\nRating: " + getCriticsRating()
-                + " Critics Score: " + getCriticsScore() + "\nSynopsis: " + synopsis + "\n";
+        return "Title: " + getName() + "\nYear: " + getYear()  + "\nRating: " + getCriticsRating()
+                + " Critics Score: " + getCriticsScore() + "\nSynopsis: " + getSynopsis() + "\n";
         //TODO overhaul this to make it limited and then click to give rest of info
     }
 }

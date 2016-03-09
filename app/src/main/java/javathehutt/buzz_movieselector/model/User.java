@@ -8,7 +8,6 @@ public abstract class User {
     private String password;
     private String realName;
     private String location;
-    //private String favoriteGenre;
     private String major;
     private boolean loggedIn;
     private int favoriteGenre;
@@ -27,7 +26,7 @@ public abstract class User {
         this.password = password;
         this.realName = "";
         this.location = "";
-        //this.favoriteGenre = "";
+        this.favoriteGenre = 0;
         this.major = "";
         loggedIn = false;
     }
@@ -66,6 +65,11 @@ public abstract class User {
     * @param String the username the users username
      */
     public String getUsername() { return username; }
+    /*
+    * returns the password
+    * @param String the password the users password
+     */
+    public String getPassword() { return password; }
     /*
     * return the real name of the user
     * @return String realName the users realName
