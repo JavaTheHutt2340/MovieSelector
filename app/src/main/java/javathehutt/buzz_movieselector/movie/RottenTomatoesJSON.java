@@ -95,6 +95,13 @@ public class RottenTomatoesJSON implements RottenTomatoes {
         passOnMoviesList(url);
     }
 
+    public void similarMovies(String url) {
+        url = url.substring(0, url.indexOf(".json")); // remove .json
+        url += "/similar.json?apikey=" + KEY; //create the correct URL
+        url = "http:" + url;
+        passOnMoviesList(url);
+    }
+
         /**
          * Sets on Volley queue JsonObjectRequest to retrieve movie information
          *  if information is obtained, create Movie list, and pass on to displayMovies
@@ -155,7 +162,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
 
     public void similarMovies(Movie m) {
         String url = m.getUrl();
-        String[] temp = url.split(".json");
+        similarMovies(url);
 
     }
 
@@ -169,6 +176,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
         adapter.addAll(movies);
         ListView listView = DisplayMoviesActivity.getListView();
         Intent i = new Intent();
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.setAction("test");
         context.sendBroadcast(i);
         Log.i("test2", "message broadcast");

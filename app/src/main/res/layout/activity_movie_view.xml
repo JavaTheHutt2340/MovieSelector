@@ -31,12 +31,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Movies Like This"
+        android:text="Similar Movies"
         android:id="@+id/button2"
         android:onClick="similarMovies"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/button1"
-        android:layout_alignEnd="@+id/button1"
+        android:layout_below="@+id/button1"
         android:layout_alignLeft="@+id/button1"
-        android:layout_alignStart="@+id/button1" />
+        android:layout_alignStart="@+id/button1"
+        android:layout_alignRight="@+id/button1"
+        android:layout_alignEnd="@+id/button1" />
 </RelativeLayout>
