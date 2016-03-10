@@ -107,7 +107,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
         url += "/similar.json?apikey=" + KEY; //create the correct URL
         url = "http:" + url;
         adapter.clear();
-        passOnMoviesList(url, false);
+        passOnMoviesList(url, true, true);
     }
 
         /**
@@ -115,7 +115,8 @@ public class RottenTomatoesJSON implements RottenTomatoes {
          *  if information is obtained, create Movie list, and pass on to displayMovies
          * @param url specific String URL based on specific movie to view
          */
-    private void passOnMoviesList(String url, final boolean filter) {
+    private void passOnMoviesList(String url, final boolean ... filter) {
+        final boolean f = filter.length >= 1 ? false : filter[1];
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
                     @Override
@@ -147,7 +148,8 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                         }
                         for (int i = 0; i < list.size(); i++) {
                             Task task = new Task();
-                            task.execute(list.get(i), i + "", filter ? "true" : "false");
+                            task.execute(list.get(i), i + "", filter[0] ? "true" : "false"
+                                    , f ? "true" : "false");
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -183,6 +185,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("object", adapter.getItem(pos));
                 ratingsIntent.putExtras(bundle);
+                ratingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // added this because it starts activity outside of class
                 context.startActivity(ratingsIntent);
             }
         });
@@ -222,6 +225,9 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                                 String genre = resp.optString("genres");
                                 String url = resp.getJSONObject("links").getString("self");
                                 Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, url, genre);
+                                if (params[3].equals("true")) {
+                                    publishProgress(m);
+                                }
                                 if (params[2].equals("true")) {
                                     if (m.containsGenre(u.getFavoriteGenre())) {
                                         publishProgress(m);
