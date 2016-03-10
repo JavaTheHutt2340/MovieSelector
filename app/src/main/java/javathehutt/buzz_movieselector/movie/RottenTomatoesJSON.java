@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -43,12 +44,14 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     private static RequestQueue queue;
     Context context;
     Intent ratingsIntent;
+    private ArrayAdapter<Movie> adapter;
     User u;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
      * @param context
      */
     public RottenTomatoesJSON(Context context) {
+        adapter = DisplayMoviesActivity.getAdapter();
         this.context = context;
         if (null == queue) {
             queue = Volley.newRequestQueue(context);
@@ -97,6 +100,14 @@ public class RottenTomatoesJSON implements RottenTomatoes {
         }
         name += nameParts[nameParts.length - 1];
         String url = URL + KEY +"&q=" + name + "&page_limit=" + limit  + "&page=" + page;
+        passOnMoviesList(url, false);
+    }
+
+    public void similarMovies(String url) {
+        url = url.substring(0, url.indexOf(".json")); // remove .json
+        url += "/similar.json?apikey=" + KEY; //create the correct URL
+        url = "http:" + url;
+        adapter.clear();
         passOnMoviesList(url, false);
     }
 
@@ -151,7 +162,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
 
     public void similarMovies(Movie m) {
         String url = m.getUrl();
-        String[] temp = url.split(".json");
+        similarMovies(url);
 
     }
 
@@ -160,8 +171,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
      *  with new movies to display
      * @param movie a Movie to display
      */
-    private void displayMovie(Movie movie) {
-        final ArrayAdapter<Movie> adapter = DisplayMoviesActivity.getAdapter();
+    private void displayMovie(Movie movie) {;
         adapter.add(movie);
         adapter.sort(new Comparator<Movie>() {
             @Override
@@ -217,7 +227,8 @@ public class RottenTomatoesJSON implements RottenTomatoes {
                                 String critics_rating = rating.optString("critics_rating");
                                 int critics_score = rating.optInt("critics_score");
                                 String genre = resp.optString("genres");
-                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, null, genre);
+                                String url = resp.getJSONObject("links").getString("self");
+                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, url, genre);
                                 if (params[2].equals("true")) {
                                     if (m.containsGenre(u.getFavoriteGenre())) {
                                         publishProgress(m);

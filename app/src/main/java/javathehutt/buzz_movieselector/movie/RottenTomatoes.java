@@ -26,4 +26,8 @@ public interface RottenTomatoes {
      * @param limit number of movies to take in
      */
     void newDVDReleases(int limit, int page, boolean b);
+
+    void similarMovies(Movie m);
+
+    void similarMovies(String url);
 }

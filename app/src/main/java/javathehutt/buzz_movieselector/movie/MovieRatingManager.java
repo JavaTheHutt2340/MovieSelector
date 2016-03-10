@@ -16,4 +16,6 @@ public interface MovieRatingManager {
     * @param s the title and year of the movie
      */
     float getRating(Movie m);
+
+
 }
