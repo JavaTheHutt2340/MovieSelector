@@ -7,6 +7,9 @@ import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javathehutt.buzz_movieselector.model.RegUser;
 import javathehutt.buzz_movieselector.model.User;
 
@@ -117,9 +120,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor.getCount() > 0;
     }
 
-    public static Cursor getAllUsernames(){
-        String[] usernameColumn = {KEY_ID, COLUMN_USERNAME};
+    public List<User> getAllUsers(){
+        /*String[] usernameColumn = {KEY_ID, COLUMN_USERNAME};
         Cursor c = db.query(TABLE_NAME, usernameColumn, null, null, null, null, null);
-        return c;
+        return c;*/
+        List<User> list = new ArrayList<>();
+        db = this.getReadableDatabase();
+        String query = "select * from " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            //populate
+            User tempUser = new RegUser(cursor.getString(0), cursor.getString(1));
+            tempUser.setRealName(cursor.getString(2));
+            tempUser.setFavoriteGenre(cursor.getInt(3));
+            tempUser.setLocation(cursor.getString(4));
+            tempUser.setMajor(cursor.getString(5));
+            list.add(tempUser);
+            cursor.moveToNext();
+        }
+        return list;
     }
 }

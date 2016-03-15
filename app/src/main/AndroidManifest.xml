@@ -49,7 +49,10 @@
             android:label="@string/title_activity_movie_view" />
         <activity
             android:name=".UserListActivity"
-            android:label="@string/title_activity_user_list"></activity>
+            android:label="@string/title_activity_user_list" />
+        <activity
+            android:name=".DetailedUserView"
+            android:label="@string/title_activity_detailed_user_view"></activity>
     </application>
 
 </manifest>

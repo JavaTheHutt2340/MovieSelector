@@ -1,9 +1,11 @@
 package javathehutt.buzz_movieselector.model;
 
+import java.io.Serializable;
+
 /**
  * Created by JasonGibson on 2/2/16.
  */
-public abstract class User {
+public abstract class User implements Serializable {
     private String username;
     private String password;
     private String realName;
