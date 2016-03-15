@@ -28,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_GENRE = "genre";
     private static final String COLUMN_LOCATION = "location";
     private static final String COLUMN_MAJOR = "major";
+    private static final String COLUMN_ATTEMPTS = "numAttempts";
     private static final String TABLE_CREATE = "CREATE TABLE IF NOT EXISTS " +
             TABLE_NAME + " (" +
             KEY_ID          + " text not null , " +
@@ -36,7 +37,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_NAME     + " text not null , " +
             COLUMN_GENRE    + " int not null , " +
             COLUMN_LOCATION + " text not null , " +
-            COLUMN_MAJOR    + " text not null );";
+            COLUMN_MAJOR    + " text not null, " +
+            COLUMN_ATTEMPTS + " int not null );";
     private static User currentUser;
 
     static SQLiteDatabase db;
@@ -58,21 +60,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
+    public boolean userLocked(User u) {
+        db = this.getReadableDatabase();
+        String query = "select * from " + TABLE_NAME + " where username like \'" + u.getUsername() + "\'";
+        Cursor cursor = db.rawQuery(query , null);
+        if(cursor.moveToFirst()) {
+            return cursor.getInt(6) >= 3;
+        }
+        return false;
+    }
+
     public boolean handleLogInRequest(String username, String password) {
         db = this.getReadableDatabase();
         String query = "select * from " + TABLE_NAME + " where username like \'" + username + "\'";
         Cursor cursor = db.rawQuery(query , null);
 
         if(cursor.moveToFirst()){
-            if (password.equals(cursor.getString(1))) {
+            if (password.equals(cursor.getString(1)) && cursor.getInt(6) < 3) {
                 currentUser = new RegUser(username, password);
                 currentUser.setRealName(cursor.getString(2));
                 currentUser.setFavoriteGenre(cursor.getInt(3));
                 currentUser.setLocation(cursor.getString(4));
                 currentUser.setMajor(cursor.getString(5));
+                currentUser.setFailedAttempts(cursor.getInt(6));
+
+                db = this.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_ATTEMPTS, 0);
+                db.update(TABLE_NAME, values, "username like \'" + username + "\'", null);
 
                 cursor.close();
                 return true;
+            } else {
+                db = this.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_ATTEMPTS, cursor.getInt(6) + 1);
+                db.update(TABLE_NAME, values, "username like \'" + username + "\'", null);
             }
         }
         cursor.close();
@@ -89,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_GENRE, u.getFavoriteGenreNum());
         values.put(COLUMN_LOCATION, u.getLocation());
         values.put(COLUMN_MAJOR, u.getMajor());
+        values.put(COLUMN_ATTEMPTS, u.getLogAttempts());
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -114,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean isInSystem(String u) {
         db = this.getReadableDatabase();
         String query = "select username from " + TABLE_NAME + " where username like \'" + u + "\'";
-        Cursor cursor = db.rawQuery(query , null);
+        Cursor cursor = db.rawQuery(query, null);
         System.out.println(cursor.getCount() > 0);
 
         return cursor.getCount() > 0;

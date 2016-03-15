@@ -128,10 +128,16 @@ public abstract class User implements Serializable {
         major = s;
     }
 
+    protected int getLogAttempts() {
+        return 0;
+    }
+
+    protected void setFailedAttempts(int num) {};
+
     /*
-    * determines if the login is valid
-    * @param password the
-     */
+        * determines if the login is valid
+        * @param password the
+         */
     public boolean logIn(String password) {
         boolean result = this.password.equals(password);
         loggedIn = result;

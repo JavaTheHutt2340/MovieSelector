@@ -27,6 +27,14 @@ public class RegUser extends User{
         return locked;
     }
 
+    @Override
+    protected void setFailedAttempts(int num) {
+        failedAttempts = num;
+    }
+
+    protected int getLogAttempts(){
+        return failedAttempts;
+    }
     /*
     * locks the user
      */
