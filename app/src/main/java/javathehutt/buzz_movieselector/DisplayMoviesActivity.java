@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.User;
+import javathehutt.buzz_movieselector.movie.RottenTomatoes;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 /**
@@ -26,7 +27,7 @@ public class DisplayMoviesActivity extends Activity {
 
     static ListView displayMoviesView;
     private static ArrayAdapter<javathehutt.buzz_movieselector.movie.Movie> movieAdapter;
-    private RottenTomatoesJSON RTJSON;
+    private RottenTomatoes RTJSON;
     private int state;
     User u;
 
@@ -39,7 +40,7 @@ public class DisplayMoviesActivity extends Activity {
                 new ArrayList<javathehutt.buzz_movieselector.movie.Movie>());
         displayMoviesView.setAdapter(movieAdapter);
         String searchText = (getIntent().getStringExtra("text"));
-        this.registerReceiver(new Receiver(), new IntentFilter("test")); //TODO UNCOMMENT THIS
+        this.registerReceiver(new Receiver(), new IntentFilter("test"));
         RTJSON = new RottenTomatoesJSON(this);
         Bundle bundle = getIntent().getExtras();
         state = bundle.getInt("key");
