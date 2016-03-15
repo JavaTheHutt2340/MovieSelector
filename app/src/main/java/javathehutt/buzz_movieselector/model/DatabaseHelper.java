@@ -3,6 +3,7 @@ package javathehutt.buzz_movieselector.model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -16,8 +17,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "users.db";
+    public static final String KEY_ID = "_id";
     private static final String TABLE_NAME = "users";
-    private static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_GENRE = "genre";
@@ -25,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_MAJOR = "major";
     private static final String TABLE_CREATE = "CREATE TABLE IF NOT EXISTS " +
             TABLE_NAME + " (" +
+            KEY_ID          + " text not null , " +
             COLUMN_USERNAME + " text not null , " +
             COLUMN_PASSWORD + " text not null , " +
             COLUMN_NAME     + " text not null , " +
@@ -33,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_MAJOR    + " text not null );";
     private static User currentUser;
 
-    SQLiteDatabase db;
+    static SQLiteDatabase db;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -112,5 +115,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         System.out.println(cursor.getCount() > 0);
 
         return cursor.getCount() > 0;
+    }
+
+    public static Cursor getAllUsernames(){
+        String[] usernameColumn = {KEY_ID, COLUMN_USERNAME};
+        Cursor c = db.query(TABLE_NAME, usernameColumn, null, null, null, null, null);
+        return c;
     }
 }

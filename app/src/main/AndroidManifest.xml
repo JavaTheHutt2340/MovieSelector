@@ -21,11 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
@@ -46,7 +46,10 @@
         <activity android:name=".DisplayMoviesActivity" />
         <activity
             android:name=".MovieViewActivity"
-            android:label="@string/title_activity_movie_view"></activity>
+            android:label="@string/title_activity_movie_view" />
+        <activity
+            android:name=".UserListActivity"
+            android:label="@string/title_activity_user_list"></activity>
     </application>
 
 </manifest>
