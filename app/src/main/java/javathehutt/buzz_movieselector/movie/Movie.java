@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Mohammed on 2/16/2016.
  */
-public class Movie implements Serializable{
+public class Movie implements Serializable {
     private String name;
     private int year;
     private String criticsRating;
