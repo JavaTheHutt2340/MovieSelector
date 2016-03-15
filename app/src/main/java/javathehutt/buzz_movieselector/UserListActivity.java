@@ -29,11 +29,6 @@ public class UserListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
         userListView = (ListView) findViewById(R.id.userListView);
-        /*cursor = DatabaseHelper.getAllUsernames();
-        String[] fromFieldNames = new String[] {DatabaseHelper.KEY_ID, DatabaseHelper.COLUMN_USERNAME};
-        int[] toViewIDs = new int[] {simple_list_item_1};
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.id.userListView, cursor, fromFieldNames, toViewIDs);
-        userListView.setAdapter(adapter);*/
         DatabaseHelper helper = new DatabaseHelper(this);
         final List<User> users = helper.getAllUsers();
         ArrayAdapter<User> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, users);

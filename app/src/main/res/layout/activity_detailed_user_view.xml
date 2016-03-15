@@ -9,4 +9,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="javathehutt.buzz_movieselector.DetailedUserView">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/banButton"
+        android:onClick="banButtonClick"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="93dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lockButton"
+        android:onClick="lockButtonClick"
+        android:layout_below="@+id/banButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp" />
 </RelativeLayout>
