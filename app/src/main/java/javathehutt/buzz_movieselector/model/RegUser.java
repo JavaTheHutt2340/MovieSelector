@@ -5,8 +5,9 @@ package javathehutt.buzz_movieselector.model;
  */
 public class RegUser extends User{
     private boolean locked;
+    private boolean banned;
     private int failedAttempts;
-    private final int attemptsAllowed = 5;
+    public static final int attemptsAllowed = 5;
 
     /*
     * constructor for the User class
@@ -15,7 +16,9 @@ public class RegUser extends User{
      */
     public RegUser(String username, String password) {
         super(username, password);
+        failedAttempts = 0;
         locked = false;
+        banned = false;
     }
 
     /*
@@ -32,6 +35,7 @@ public class RegUser extends User{
         failedAttempts = num;
     }
 
+    @Override
     protected int getLogAttempts(){
         return failedAttempts;
     }
@@ -50,6 +54,28 @@ public class RegUser extends User{
     }
 
     /*
+    * sets the user account to banned
+     */
+    public void ban() {
+        banned = true;
+    }
+
+    /*
+    * returns true if the user is banned
+    * @return boolean is banned
+     */
+    public boolean getBanStatus() {
+        return banned;
+    }
+
+    /*
+    * sets the user account to be unbanned
+     */
+    public void unBan() {
+        banned = false;
+    }
+
+    /*
     * @param password the password the person is using to login
     * @return true if the password matches the stored password
      */
@@ -59,7 +85,7 @@ public class RegUser extends User{
 
     @Override
     public boolean logIn(String password) {
-        if (locked) {
+        if (locked || banned) {
             return false;
         } else {
             boolean result = super.logIn(password);
@@ -69,5 +95,10 @@ public class RegUser extends User{
             }
             return result;
         }
+    }
+
+    @Override
+    public String toString() {
+        return getUsername() + ": " + getPassword() + "\nlock status: " + locked + "\nban status: " + banned;
     }
 }

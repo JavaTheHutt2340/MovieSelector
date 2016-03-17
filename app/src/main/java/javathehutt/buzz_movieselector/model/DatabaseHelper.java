@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +30,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_LOCATION = "location";
     private static final String COLUMN_MAJOR = "major";
     private static final String COLUMN_ATTEMPTS = "numAttempts";
+    private static final String COLUMN_BAN = "ban";
+    private static final String COLUMN_LOCKED = "locked";
     private static final String TABLE_CREATE = "CREATE TABLE IF NOT EXISTS " +
             TABLE_NAME + " (" +
-            KEY_ID          + " text not null , " +
+            KEY_ID          + " integer not null primary key autoincrement , " +
             COLUMN_USERNAME + " text not null , " +
             COLUMN_PASSWORD + " text not null , " +
             COLUMN_NAME     + " text not null , " +
             COLUMN_GENRE    + " int not null , " +
             COLUMN_LOCATION + " text not null , " +
             COLUMN_MAJOR    + " text not null, " +
-            COLUMN_ATTEMPTS + " int not null );";
+            COLUMN_BAN      + " text not null, " +
+            COLUMN_LOCKED   + " text not null, " +
+            COLUMN_ATTEMPTS + " int not null );"; //9
     private static User currentUser;
 
     static SQLiteDatabase db;
@@ -70,39 +75,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean handleLogInRequest(String username, String password) {
+    public int handleLogInRequest(String username, String password) {
+        if (username.equals("admin") && password.equals("admin")) {
+            currentUser = new AdminUser("admin", "admin");
+            return 0;
+        }
         db = this.getReadableDatabase();
         String query = "select * from " + TABLE_NAME + " where username like \'" + username + "\'";
         Cursor cursor = db.rawQuery(query , null);
-
-        if(cursor.moveToFirst()){
-            if (password.equals(cursor.getString(1)) && cursor.getInt(6) < 3) {
+        if(cursor.moveToFirst()) {
+            Log.i("login", "login = " + cursor.getString(7) + " | " + cursor.getString(8));
+            if (password.equals(cursor.getString(2)) && cursor.getString(7).equals("false")
+                    && cursor.getString(8).equals("false") && cursor.getInt(9) < RegUser.attemptsAllowed) {
                 currentUser = new RegUser(username, password);
-                currentUser.setRealName(cursor.getString(2));
-                currentUser.setFavoriteGenre(cursor.getInt(3));
-                currentUser.setLocation(cursor.getString(4));
-                currentUser.setMajor(cursor.getString(5));
-                currentUser.setFailedAttempts(cursor.getInt(6));
-
+                currentUser.setRealName(cursor.getString(3));
+                currentUser.setFavoriteGenre(cursor.getInt(4));
+                currentUser.setLocation(cursor.getString(5));
+                currentUser.setMajor(cursor.getString(6));
+                currentUser.setFailedAttempts(0);
                 db = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_ATTEMPTS, 0);
                 db.update(TABLE_NAME, values, "username like \'" + username + "\'", null);
-
                 cursor.close();
-                return true;
+                return 0;
             } else {
                 db = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
-                values.put(COLUMN_ATTEMPTS, cursor.getInt(6) + 1);
+                values.put(COLUMN_ATTEMPTS, cursor.getInt(9) + 1);
+                if (cursor.getString(8).equals("false") && cursor.getInt(9) >= RegUser.attemptsAllowed) {
+                    values.put(COLUMN_LOCKED, "true");
+                }
                 db.update(TABLE_NAME, values, "username like \'" + username + "\'", null);
+                if(cursor.getString(7).equals("true")){
+                    return 2;
+                } else if (cursor.getString(8).equals("true")) {
+                    return 3;
+                }
             }
         }
         cursor.close();
-        return false;
+        return 1;
     }
 
+    private static int num = 0;
     public void addUser(User u) {
+        currentUser = u;
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -112,10 +130,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_GENRE, u.getFavoriteGenreNum());
         values.put(COLUMN_LOCATION, u.getLocation());
         values.put(COLUMN_MAJOR, u.getMajor());
-        values.put(COLUMN_ATTEMPTS, u.getLogAttempts());
+        values.put(COLUMN_BAN, "false");
+        values.put(COLUMN_LOCKED, "false");
+        values.put(COLUMN_ATTEMPTS, 0);
+        values.put(KEY_ID, num++);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
+        Log.i("login", "adding user");
     }
 
     public void updateUser(User u) {
@@ -126,6 +148,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_GENRE, u.getFavoriteGenreNum());
         values.put(COLUMN_LOCATION, u.getLocation());
         values.put(COLUMN_MAJOR, u.getMajor());
+        if (u instanceof RegUser) {
+            RegUser temp = (RegUser) u;
+            values.put(COLUMN_BAN, temp.getBanStatus() ? "true" : "false");
+            values.put(COLUMN_LOCKED, temp.getLockStatus() ? "true" : "false");
+            if (!temp.getLockStatus()) {
+                values.put(COLUMN_ATTEMPTS, 0);
+            }
+        }
 
         db.update(TABLE_NAME, values, "username like \'" + u.getUsername() + "\'", null);
         db.close();
@@ -136,6 +166,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean isInSystem(String u) {
+        if (u.equals("admin")) {
+            return true;
+        }
         db = this.getReadableDatabase();
         String query = "select username from " + TABLE_NAME + " where username like \'" + u + "\'";
         Cursor cursor = db.rawQuery(query, null);
@@ -145,21 +178,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<User> getAllUsers(){
-        /*String[] usernameColumn = {KEY_ID, COLUMN_USERNAME};
-        Cursor c = db.query(TABLE_NAME, usernameColumn, null, null, null, null, null);
-        return c;*/
         List<User> list = new ArrayList<>();
         db = this.getReadableDatabase();
         String query = "select * from " + TABLE_NAME;
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            //populate
-            User tempUser = new RegUser(cursor.getString(0), cursor.getString(1));
-            tempUser.setRealName(cursor.getString(2));
-            tempUser.setFavoriteGenre(cursor.getInt(3));
-            tempUser.setLocation(cursor.getString(4));
-            tempUser.setMajor(cursor.getString(5));
+            RegUser tempUser = new RegUser(cursor.getString(1), cursor.getString(2));
+            tempUser.setRealName(cursor.getString(3));
+            tempUser.setFavoriteGenre(cursor.getInt(4));
+            tempUser.setLocation(cursor.getString(5));
+            tempUser.setMajor(cursor.getString(6));
+            if(cursor.getString(7).equals("true")) {
+                tempUser.ban();
+            }
+            if(cursor.getString(8).equals("true")) {
+                tempUser.lock();
+            }
+            //Log.i("login", tempUser.getBanStatus() + " " + tempUser.getUsername());
             list.add(tempUser);
             cursor.moveToNext();
         }
