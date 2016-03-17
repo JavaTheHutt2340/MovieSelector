@@ -40,6 +40,10 @@ public abstract class User implements Serializable {
         return this instanceof AdminUser;
     }
 
+    /*
+    * returns the genres of the user
+    * @return String[] genres
+     */
     public static String[] getGenres() {
         return genres;
     }
@@ -59,7 +63,6 @@ public abstract class User implements Serializable {
     * returns true if the account is locked
     * @return boolean true if the account is locked
      */
-
     public abstract boolean getLockStatus();
 
     /*
@@ -128,6 +131,9 @@ public abstract class User implements Serializable {
         major = s;
     }
 
+    /*
+    * returns the number of login attempts for this user
+     */
     protected int getLogAttempts() {
         return 0;
     }
