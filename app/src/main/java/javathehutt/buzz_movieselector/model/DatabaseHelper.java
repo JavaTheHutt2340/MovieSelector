@@ -18,7 +18,7 @@ import javathehutt.buzz_movieselector.model.User;
  * Created by Frank on 3/7/2016.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-
+    private static int currentCount = 0;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "users.db";
     public static final String KEY_ID = "_id";
@@ -48,16 +48,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     static SQLiteDatabase db;
 
+    /**
+     * Constructor
+     * @param context   current context of program
+     */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Method to call when program is created
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
         this.db = db;
     }
 
+    /**
+     * Method for when database is to be upgraded
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String query = "DROP TABLE IF EXISTS "+TABLE_NAME;
@@ -65,6 +79,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
+    /**
+     * Tests to see if the user is locked
+     * @param u
+     * @return
+     */
     public boolean userLocked(User u) {
         db = this.getReadableDatabase();
         String query = "select * from " + TABLE_NAME + " where username like \'" + u.getUsername() + "\'";
@@ -75,6 +94,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+    /**
+     * Logs a user into database
+     * @param username
+     * @param password
+     * @return true if successful
+     */
     public int handleLogInRequest(String username, String password) {
         if (username.equals("admin") && password.equals("admin")) {
             currentUser = new AdminUser("admin", "admin");
@@ -118,7 +143,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return 1;
     }
 
-    private static int num = 0;
+    /**
+     * A way to add a user into the database
+     * @param u
+     */
     public void addUser(User u) {
         currentUser = u;
         db = this.getWritableDatabase();
@@ -133,13 +161,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_BAN, "false");
         values.put(COLUMN_LOCKED, "false");
         values.put(COLUMN_ATTEMPTS, 0);
-        values.put(KEY_ID, num++);
+        values.put(KEY_ID, currentCount++);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
         Log.i("login", "adding user");
     }
 
+    /**
+     * A method to update the information of a user
+     * @param u
+     */
     public void updateUser(User u) {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -161,10 +193,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * returns the last user who logged in
+     * @return User object
+     */
     public User lastLogIn() {
         return currentUser;
     }
 
+    /**
+     * tells if a specific username is valid
+     * @param u
+     * @return
+     */
     public boolean isInSystem(String u) {
         if (u.equals("admin")) {
             return true;
@@ -177,6 +218,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor.getCount() > 0;
     }
 
+    /**
+     * returns a list of all users
+     * @return List of users
+     */
     public List<User> getAllUsers(){
         List<User> list = new ArrayList<>();
         db = this.getReadableDatabase();

@@ -85,8 +85,8 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
         startActivityForResult(login, 1);
     }
 
+    @Override
     public void onFragmentInteraction(Uri urit) {
-
     }
 
     @Override

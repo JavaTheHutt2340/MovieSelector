@@ -15,6 +15,7 @@ public class DetailedUserView extends Activity {
     RegUser u;
     Button banButton, lockButton;
     DatabaseHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,10 @@ public class DetailedUserView extends Activity {
         db = new DatabaseHelper(this);
     }
 
+    /**
+     * Method to allow admin to lock a specific user
+     * @param view
+     */
     public void lockButtonClick(View view) {
         if (u.getLockStatus()) {
             u.unlock();
@@ -48,6 +53,10 @@ public class DetailedUserView extends Activity {
         }
     }
 
+    /**
+     * Method to ban a specific user
+     * @param view
+     */
     public void banButtonClick(View view) {
         if (u.getBanStatus()) {
             u.unBan();

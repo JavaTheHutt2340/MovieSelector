@@ -29,6 +29,7 @@ public class UserListActivity extends Activity {
     final List<User> users = new ArrayList<>();
     DatabaseHelper helper;
     ArrayAdapter<User> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
