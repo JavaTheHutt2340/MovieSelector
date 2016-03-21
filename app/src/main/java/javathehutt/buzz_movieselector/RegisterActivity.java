@@ -75,7 +75,8 @@ public class RegisterActivity extends Activity {
                 CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                System.out.println(helper.handleLogInRequest(user.getUsername(), etPassword.getText().toString()));
+                //System.out.println(helper.handleLogInRequest(user.getUsername(), etPassword.getText().toString()));
+                Log.i("login", helper.isInSystem(etUsername.getText().toString().trim()) + "");
                 Intent intent = new Intent(this, MainMenuActivity.class);
                 startActivity(intent);
                 finish();

@@ -37,11 +37,19 @@ public class MovieViewActivity extends Activity {
         });
     }
 
+    /**
+     * Method for when rating a movie is done
+     * @param v
+     */
     public void ratingButtonClick (View v) {
         manager.addRatedMovie(m, ratingBar.getRating());
         finish();
     }
 
+    /**
+     * Method for when looking up similar movies
+     * @param v
+     */
     public void similarMovies (View v) {
         new RottenTomatoesJSON(getApplicationContext()).similarMovies(m);
         finish();

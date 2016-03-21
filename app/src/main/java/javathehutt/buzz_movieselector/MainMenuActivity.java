@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
@@ -22,6 +23,9 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_main_menu);
         u = db.lastLogIn();
         System.out.println(u.getUsername());
+        Button userListButton = (Button) findViewById(R.id.button3);
+        userListButton.setEnabled(u.isAdmin());
+        userListButton.setVisibility(u.isAdmin() ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -67,5 +71,10 @@ public class MainMenuActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         Log.i("test", "mainMenuClosed closed");
+    }
+
+    public void userListClick(View v){
+        Intent i = new Intent(this, UserListActivity.class);
+        startActivity(i);
     }
 }

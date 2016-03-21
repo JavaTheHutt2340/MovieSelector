@@ -38,7 +38,8 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
      */
     public void userLoginButtonClick(View v) {
         if (helper.isInSystem(etUsername.getText().toString().toLowerCase())) {
-            if (helper.handleLogInRequest(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString())) {
+            int value = helper.handleLogInRequest(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString());
+            if (value == 0) {
                 Context context = getApplicationContext();
                 CharSequence text = "Log In Successful!";
                 int duration = Toast.LENGTH_SHORT;
@@ -48,8 +49,14 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
                 startActivity(intent);
                 finish();
             } else {
+                //Log.i("login", "password =" + etPassword.getText().toString() + "end");
                 Context context = getApplicationContext();
                 CharSequence text = "Invalid Password!";
+                if (value == 2) {
+                    text = "this account is banned";
+                } else if (value == 3) {
+                    text = "this account is locked";
+                }
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -76,6 +83,7 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
     public void onFragmentInteraction(Uri uri) {
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 1) {

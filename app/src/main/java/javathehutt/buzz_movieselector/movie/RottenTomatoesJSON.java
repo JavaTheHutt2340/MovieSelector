@@ -1,14 +1,12 @@
 package javathehutt.buzz_movieselector.movie;
 
-import android.content.BroadcastReceiver;
+
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -26,9 +24,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javathehutt.buzz_movieselector.DisplayMoviesActivity;
 import javathehutt.buzz_movieselector.MovieViewActivity;
@@ -163,7 +159,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     }
 
     public void similarMovies(Movie m) {
-        String url = m.getUrl();
+        String url = m.getApiUrl();
         similarMovies(url);
 
     }

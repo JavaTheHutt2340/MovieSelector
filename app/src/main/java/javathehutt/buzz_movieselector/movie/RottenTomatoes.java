@@ -27,7 +27,15 @@ public interface RottenTomatoes {
      */
     void newDVDReleases(int limit, int page, boolean b);
 
+    /**
+     * Uses a movie object to search for similar movies
+     * @param m Movie
+     */
     void similarMovies(Movie m);
 
+    /**
+     * Uses a String api url to search for similar movies
+     * @param url
+     */
     void similarMovies(String url);
 }

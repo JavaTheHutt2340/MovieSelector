@@ -1,9 +1,11 @@
 package javathehutt.buzz_movieselector.model;
 
+import java.io.Serializable;
+
 /**
  * Created by JasonGibson on 2/2/16.
  */
-public abstract class User {
+public abstract class User implements Serializable {
     private String username;
     private String password;
     private String realName;
@@ -38,6 +40,10 @@ public abstract class User {
         return this instanceof AdminUser;
     }
 
+    /*
+    * returns the genres of the user
+    * @return String[] genres
+     */
     public static String[] getGenres() {
         return genres;
     }
@@ -57,7 +63,6 @@ public abstract class User {
     * returns true if the account is locked
     * @return boolean true if the account is locked
      */
-
     public abstract boolean getLockStatus();
 
     /*
@@ -127,9 +132,18 @@ public abstract class User {
     }
 
     /*
-    * determines if the login is valid
-    * @param password the
+    * returns the number of login attempts for this user
      */
+    protected int getLogAttempts() {
+        return 0;
+    }
+
+    protected void setFailedAttempts(int num) {};
+
+    /*
+        * determines if the login is valid
+        * @param password the
+         */
     public boolean logIn(String password) {
         boolean result = this.password.equals(password);
         loggedIn = result;
