@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.movie.Movie;
 import javathehutt.buzz_movieselector.movie.MovieMapRatingManager;
 import javathehutt.buzz_movieselector.movie.MovieRatingManager;
@@ -18,14 +20,16 @@ public class MovieViewActivity extends Activity {
 
     private RatingBar ratingBar;
     private MovieRatingManager manager;
+    private DependencyContainer dc;
     private Movie m;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dc = new DependencyInjectionContainer(this);
         setContentView(R.layout.activity_movie_view);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        manager = new MovieMapRatingManager();
+        manager = dc.getMovieRatingDep();
         Bundle bundle = getIntent().getExtras();
         m = (Movie) bundle.getSerializable("object");
         ratingBar.setRating(manager.getRating(m));

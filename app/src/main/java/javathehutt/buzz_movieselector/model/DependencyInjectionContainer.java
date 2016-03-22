@@ -6,16 +6,17 @@ import com.facebook.CallbackManager;
 
 import javathehutt.buzz_movieselector.movie.MovieMapRatingManager;
 import javathehutt.buzz_movieselector.movie.MovieRatingManager;
-import javathehutt.buzz_movieselector.movie.RottenTomatoes;
+import javathehutt.buzz_movieselector.movie.MovieSource;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 /**
  * Created by Mohammed on 3/21/2016.
  */
 public class DependencyInjectionContainer implements DependencyContainer {
-    private static RottenTomatoes rt;
+    private static MovieSource ms;
     private static CallbackManager cb;
     private static MovieRatingManager mr;
+    private static DatabaseHelper dh;
     private Context c;
 
     public DependencyInjectionContainer(Context c) {
@@ -24,12 +25,18 @@ public class DependencyInjectionContainer implements DependencyContainer {
 
     @Override
     public DatabaseHelper getDatabaseDep() {
-        return new DatabaseHelper(c);
+        if (dh == null || dh.getContext() != c){
+            dh = new DatabaseHelper(c);
+        }
+        return dh;
     }
 
     @Override
-    public RottenTomatoes getRottenTomDep() {
-        return new RottenTomatoesJSON(c);
+    public MovieSource getRottenTomDep() {
+        if (ms == null || ms.getContext() != c){
+            ms = new RottenTomatoesJSON(c);
+        }
+        return ms;
     }
 
     @Override

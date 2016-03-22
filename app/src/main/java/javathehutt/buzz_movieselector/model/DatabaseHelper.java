@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_LOCKED   + " text not null, " +
             COLUMN_ATTEMPTS + " int not null );"; //9
     private static User currentUser;
+    private Context c;
 
     static SQLiteDatabase db;
 
@@ -54,6 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        c = context;
     }
 
     /**
@@ -245,5 +247,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         return list;
+    }
+
+    public Context getContext() {
+        return c;
     }
 }

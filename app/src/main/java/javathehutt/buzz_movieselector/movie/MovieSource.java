@@ -1,11 +1,13 @@
 package javathehutt.buzz_movieselector.movie;
 
+import android.content.Context;
+
 /**
- * Interface for interfacing with RottenTomatoes
+ * Interface for interfacing with MovieSource
  * Created by Mohammed on 2/16/2016.
  */
 
-public interface RottenTomatoes {
+public interface MovieSource {
     public final String KEY = "yedukp76ffytfuy24zsqk7f5";
     public final String URL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=";
     /**
@@ -38,4 +40,10 @@ public interface RottenTomatoes {
      * @param url
      */
     void similarMovies(String url);
+
+    /**
+     * return context used to create MovieSource object
+     * @return Context
+     */
+    Context getContext();
 }

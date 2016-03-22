@@ -36,7 +36,7 @@ import javathehutt.buzz_movieselector.model.User;
  * Class using Volley in order to access Movie objects
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoesJSON implements RottenTomatoes {
+public class RottenTomatoesJSON implements MovieSource {
     private static RequestQueue queue;
     Context context;
     Intent ratingsIntent;
@@ -264,5 +264,13 @@ public class RottenTomatoesJSON implements RottenTomatoes {
             displayMovie(params[0]);
             Log.i("task", params[0].getName());
         }
+    }
+
+    /**
+     * Context accessor method
+     * @return Context used to create RTJSON
+     */
+    public Context getContext() {
+        return context;
     }
 }

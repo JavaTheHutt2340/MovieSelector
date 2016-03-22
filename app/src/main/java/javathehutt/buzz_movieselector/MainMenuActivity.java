@@ -10,16 +10,21 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
 
 public class MainMenuActivity extends Activity {
 
     private User u;
-    DatabaseHelper db = new DatabaseHelper(this);
+    private DatabaseHelper db;
+    private DependencyContainer dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dc = new DependencyInjectionContainer(this);
+        db = dc.getDatabaseDep();
         setContentView(R.layout.activity_main_menu);
         u = db.lastLogIn();
         System.out.println(u.getUsername());

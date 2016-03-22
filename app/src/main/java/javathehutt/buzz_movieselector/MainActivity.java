@@ -22,17 +22,21 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.FacebookUser;
 
 public class MainActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
     CallbackManager callbackManager;
+    DependencyContainer dc;
     //LoginButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
+        dc = new DependencyInjectionContainer(this);
+        callbackManager = dc.getCallbackManagDep();
         setContentView(R.layout.activity_welcome_screen);
         //This code will create Facebook hash for android development
         try {
