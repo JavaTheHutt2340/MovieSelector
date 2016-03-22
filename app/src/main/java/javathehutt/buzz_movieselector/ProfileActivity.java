@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
 
 /**
@@ -26,7 +28,8 @@ import javathehutt.buzz_movieselector.model.User;
 public class ProfileActivity extends Activity {
 
     private User u;
-    DatabaseHelper helper = new DatabaseHelper(this);
+    private DatabaseHelper helper;
+    private DependencyContainer dc;
 
     /**
      * creates the activity, sets screen, and sets values in TextViews based on User attributes
@@ -36,6 +39,8 @@ public class ProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        dc = new DependencyInjectionContainer(this);
+        helper = dc.getDatabaseDep();
         u = helper.lastLogIn();
 
         TextView realName = (TextView) findViewById(R.id.realNameEdit);

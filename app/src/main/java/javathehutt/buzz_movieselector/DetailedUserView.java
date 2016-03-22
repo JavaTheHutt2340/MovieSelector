@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.RegUser;
 import javathehutt.buzz_movieselector.model.User;
 
@@ -15,6 +17,7 @@ public class DetailedUserView extends Activity {
     RegUser u;
     Button banButton, lockButton;
     DatabaseHelper db;
+    DependencyContainer dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,8 @@ public class DetailedUserView extends Activity {
         } else {
             banButton.setText("ban account");
         }
-        db = new DatabaseHelper(this);
+        dc = new DependencyInjectionContainer(this);
+        db = dc.getDatabaseDep();
     }
 
     /**

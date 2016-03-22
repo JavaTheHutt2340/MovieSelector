@@ -18,24 +18,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
 
 import static android.R.layout.simple_list_item_1;
 
 public class UserListActivity extends Activity {
 
-    ListView userListView;
-    static Cursor cursor;
-    final List<User> users = new ArrayList<>();
-    DatabaseHelper helper;
-    ArrayAdapter<User> adapter;
+    private ListView userListView;
+    private final List<User> users = new ArrayList<>();
+    private DatabaseHelper helper;
+    private DependencyContainer dc;
+    private ArrayAdapter<User> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+        dc = new DependencyInjectionContainer(this);
         userListView = (ListView) findViewById(R.id.userListView);
-        helper = new DatabaseHelper(this);
+        helper = dc.getDatabaseDep();
         users.addAll(helper.getAllUsers());
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, users);
         userListView.setAdapter(adapter);

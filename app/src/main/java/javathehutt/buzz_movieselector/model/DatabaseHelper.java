@@ -3,16 +3,12 @@ package javathehutt.buzz_movieselector.model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javathehutt.buzz_movieselector.model.RegUser;
-import javathehutt.buzz_movieselector.model.User;
 
 /**
  * Created by Frank on 3/7/2016.
@@ -45,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_LOCKED   + " text not null, " +
             COLUMN_ATTEMPTS + " int not null );"; //9
     private static User currentUser;
+    private Context c;
 
     static SQLiteDatabase db;
 
@@ -54,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        c = context;
     }
 
     /**
@@ -111,7 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             Log.i("login", "login = " + cursor.getString(7) + " | " + cursor.getString(8));
             if (password.equals(cursor.getString(2)) && cursor.getString(7).equals("false")
-                    && cursor.getString(8).equals("false") && cursor.getInt(9) < RegUser.attemptsAllowed) {
+                    && cursor.getString(8).equals("false") && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED) {
                 currentUser = new RegUser(username, password);
                 currentUser.setRealName(cursor.getString(3));
                 currentUser.setFavoriteGenre(cursor.getInt(4));
@@ -128,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_ATTEMPTS, cursor.getInt(9) + 1);
-                if (cursor.getString(8).equals("false") && cursor.getInt(9) >= RegUser.attemptsAllowed) {
+                if (cursor.getString(8).equals("false") && cursor.getInt(9) >= RegUser.ATTEMPTS_ALLOWED) {
                     values.put(COLUMN_LOCKED, "true");
                 }
                 db.update(TABLE_NAME, values, "username like \'" + username + "\'", null);
@@ -245,5 +243,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         return list;
+    }
+
+    public Context getContext() {
+        return c;
     }
 }

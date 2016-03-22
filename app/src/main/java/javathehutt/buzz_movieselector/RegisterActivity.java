@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.RegUser;
 
 /**
@@ -20,8 +22,9 @@ import javathehutt.buzz_movieselector.model.RegUser;
  */
 public class RegisterActivity extends Activity {
 
-    EditText etUsername, etPassword, etConfirmPassword;
-    DatabaseHelper helper = new DatabaseHelper(this);
+    private EditText etUsername, etPassword, etConfirmPassword;
+    private DependencyContainer dc;
+    private DatabaseHelper helper;
 
     /**
      * Initializes the RegisterActivity class
@@ -31,6 +34,8 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        dc = new DependencyInjectionContainer(this);
+        helper = dc.getDatabaseDep();
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);

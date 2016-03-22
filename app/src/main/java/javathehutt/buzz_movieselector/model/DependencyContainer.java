@@ -2,9 +2,8 @@ package javathehutt.buzz_movieselector.model;
 
 import com.facebook.CallbackManager;
 
-import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.movie.MovieRatingManager;
-import javathehutt.buzz_movieselector.movie.RottenTomatoes;
+import javathehutt.buzz_movieselector.movie.MovieSource;
 
 /**
  * Created by Mohammed on 3/21/2016.
@@ -17,10 +16,10 @@ public interface DependencyContainer {
     DatabaseHelper getDatabaseDep();
 
     /**
-     * Method to get RottenTomatoes object
-     * @return RottenTomatoes
+     * Method to get MovieSource object
+     * @return MovieSource
      */
-    RottenTomatoes getRottenTomDep();
+    MovieSource getRottenTomDep();
 
     /**
      * Method to get a MovieRatingManager object
