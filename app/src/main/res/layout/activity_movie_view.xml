@@ -13,8 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar"
-        android:layout_marginTop="59dp"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/button1"
         android:layout_centerHorizontal="true" />
     <Button
         android:id="@+id/button1"
@@ -22,11 +21,11 @@
         android:layout_height="wrap_content"
         android:text="Done"
         android:onClick="ratingButtonClick"
-        android:layout_below="@+id/ratingBar"
-        android:layout_alignRight="@+id/ratingBar"
-        android:layout_alignEnd="@+id/ratingBar"
+        android:layout_above="@+id/button2"
         android:layout_alignLeft="@+id/ratingBar"
-        android:layout_alignStart="@+id/ratingBar" />
+        android:layout_alignStart="@+id/ratingBar"
+        android:layout_alignRight="@+id/ratingBar"
+        android:layout_alignEnd="@+id/ratingBar" />
 
     <Button
         android:layout_width="wrap_content"
@@ -34,9 +33,29 @@
         android:text="Similar Movies"
         android:id="@+id/button2"
         android:onClick="similarMovies"
-        android:layout_below="@+id/button1"
+        android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/button1"
         android:layout_alignStart="@+id/button1"
         android:layout_alignRight="@+id/button1"
         android:layout_alignEnd="@+id/button1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/Title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/MovieInfo"
+        android:layout_below="@+id/Title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="107dp" />
+
 </RelativeLayout>
