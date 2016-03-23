@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import javathehutt.buzz_movieselector.model.DependencyContainer;
@@ -22,6 +23,8 @@ public class MovieViewActivity extends Activity {
     private MovieRatingManager manager;
     private DependencyContainer dc;
     private Movie m;
+    private TextView title;
+    private TextView movieInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,11 +35,20 @@ public class MovieViewActivity extends Activity {
         manager = dc.getMovieRatingDep();
         Bundle bundle = getIntent().getExtras();
         m = (Movie) bundle.getSerializable("object");
+        title = (TextView) findViewById(R.id.Title);
+        title.setText(m.getName());
+        movieInfo = (TextView) findViewById(R.id.MovieInfo);
+        movieInfo.setText("1. " + m.getYear() + "\n" + "2." + m.getCriticsRating() + "\n" + "3."
+                + m.getCriticsScore() + "\n" + "\n" + "4." + m.getSynopsis()
+                + "\n" + "5." + m.getApiUrl());
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        manager = new MovieMapRatingManager();
         ratingBar.setRating(manager.getRating(m));
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                Toast.makeText(getApplicationContext(), "Your Selected Ratings  : " + String.valueOf(rating), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Your Selected Ratings  : "
+                        + String.valueOf(rating), Toast.LENGTH_SHORT).show();
             }
         });
     }
