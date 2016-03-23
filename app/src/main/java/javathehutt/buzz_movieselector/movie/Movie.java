@@ -11,8 +11,9 @@ public class Movie implements Serializable {
     private String criticsRating;
     private int criticsScore;
     private String synopsis;
-    private String url;
+    private String apiUrl;
     private String[] genre;
+    private String altUrl;
     /**
      * Standard constructor for movie
      * @param name of movie
@@ -27,7 +28,7 @@ public class Movie implements Serializable {
         this.criticsRating = criticsRating;
         this.criticsScore = criticsScore;
         this.synopsis = synopsis;
-        this.url = url;
+        this.apiUrl = url;
         setGenre(genre);
     }
 
@@ -73,6 +74,11 @@ public class Movie implements Serializable {
         genre = s.split(",");
     }
 
+    /**
+     * Checks Movie to see if it is a Genre
+     * @param s String representing Genre
+     * @return true if it is genre
+     */
     public boolean containsGenre(String s) {
         for (int i = 0; i < genre.length; i++) {
             Log.i("genre", name + " " + genre[i] + " bool " + s.equalsIgnoreCase(genre[i]));
@@ -94,6 +100,10 @@ public class Movie implements Serializable {
         return criticsRating;
     }
 
+    /**
+     * Accessor method
+     * @return criticsScore
+     */
     public int getCriticsScoreInt() {
         return criticsScore;
     }
@@ -137,13 +147,25 @@ public class Movie implements Serializable {
         return m.name.equals(name) && m.year == year;
     }
 
-    public String getUrl() {
-        return url;
+    /**
+     * Accessor method to API url for REST calls
+     * @return URL string
+     */
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getAltUrl() {
+        return altUrl;
     }
     @Override
     public String toString() {
-        return "Title: " + getName() + "\nYear: " + getYear(); // + "\nRating: " + getCriticsRating()
-                //+ " Critics Score: " + getCriticsScore() + "\nSynopsis: " + getSynopsis() + "\n";
+        return "Title: " + getName() + "\nYear: " + getYear()  + "\nRating: " + getCriticsRating()
+                + " Critics Score: " + getCriticsScore() + "\nSynopsis: " + getSynopsis() + "\n";
         //TODO overhaul this to make it limited and then click to give rest of info
     }
 }

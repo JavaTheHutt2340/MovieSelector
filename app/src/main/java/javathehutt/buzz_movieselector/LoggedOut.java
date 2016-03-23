@@ -16,17 +16,22 @@ import android.view.View;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
+
 public class LoggedOut extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
     /**
      * creates and sets the screen
      * @param savedInstanceState
      */
-    CallbackManager callbackManager;
+    private CallbackManager callbackManager;
+    private DependencyContainer dc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
-        callbackManager = CallbackManager.Factory.create();
+        dc = new DependencyInjectionContainer(getApplication());
+        callbackManager = dc.getCallbackManagDep();
         setContentView(R.layout.activity_logged_out);
     }
 

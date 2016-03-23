@@ -14,11 +14,14 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 
 public class LoginActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener {
-    CallbackManager callbackManager;
-    EditText etUsername, etPassword;
-    DatabaseHelper helper = new DatabaseHelper(this);
+    private CallbackManager callbackManager;
+    private EditText etUsername, etPassword;
+    private DependencyContainer dc;
+    private DatabaseHelper helper;
 
 
     @Override
@@ -26,8 +29,9 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         FacebookSdk.sdkInitialize(this);
-
-        callbackManager = CallbackManager.Factory.create();
+        dc = new DependencyInjectionContainer(this);
+        callbackManager = dc.getCallbackManagDep();
+        helper = dc.getDatabaseDep();
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
     }

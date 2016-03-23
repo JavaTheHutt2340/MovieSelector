@@ -26,6 +26,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
+
 import javathehutt.buzz_movieselector.model.FacebookUser;
 import javathehutt.buzz_movieselector.model.RegUser;
 
@@ -41,7 +44,7 @@ import javathehutt.buzz_movieselector.model.RegUser;
 public class FacebookFragment extends Fragment {
     private CallbackManager callbackManager;
     private LoginButton button;
-    DatabaseHelper helper = new DatabaseHelper(this.getContext());
+    private DependencyContainer dc;
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,7 +58,6 @@ public class FacebookFragment extends Fragment {
      *
      * @return A new instance of fragment FacebookFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static FacebookFragment newInstance() {
         FacebookFragment fragment = new FacebookFragment();
         Bundle args = new Bundle();
@@ -65,9 +67,10 @@ public class FacebookFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        dc = new DependencyInjectionContainer(getContext());
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getContext());
-        callbackManager = CallbackManager.Factory.create();
+        callbackManager = dc.getCallbackManagDep();
     }
 
     @Override

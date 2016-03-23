@@ -7,7 +7,7 @@ public class RegUser extends User{
     private boolean locked;
     private boolean banned;
     private int failedAttempts;
-    public static final int attemptsAllowed = 5;
+    public static final int ATTEMPTS_ALLOWED = 5;
 
     /*
     * constructor for the User class
@@ -90,7 +90,7 @@ public class RegUser extends User{
         } else {
             boolean result = super.logIn(password);
             failedAttempts = result ? 0 : ++failedAttempts;
-            if (failedAttempts == attemptsAllowed) {
+            if (failedAttempts == ATTEMPTS_ALLOWED) {
                 lock();
             }
             return result;

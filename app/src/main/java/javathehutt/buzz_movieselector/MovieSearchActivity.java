@@ -13,21 +13,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MovieSearchActivity extends Activity {
 
     private SearchView searchBar;
-    private RottenTomatoesJSON json;
-    DatabaseHelper helper = new DatabaseHelper(this);
+    private DependencyContainer dc;
+    private DatabaseHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dc = new DependencyInjectionContainer(this);
+        helper = dc.getDatabaseDep();
         setContentView(R.layout.activity_movie_search);
-
-        json = new RottenTomatoesJSON(MovieSearchActivity.this);
         searchBar = (SearchView) findViewById(R.id.searchView);
         searchBar.setQueryHint("Search Movie");
     }

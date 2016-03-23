@@ -13,8 +13,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
-import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
+import javathehutt.buzz_movieselector.movie.MovieSource;
 
 /**
  * Activity to Display movies.
@@ -26,24 +28,28 @@ public class DisplayMoviesActivity extends Activity {
 
     static ListView displayMoviesView;
     private static ArrayAdapter<javathehutt.buzz_movieselector.movie.Movie> movieAdapter;
-    private RottenTomatoesJSON RTJSON;
+    private MovieSource RTJSON;
     private int state;
+    private DependencyContainer dc;
+    private DatabaseHelper db;
     User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dc = new DependencyInjectionContainer(this);
+        db = dc.getDatabaseDep();
         setContentView(R.layout.activity_display_movies);
         displayMoviesView = (ListView) findViewById(R.id.displayMoviesView);
         movieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 new ArrayList<javathehutt.buzz_movieselector.movie.Movie>());
         displayMoviesView.setAdapter(movieAdapter);
         String searchText = (getIntent().getStringExtra("text"));
-        this.registerReceiver(new Receiver(), new IntentFilter("test")); //TODO UNCOMMENT THIS
-        RTJSON = new RottenTomatoesJSON(this);
+        this.registerReceiver(new Receiver(), new IntentFilter("test"));
+        RTJSON = dc.getRottenTomDep();
         Bundle bundle = getIntent().getExtras();
         state = bundle.getInt("key");
-        u = new DatabaseHelper(this).lastLogIn();
+        u = db.lastLogIn();
         switch(state) {
             case 1:
                 RTJSON.newDVDReleases(12, 1, false);

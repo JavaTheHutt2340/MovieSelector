@@ -1,14 +1,12 @@
 package javathehutt.buzz_movieselector.movie;
 
-import android.content.BroadcastReceiver;
+
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -26,13 +24,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javathehutt.buzz_movieselector.DisplayMoviesActivity;
 import javathehutt.buzz_movieselector.MovieViewActivity;
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
+import javathehutt.buzz_movieselector.model.DependencyContainer;
+import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
 
 
@@ -40,11 +38,12 @@ import javathehutt.buzz_movieselector.model.User;
  * Class using Volley in order to access Movie objects
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoesJSON implements RottenTomatoes {
+public class RottenTomatoesJSON implements MovieSource {
     private static RequestQueue queue;
     Context context;
     Intent ratingsIntent;
     private ArrayAdapter<Movie> adapter;
+    private DependencyContainer dc;
     User u;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
@@ -53,10 +52,11 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     public RottenTomatoesJSON(Context context) {
         adapter = DisplayMoviesActivity.getAdapter();
         this.context = context;
+        dc = new DependencyInjectionContainer(context);
         if (null == queue) {
             queue = Volley.newRequestQueue(context);
         }
-        u = new DatabaseHelper(context).lastLogIn();
+        u = dc.getDatabaseDep().lastLogIn();
     }
     /**
      * Method to call for new Movie Releases
@@ -163,7 +163,7 @@ public class RottenTomatoesJSON implements RottenTomatoes {
     }
 
     public void similarMovies(Movie m) {
-        String url = m.getUrl();
+        String url = m.getApiUrl();
         similarMovies(url);
 
     }
@@ -268,5 +268,13 @@ public class RottenTomatoesJSON implements RottenTomatoes {
             displayMovie(params[0]);
             Log.i("task", params[0].getName());
         }
+    }
+
+    /**
+     * Context accessor method
+     * @return Context used to create RTJSON
+     */
+    public Context getContext() {
+        return context;
     }
 }
