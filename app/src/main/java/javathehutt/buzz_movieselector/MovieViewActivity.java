@@ -33,8 +33,8 @@ public class MovieViewActivity extends Activity {
         title.setText(m.getName());
         movieInfo = (TextView) findViewById(R.id.MovieInfo);
         movieInfo.setText("1. " + m.getYear() + "\n" + "2." + m.getCriticsRating() + "\n" + "3."
-                + m.getCriticsScore() + "\n" + "4." + m.getGenre() + "\n" + "5." + m.getSynopsis()
-                + "\n" + "6." + m.getUrl());
+                + m.getCriticsScore() + "\n" + "\n" + "4." + m.getSynopsis()
+                + "\n" + "5." + m.getUrl());
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         manager = new MovieMapRatingManager();
         ratingBar.setRating(manager.getRating(m));
