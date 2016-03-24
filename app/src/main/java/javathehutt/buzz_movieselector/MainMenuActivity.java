@@ -50,6 +50,7 @@ public class MainMenuActivity extends Activity {
      */
     public void logOutClick(View v) {
         u.logout();
+        FacebookFragment.clear();
 
         Context context = getApplicationContext();
         CharSequence text = "Successfully Logged Out!";

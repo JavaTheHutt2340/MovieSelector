@@ -156,11 +156,20 @@ public class Movie implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Getter Method for alternate URL
+     *  URL that goes to actual rotten tomatoes website
+     * @return String
      */
     public String getAltUrl() {
         return altUrl;
+    }
+
+    /**
+     * Setter method for alternate URL
+     * @param altUrl
+     */
+    public void setAltUrl(String altUrl) {
+        this.altUrl = altUrl;
     }
     @Override
     public String toString() {

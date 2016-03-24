@@ -45,7 +45,7 @@ public class FacebookFragment extends Fragment {
     private CallbackManager callbackManager;
     private LoginButton button;
     private DependencyContainer dc;
-
+    private static AccessToken at;
     private OnFragmentInteractionListener mListener;
 
     public FacebookFragment() {
@@ -73,6 +73,14 @@ public class FacebookFragment extends Fragment {
         callbackManager = dc.getCallbackManagDep();
     }
 
+    public static AccessToken getAt() {
+        return at;
+    }
+
+    public static void clear() {
+        at = null;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -91,6 +99,7 @@ public class FacebookFragment extends Fragment {
             public void onSuccess(LoginResult loginResult) {
                 Log.e("FACEBOOK","ONSUCCESS");
                 final AccessToken accessToken = loginResult.getAccessToken();
+                at = accessToken;
                 Log.d("AccessToken", accessToken.toString());
                 GraphRequest request = GraphRequest.newMeRequest(
                         accessToken,

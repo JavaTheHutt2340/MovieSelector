@@ -231,7 +231,9 @@ public class RottenTomatoesJSON implements MovieSource {
                                 int critics_score = rating.optInt("critics_score");
                                 String genre = resp.optString("genres");
                                 String url = resp.getJSONObject("links").getString("self");
+                                String altUrl = resp.getJSONObject("links").getString("alternate");
                                 Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, url, genre);
+                                m.setAltUrl(altUrl);
                                 if (params[3].equals("true")) {
                                     publishProgress(m);
                                 }
