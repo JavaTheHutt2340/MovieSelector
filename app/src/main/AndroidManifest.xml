@@ -3,7 +3,9 @@
     package="javathehutt.buzz_movieselector">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <provider android:authorities="com.facebook.app.FacebookContentProvider1244273668920806"
+        android:name="com.facebook.FacebookContentProvider"
+        android:exported="true"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

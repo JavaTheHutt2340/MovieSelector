@@ -2,6 +2,7 @@ package javathehutt.buzz_movieselector;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.media.MediaBrowserCompat;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
@@ -25,6 +29,7 @@ public class MovieViewActivity extends Activity {
     private Movie m;
     private TextView title;
     private TextView movieInfo;
+    private ShareButton share;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,8 +45,24 @@ public class MovieViewActivity extends Activity {
         movieInfo = (TextView) findViewById(R.id.MovieInfo);
         movieInfo.setText("1. " + m.getYear() + "\n" + "2." + m.getCriticsRating() + "\n" + "3."
                 + m.getCriticsScore() + "\n" + "\n" + "4." + m.getSynopsis()
-                + "\n" + "5." + m.getApiUrl());
+                + "\n" + "5." + m.getAltUrl());
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+
+        //share button
+        share = (ShareButton) findViewById(R.id.shareButton);
+        share.setEnabled(FacebookFragment.getAt() != null);
+        share.setVisibility(FacebookFragment.getAt() != null ? View.VISIBLE : View.GONE);
+        if (m.getAltUrl() != null) {
+            ShareLinkContent content = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse(m.getAltUrl()))
+                    .build();
+            share.setShareContent(content);
+        } else {
+            share.setEnabled(false);
+            share.setVisibility(View.GONE);
+        }
+
+
         manager = new MovieMapRatingManager();
         ratingBar.setRating(manager.getRating(m));
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
