@@ -49,7 +49,7 @@ public class RegisterActivity extends Activity {
         return etConfirmPassword.getText().toString().equals(etPassword.getText().toString())
                 && etUsername.getText().toString().trim().length() > 0
                 && etPassword.getText().toString().length() > 0
-                && etUsername.getText().toString().indexOf(" ") != -1;
+                && !etPassword.getText().toString().contains(" ");
     }
 
     /**
@@ -57,7 +57,7 @@ public class RegisterActivity extends Activity {
      * @return true if password allowed
      */
     private boolean validPassword(){
-        return etPassword.getText().toString().indexOf(" ") == -1;
+        return !etPassword.getText().toString().contains(" ");
     }
     /**
      * Represents onClick for register button.
