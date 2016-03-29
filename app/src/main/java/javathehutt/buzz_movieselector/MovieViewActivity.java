@@ -2,6 +2,7 @@ package javathehutt.buzz_movieselector;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.media.MediaBrowserCompat;
 import android.os.Bundle;
@@ -24,20 +25,24 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 public class MovieViewActivity extends Activity {
 
     private RatingBar ratingBar;
-    private MovieRatingManager manager;
+    //private MovieRatingManager manager;
     private DependencyContainer dc;
     private Movie m;
     private TextView title;
     private TextView movieInfo;
     private ShareButton share;
+    private SharedPreferences sharedPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dc = new DependencyInjectionContainer(this);
         setContentView(R.layout.activity_movie_view);
+
+        sharedPref = this.getPreferences(MODE_PRIVATE);
+
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        manager = dc.getMovieRatingDep();
+        //manager = dc.getMovieRatingDep();
         Bundle bundle = getIntent().getExtras();
         m = (Movie) bundle.getSerializable("object");
         title = (TextView) findViewById(R.id.Title);
@@ -62,9 +67,11 @@ public class MovieViewActivity extends Activity {
             share.setVisibility(View.GONE);
         }
 
+        float rating = sharedPref.getFloat(m.getApiUrl(), 0);
 
-        manager = new MovieMapRatingManager();
-        ratingBar.setRating(manager.getRating(m));
+        //manager = new MovieMapRatingManager();
+        //ratingBar.setRating(manager.getRating(m));
+        ratingBar.setRating(rating);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
@@ -79,7 +86,11 @@ public class MovieViewActivity extends Activity {
      * @param v
      */
     public void ratingButtonClick (View v) {
-        manager.addRatedMovie(m, ratingBar.getRating());
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putFloat(m.getApiUrl(), ratingBar.getRating());
+        editor.commit();
+
+        //manager.addRatedMovie(m, ratingBar.getRating());
         finish();
     }
 
