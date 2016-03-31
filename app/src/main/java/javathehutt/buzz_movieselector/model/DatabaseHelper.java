@@ -107,7 +107,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "select * from " + TABLE_NAME + " where username like \'" + username + "\'";
         Cursor cursor = db.rawQuery(query , null);
         if(cursor.moveToFirst()) {
-            Log.i("login", "login = " + cursor.getString(7) + " | " + cursor.getString(8));
             if (password.equals(cursor.getString(2)) && cursor.getString(7).equals("false")
                     && cursor.getString(8).equals("false") && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED) {
                 currentUser = new RegUser(username, password);
@@ -163,7 +162,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME, null, values);
         db.close();
-        Log.i("login", "adding user");
     }
 
     /**
@@ -197,7 +195,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public User lastLogIn() {
         return currentUser;
-    }
+    } //TODO change to get current user
 
     /**
      * tells if a specific username is valid
@@ -211,8 +209,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getReadableDatabase();
         String query = "select username from " + TABLE_NAME + " where username like \'" + u + "\'";
         Cursor cursor = db.rawQuery(query, null);
-        System.out.println(cursor.getCount() > 0);
-
         return cursor.getCount() > 0;
     }
 
@@ -238,7 +234,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if(cursor.getString(8).equals("true")) {
                 tempUser.lock();
             }
-            //Log.i("login", tempUser.getBanStatus() + " " + tempUser.getUsername());
             list.add(tempUser);
             cursor.moveToNext();
         }

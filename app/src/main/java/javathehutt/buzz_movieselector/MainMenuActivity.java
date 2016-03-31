@@ -73,12 +73,6 @@ public class MainMenuActivity extends Activity {
         startActivity(i);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("test", "mainMenuClosed closed");
-    }
-
     public void userListClick(View v){
         Intent i = new Intent(this, UserListActivity.class);
         startActivity(i);

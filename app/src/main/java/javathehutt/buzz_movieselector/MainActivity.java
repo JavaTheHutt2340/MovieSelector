@@ -26,10 +26,9 @@ import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.FacebookUser;
 
-public class MainActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
+public class MainActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener {
     CallbackManager callbackManager;
     DependencyContainer dc;
-    //LoginButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +90,6 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
 
     @Override
     public void onFragmentInteraction(Uri urit) {
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("test", "MainActivity closed");
     }
 }
 
