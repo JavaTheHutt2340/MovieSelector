@@ -56,9 +56,9 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
                 Context context = getApplicationContext();
                 CharSequence text = "Invalid Password!";
                 if (value == 2) {
-                    text = "this account is banned";
+                    text = "This account is banned!";
                 } else if (value == 3) {
-                    text = "this account is locked";
+                    text = "This account is locked!";
                 }
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);

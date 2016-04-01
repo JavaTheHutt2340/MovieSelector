@@ -49,9 +49,6 @@ public class DependencyInjectionContainer implements DependencyContainer {
 
     @Override
     public CallbackManager getCallbackManagDep() {
-        if (cb == null) {
-            cb = CallbackManager.Factory.create();
-        }
-        return cb;
+        return CallbackManager.Factory.create();
     }
 }
