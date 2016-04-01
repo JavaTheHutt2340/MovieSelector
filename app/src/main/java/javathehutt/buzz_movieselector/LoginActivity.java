@@ -53,7 +53,6 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
                 startActivity(intent);
                 finish();
             } else {
-                //Log.i("login", "password =" + etPassword.getText().toString() + "end");
                 Context context = getApplicationContext();
                 CharSequence text = "Invalid Password!";
                 if (value == 2) {
@@ -95,11 +94,5 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
             startActivity(intent);
             callbackManager.onActivityResult(requestCode, resultCode, intent);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("test", "LoginActivity closed");
     }
 }
