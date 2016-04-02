@@ -19,7 +19,8 @@ import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 public class LoginActivity extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
     private CallbackManager callbackManager;
-    private EditText etUsername, etPassword;
+    private EditText etUsername;
+    private EditText etPassword;
     private DependencyContainer dc;
     private DatabaseHelper helper;
 
@@ -57,9 +58,9 @@ public class LoginActivity extends FragmentActivity
                 Context context = getApplicationContext();
                 CharSequence text = "Invalid Password!";
                 if (value == 2) {
-                    text = "this account is banned";
+                    text = "This account is banned!";
                 } else if (value == 3) {
-                    text = "this account is locked";
+                    text = "This account is locked!";
                 }
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);

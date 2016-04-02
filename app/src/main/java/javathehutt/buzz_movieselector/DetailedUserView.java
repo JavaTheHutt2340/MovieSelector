@@ -12,10 +12,11 @@ import javathehutt.buzz_movieselector.model.RegUser;
 
 public class DetailedUserView extends Activity {
 
-    RegUser u;
-    Button banButton, lockButton;
-    DatabaseHelper db;
-    DependencyContainer dc;
+    private RegUser u;
+    private Button banButton;
+    private Button lockButton;
+    private DatabaseHelper db;
+    private DependencyContainer dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class DetailedUserView extends Activity {
 
     /**
      * Method to allow admin to lock a specific user
-     * @param view
+     * @param view the view
      */
     public void lockButtonClick(View view) {
         if (u.getLockStatus()) {
@@ -57,7 +58,7 @@ public class DetailedUserView extends Activity {
 
     /**
      * Method to ban a specific user
-     * @param view
+     * @param view the view
      */
     public void banButtonClick(View view) {
         if (u.getBanStatus()) {

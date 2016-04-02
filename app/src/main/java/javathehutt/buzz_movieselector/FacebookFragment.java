@@ -46,6 +46,9 @@ public class FacebookFragment extends Fragment {
     private static AccessToken at;
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * constructor for facebook fragment
+     */
     public FacebookFragment() {
         // Required empty public constructor
     }
@@ -71,10 +74,17 @@ public class FacebookFragment extends Fragment {
         callbackManager = dc.getCallbackManagDep();
     }
 
+    /**
+     * gets the accessToken
+     * @return at the access token
+     */
     public static AccessToken getAt() {
         return at;
     }
 
+    /**
+     * clears the access token
+     */
     public static void clear() {
         at = null;
     }
@@ -92,14 +102,16 @@ public class FacebookFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_facebook, container, false);
         button = (LoginButton) v.findViewById(R.id.login_button);
         button.setReadPermissions("public_profile", "email", "user_friends");
-        button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.e("FACEBOOK","ONSUCCESS");
-                final AccessToken accessToken = loginResult.getAccessToken();
-                at = accessToken;
-                Log.d("AccessToken", accessToken.toString());
-                GraphRequest request = GraphRequest.newMeRequest(
+        button.registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    Log.e("FACEBOOK", "ONSUCCESS");
+                    final AccessToken accessToken = loginResult
+                            .getAccessToken();
+                    at = accessToken;
+                    Log.d("AccessToken", accessToken.toString());
+                    GraphRequest request = GraphRequest.newMeRequest(
                         accessToken,
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
@@ -113,36 +125,41 @@ public class FacebookFragment extends Fragment {
                                     String id = object.getString("id");
                                     Log.d("AccessToken", name);
                                     Log.d("AccessToken", id);
-                                    RegUser u = new FacebookUser(name, id, accessToken);
-                                    DatabaseHelper db = new DatabaseHelper(getContext());
+                                    RegUser u = new FacebookUser(name, id,
+                                            accessToken);
+                                    DatabaseHelper db = new
+                                            DatabaseHelper(getContext());
                                     db.addUser(u);
                                     db.handleLogInRequest(name, id);
-                                    startActivity(new Intent(getContext() ,MainMenuActivity.class));
+                                    startActivity(new Intent(getContext(),
+                                            MainMenuActivity.class));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
                             }
                         });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,link");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id,name,link");
+                    request.setParameters(parameters);
+                    request.executeAsync();
+                }
 
-            @Override
-            public void onCancel() {
-                Toast.makeText(getContext(), "Log In Cancelled!", Toast.LENGTH_SHORT).show();
-                Log.i("D", "Facebook login cancelled.");
-            }
+                @Override
+                public void onCancel() {
+                    Toast.makeText(getContext(), "Log In Cancelled!",
+                            Toast.LENGTH_SHORT).show();
+                    Log.i("D", "Facebook login cancelled.");
+                }
 
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(getContext(), "Log In Error!", Toast.LENGTH_SHORT).show();
-                Log.e("D", "Facebook login cancelled.");
-                Log.e("D", error.toString());
-            }
-        });
+                @Override
+                public void onError(FacebookException error) {
+                    Toast.makeText(getContext(), "Log In Error!",
+                            Toast.LENGTH_SHORT).show();
+                    Log.e("D", "Facebook login cancelled.");
+                    Log.e("D", error.toString());
+                }
+            });
         button.setFragment(this);
 
         return v;
@@ -174,11 +191,17 @@ public class FacebookFragment extends Fragment {
      * activity.
      * <p/>
      * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * "http://developer.android.com/training/basics/fragments/communicating
+     * .html"
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // todo: Update argument type and name
+
+        /**
+         * runs upon interaction with a fragment
+         * @param uri the uri
+         */
         void onFragmentInteraction(Uri uri);
     }
 }

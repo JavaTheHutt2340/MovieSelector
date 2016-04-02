@@ -26,13 +26,14 @@ import javathehutt.buzz_movieselector.movie.MovieSource;
  */
 public class DisplayMoviesActivity extends Activity {
 
-    static ListView displayMoviesView;
-    private static ArrayAdapter<javathehutt.buzz_movieselector.movie.Movie> movieAdapter;
-    private MovieSource RTJSON;
+    private static ListView displayMoviesView;
+    private static ArrayAdapter<javathehutt
+            .buzz_movieselector.movie.Movie> movieAdapter;
+    private MovieSource rtjson;
     private int state;
     private DependencyContainer dc;
     private DatabaseHelper db;
-    User u;
+    private User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,71 +42,36 @@ public class DisplayMoviesActivity extends Activity {
         db = dc.getDatabaseDep();
         setContentView(R.layout.activity_display_movies);
         displayMoviesView = (ListView) findViewById(R.id.displayMoviesView);
-        movieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+        movieAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
                 new ArrayList<javathehutt.buzz_movieselector.movie.Movie>());
         displayMoviesView.setAdapter(movieAdapter);
         String searchText = (getIntent().getStringExtra("text"));
         this.registerReceiver(new Receiver(), new IntentFilter("test"));
-        RTJSON = dc.getRottenTomDep();
+        rtjson = dc.getRottenTomDep();
         Bundle bundle = getIntent().getExtras();
         state = bundle.getInt("key");
         u = db.lastLogIn();
-        switch(state) {
-            case 1:
-                RTJSON.newDVDReleases(12, 1, false);
-                break;
-            case 2:
-                RTJSON.searchMovieByName(searchText, 12, 1);
-                break;
-            case 3:
-                RTJSON.newMovieReleases(12, 1);
-                break;
-            case 4:
-                RTJSON.newDVDReleases(12, 1, true);
-                break;
+        switch (state) {
+        case 1:
+            rtjson.newDVDReleases(12, 1, false);
+            break;
+        case 2:
+            rtjson.searchMovieByName(searchText, 12, 1);
+            break;
+        case 3:
+            rtjson.newMovieReleases(12, 1);
+            break;
+        case 4:
+            rtjson.newDVDReleases(12, 1, true);
+            break;
+        default:
+            break;
         }
 
     }
 
-    private class Receiver extends BroadcastReceiver {
-        private int count = 2;
-        private final int totalNumber = 12;
-        private final int increment = 12;
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.i("test2", "message received " + state);
-            if (state == 4) {
-                Log.i("test2", "called");
-                for (int i = 0; i < movieAdapter.getCount(); i++) {
-                    if (!movieAdapter.getItem(i).containsGenre(u.getFavoriteGenre())) {
-                        movieAdapter.remove(movieAdapter.getItem(i));
-                    }
-                }
-            }
-            if (movieAdapter.getCount() < totalNumber && count < 100) { //TODO REMEMBER TO UNCOMMENT ABOVE
-                Log.i("test2", "count" + movieAdapter.getCount());
-                switch(state) {
-                    case 1:
-                        RTJSON.newDVDReleases(increment, count++, false);
-                        break;
-                    case 2:
-                        String searchText = (getIntent().getStringExtra("text"));//TODO INFINITE LOOP ISSUES HERE
-                        RTJSON.searchMovieByName(searchText, increment, count++);
-                        break;
-                    case 3:
-                        RTJSON.newMovieReleases(increment, count++);
-                        break;
-                    case 4:
-                        if (movieAdapter.getCount() < 6) {
-                            RTJSON.newDVDReleases(increment, count++, true);
-                        }
-                        break;
-                }
-            }
-        }
-    }
-
-    /*
+    /**
      * gets the context
      * @return the Context
      */
@@ -113,11 +79,15 @@ public class DisplayMoviesActivity extends Activity {
         return this;
     }
 
+    /**
+     * returns the array adapter
+     * @return ArrayAdapter
+     */
     public static ArrayAdapter getAdapter() {
         return movieAdapter;
     }
 
-    /*
+    /**
      * gets the list view
      * @return displayMovieListView
      */
@@ -130,9 +100,44 @@ public class DisplayMoviesActivity extends Activity {
         finish();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("test", "DisplayMoviesActivity closed");
+    private class Receiver extends BroadcastReceiver {
+        private int count = 2;
+        private final int totalNumber = 12;
+        private final int increment = 12;
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (state == 4) {
+                Log.i("test2", "called");
+                for (int i = 0; i < movieAdapter.getCount(); i++) {
+                    if (!movieAdapter.getItem(i).containsGenre(u
+                            .getFavoriteGenre())) {
+                        movieAdapter.remove(movieAdapter.getItem(i));
+                    }
+                }
+            }
+            if (movieAdapter.getCount() < totalNumber && count < 100) {
+                Log.i("test2", "count" + movieAdapter.getCount());
+                switch (state) {
+                case 1:
+                    rtjson.newDVDReleases(increment, count++, false);
+                    break;
+                case 2:
+                    String searchText = (getIntent().getStringExtra("text"));
+                    rtjson.searchMovieByName(searchText, increment, count++);
+                    break;
+                case 3:
+                    rtjson.newMovieReleases(increment, count++);
+                    break;
+                case 4:
+                    if (movieAdapter.getCount() < 6) {
+                        rtjson.newDVDReleases(increment, count++, true);
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
     }
 }

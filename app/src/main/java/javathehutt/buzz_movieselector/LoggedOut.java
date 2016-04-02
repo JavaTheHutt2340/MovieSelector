@@ -19,10 +19,11 @@ import com.facebook.FacebookSdk;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 
-public class LoggedOut extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener{
+public class LoggedOut extends FragmentActivity
+        implements FacebookFragment.OnFragmentInteractionListener {
     /**
      * creates and sets the screen
-     * @param savedInstanceState
+     * @param savedInstanceState saved state
      */
     private CallbackManager callbackManager;
     private DependencyContainer dc;
