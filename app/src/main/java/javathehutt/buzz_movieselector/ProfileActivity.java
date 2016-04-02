@@ -2,7 +2,6 @@ package javathehutt.buzz_movieselector;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -32,8 +31,9 @@ public class ProfileActivity extends Activity {
     private DependencyContainer dc;
 
     /**
-     * creates the activity, sets screen, and sets values in TextViews based on User attributes
-     * @param savedInstanceState
+     * creates the activity, sets screen, and
+     * sets values in TextViews based on User attributes
+     * @param savedInstanceState saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +55,19 @@ public class ProfileActivity extends Activity {
         major.setText(u.getMajor());
 
         Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                new ArrayList<>(Arrays.asList(javathehutt.buzz_movieselector.model.User.getGenres())));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                new ArrayList<>(Arrays.asList(javathehutt
+                        .buzz_movieselector.model.User.getGenres())));
         genreSpinner.setAdapter(adapter);
         genreSpinner.setSelection(u.getFavoriteGenreNum());
     }
 
     /**
-     * onClick method for the Update Profile button. Sets attributes in the User based on Strings
-     * currently in the EditText widgets. Then closes virtual keyboard and transfers focus to a
+     * onClick method for the Update Profile button.
+     * Sets attributes in the User based on Strings
+     * currently in the EditText widgets. Then
+     * closes virtual keyboard and transfers focus to a
      * a dummy widget
      * @param v view
      */
@@ -82,12 +86,15 @@ public class ProfileActivity extends Activity {
 
         helper.updateUser(u);
 
-        //transfer focus to the dummy element to prevent cursor from going to EditText
-        LinearLayout focusHolder = (LinearLayout)findViewById(R.id.focusHolder);
+        //transfer focus to the dummy element
+        // to prevent cursor from going to EditText
+        LinearLayout focusHolder =
+                (LinearLayout) findViewById(R.id.focusHolder);
         focusHolder.requestFocus();
 
         //hide the keyboard
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager)
+                this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         View view = this.getCurrentFocus();
         if (view == null) {
             view = new View(this);
@@ -110,11 +117,5 @@ public class ProfileActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("test", "profile activity closed");
     }
 }

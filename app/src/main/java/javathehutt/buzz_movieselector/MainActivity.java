@@ -13,22 +13,18 @@ import android.view.View;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.widget.LoginButton;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
-import javathehutt.buzz_movieselector.model.FacebookUser;
 
-public class MainActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener {
-    CallbackManager callbackManager;
-    DependencyContainer dc;
+public class MainActivity extends FragmentActivity
+        implements FacebookFragment.OnFragmentInteractionListener {
+    private CallbackManager callbackManager;
+    private DependencyContainer dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +41,16 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++"
+                        + Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++" + e.toString());
+            Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++"
+                    + e.toString());
 
         } catch (NoSuchAlgorithmException e) {
-            Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++" + e.toString());
+            Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++"
+                    + e.toString());
         }
     }
 
@@ -70,7 +69,7 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
     /**
      * Method called when User
      *  wishes to register new account
-     * @param v
+     * @param v the view
      */
     public void registerButtonClick(View v) {
         Intent register = new Intent(this, RegisterActivity.class);
@@ -81,7 +80,7 @@ public class MainActivity extends FragmentActivity implements FacebookFragment.O
 
     /**
      * Method to allow user to login
-     * @param v
+     * @param v the view
      */
     public void loginButtonClick(View v) {
         Intent login = new Intent(this, LoginActivity.class);

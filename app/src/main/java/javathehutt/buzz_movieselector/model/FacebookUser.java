@@ -1,7 +1,6 @@
 package javathehutt.buzz_movieselector.model;
 
 import com.facebook.AccessToken;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
 /**

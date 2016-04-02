@@ -1,8 +1,7 @@
 package javathehutt.buzz_movieselector;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,7 +9,6 @@ import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.RegUser;
-import javathehutt.buzz_movieselector.model.User;
 
 public class DetailedUserView extends Activity {
 

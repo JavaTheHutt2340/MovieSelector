@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
@@ -16,7 +15,6 @@ import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
-import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MovieSearchActivity extends Activity {
 
@@ -35,7 +33,7 @@ public class MovieSearchActivity extends Activity {
     }
 
 
-    /*
+    /**
     * creates the starts the Display Movie activity
     * @param v the view
      */
@@ -47,7 +45,7 @@ public class MovieSearchActivity extends Activity {
         startActivity(i);
     }
 
-    /*
+    /**
     * creates the starts the Display Movie activity
     * @param v the view
      */
@@ -70,7 +68,7 @@ public class MovieSearchActivity extends Activity {
 
     }
 
-    /*
+    /**
     * creates the starts the Display Movie activity
     * @param v the view
      */
@@ -82,6 +80,10 @@ public class MovieSearchActivity extends Activity {
         startActivity(i);
     }
 
+    /**
+     * onclick for recommend button
+     * @param v the view
+     */
     public void recommendClick(View v) {
         Intent i = new Intent(this, DisplayMoviesActivity.class);
         Bundle bundle = new Bundle();

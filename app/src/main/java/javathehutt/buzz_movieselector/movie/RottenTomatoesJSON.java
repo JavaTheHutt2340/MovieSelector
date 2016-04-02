@@ -28,7 +28,6 @@ import java.util.List;
 
 import javathehutt.buzz_movieselector.DisplayMoviesActivity;
 import javathehutt.buzz_movieselector.MovieViewActivity;
-import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;

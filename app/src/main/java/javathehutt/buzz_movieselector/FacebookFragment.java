@@ -18,7 +18,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -28,7 +27,6 @@ import org.json.JSONObject;
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
-
 import javathehutt.buzz_movieselector.model.FacebookUser;
 import javathehutt.buzz_movieselector.model.RegUser;
 
