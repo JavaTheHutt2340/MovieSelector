@@ -8,8 +8,8 @@ import android.content.Context;
  */
 
 public interface MovieSource {
-    public final String KEY = "yedukp76ffytfuy24zsqk7f5";
-    public final String URL = "http://api.rottentomatoes."
+    String KEY = "yedukp76ffytfuy24zsqk7f5";
+    String URL = "http://api.rottentomatoes."
             + "com/api/public/v1.0/movies.json?apikey=";
     /**
      * Method to send a list of Movies from a name search to an Intent

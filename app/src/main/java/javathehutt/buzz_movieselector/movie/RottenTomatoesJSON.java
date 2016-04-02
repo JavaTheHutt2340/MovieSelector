@@ -37,7 +37,7 @@ import javathehutt.buzz_movieselector.model.User;
  * Class using Volley in order to access Movie objects
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoesJSOn implements MovieSource {
+public class RottenTomatoesJSON implements MovieSource {
     private static RequestQueue queue;
     private Context context;
     private Intent ratingsIntent;
@@ -45,10 +45,10 @@ public class RottenTomatoesJSOn implements MovieSource {
     private DependencyContainer dc;
     private User u;
     /**
-     * Constructor for a RottenTomatoesJSOn interfacer
+     * Constructor for a RottenTomatoesJSON interfacer
      * @param context the context
      */
-    public RottenTomatoesJSOn(Context context) {
+    public RottenTomatoesJSON(Context context) {
         adapter = DisplayMoviesActivity.getAdapter();
         this.context = context;
         dc = new DependencyInjectionContainer(context);
