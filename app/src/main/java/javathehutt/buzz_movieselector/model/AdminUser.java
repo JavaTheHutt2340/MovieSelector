@@ -4,12 +4,17 @@ package javathehutt.buzz_movieselector.model;
  * Created by JasonGibson on 2/2/16.
  */
 public class AdminUser extends User {
+    /**
+     * admin user constructor
+     * @param username username
+     * @param password password
+     */
     public AdminUser(String username, String password) {
         super(username, password);
     }
 
 
-    /*
+    /**
     * returns if the account is locked
     * @return boolean true if the account is locked
      */
@@ -18,9 +23,9 @@ public class AdminUser extends User {
         return false;
     }
 
-    /*
+    /**
     * unlocks a RegUser
-    * @param the user to be unlocked
+    * @param user to be unlocked
      */
     public void unlockAccount(RegUser user) {
         if (user.getLockStatus()) {
@@ -30,9 +35,9 @@ public class AdminUser extends User {
         }
     }
 
-    /*
+    /**
     * locks the given account
-    * @param the user to be banned
+    * @param user to be banned
      */
     public void lockAccount(RegUser user) {
         if (!user.getLockStatus()) {

@@ -16,7 +16,7 @@ import com.facebook.share.widget.ShareButton;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.movie.Movie;
-import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
+import javathehutt.buzz_movieselector.movie.RottenTomatoesJSOn;
 
 public class MovieViewActivity extends Activity {
 
@@ -100,7 +100,7 @@ public class MovieViewActivity extends Activity {
      * @param v the view
      */
     public void similarMovies(View v) {
-        new RottenTomatoesJSON(getApplicationContext()).similarMovies(m);
+        new RottenTomatoesJSOn(getApplicationContext()).similarMovies(m);
         finish();
     }
 

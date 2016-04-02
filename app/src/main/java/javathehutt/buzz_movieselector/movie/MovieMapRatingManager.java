@@ -9,6 +9,9 @@ import java.util.Map;
 public class MovieMapRatingManager implements MovieRatingManager {
     private static Map<Movie, Float> ratingMap;
 
+    /**
+     * constructor for class
+     */
     public MovieMapRatingManager() {
         if (ratingMap == null) {
             ratingMap = new HashMap<>();
@@ -18,15 +21,17 @@ public class MovieMapRatingManager implements MovieRatingManager {
     @Override
     public void addRatedMovie(Movie s, float rating) {
         if (s == null) {
-            throw new IllegalArgumentException("cannot add a null value to the map");
+            throw new IllegalArgumentException("can"
+                    + "not add a null value to the map");
         }
         ratingMap.put(s, rating);
     }
 
     @Override
-    public float getRating (Movie s) {
+    public float getRating(Movie s) {
         if (s == null) {
-            throw new IllegalArgumentException("cannot get a rating from a null string");
+            throw new IllegalArgumentException("cannot get a "
+                    + "rating from a null string");
         }
         Float rating = ratingMap.get(s);
         return rating == null ? 0.0f : rating;

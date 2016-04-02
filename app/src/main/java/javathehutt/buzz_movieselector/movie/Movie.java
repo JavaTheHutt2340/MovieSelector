@@ -1,5 +1,4 @@
 package javathehutt.buzz_movieselector.movie;
-import android.util.Log;
 
 import java.io.Serializable;
 /**
@@ -21,8 +20,11 @@ public class Movie implements Serializable {
      * @param criticsRating representing whether movie is Rotten or otherwise
      * @param criticsScore representing numerical grade 0 - 100
      * @param synopsis String summary
+     * @param genre the genre of the movie
+     * @param url the url for the movie
      */
-    public Movie(String name, int year, String criticsRating, int criticsScore, String synopsis, String url, String genre) {
+    public Movie(String name, int year, String criticsRating,
+                 int criticsScore, String synopsis, String url, String genre) {
         this.name = name;
         this.year = year;
         this.criticsRating = criticsRating;
@@ -32,6 +34,9 @@ public class Movie implements Serializable {
         setGenre(genre);
     }
 
+    /**
+     * movie constructor
+     */
     public Movie() {
         this(null, 0, null, 0, null, null, null);
     }
@@ -44,6 +49,10 @@ public class Movie implements Serializable {
         return name;
     }
 
+    /**
+     * gets the name of the movie
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -56,7 +65,7 @@ public class Movie implements Serializable {
         return year;
     }
 
-    /*
+    /**
      * Accessor method to get the genre of Movie
      * @return String representing genre of Movie
      */
@@ -64,12 +73,12 @@ public class Movie implements Serializable {
         return genre;
     }
 
-    /*
+    /**
      * method to handle genre input from JSON
       * @param s the list of genres
      */
     public void setGenre(String s) {
-        s = s.replaceAll("\"","");
+        s = s.replaceAll("\"", "");
         s = s.substring(1, s.length() - 1);
         genre = s.split(",");
     }
@@ -81,7 +90,6 @@ public class Movie implements Serializable {
      */
     public boolean containsGenre(String s) {
         for (int i = 0; i < genre.length; i++) {
-            Log.i("genre", name + " " + genre[i] + " bool " + s.equalsIgnoreCase(genre[i]));
             if (s.equalsIgnoreCase(genre[i])) {
                 return true;
             }
@@ -94,7 +102,7 @@ public class Movie implements Serializable {
      * @return String representing fresh, rotten, or in between movie
      */
     public String getCriticsRating() {
-        if(criticsRating.trim().length() == 0) {
+        if (criticsRating.trim().length() == 0) {
             return "No rating yet";
         }
         return criticsRating;
@@ -113,8 +121,9 @@ public class Movie implements Serializable {
      * @return String 0 - 100 or "No rating yet" string
      */
     public String getCriticsScore() {
-        if (criticsScore != -1)
+        if (criticsScore != -1) {
             return "" + criticsScore;
+        }
         return "No rating yet";
     }
 
@@ -123,8 +132,9 @@ public class Movie implements Serializable {
      * @return String of movie summary
      */
     public String getSynopsis() {
-        if (synopsis != null && synopsis.length() != 0)
+        if (synopsis != null && synopsis.length() != 0) {
             return synopsis;
+        }
         return "No synopsis";
     }
 
@@ -166,15 +176,16 @@ public class Movie implements Serializable {
 
     /**
      * Setter method for alternate URL
-     * @param altUrl
+     * @param altUrl the alt url for the movie
      */
     public void setAltUrl(String altUrl) {
         this.altUrl = altUrl;
     }
+
     @Override
     public String toString() {
-        return "Title: " + getName() + "\nYear: " + getYear()  + "\nRating: " + getCriticsRating()
-                + " Critics Score: " + getCriticsScore() + "\nSynopsis: " + getSynopsis() + "\n";
-        //TODO overhaul this to make it limited and then click to give rest of info
+        return "Title: " + getName() + "\nYear: " + getYear()
+                + "\nRating: " + getCriticsRating()
+                + " Critics Score: " + getCriticsScore();
     }
 }

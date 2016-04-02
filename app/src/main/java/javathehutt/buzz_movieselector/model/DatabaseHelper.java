@@ -27,22 +27,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ATTEMPTS = "numAttempts";
     private static final String COLUMN_BAN = "ban";
     private static final String COLUMN_LOCKED = "locked";
-    private static final String TABLE_CREATE = "CREATE TABLE IF NOT EXISTS " +
-            TABLE_NAME + " (" +
-            KEY_ID          + " integer not null primary key autoincrement , " +
-            COLUMN_USERNAME + " text not null , " +
-            COLUMN_PASSWORD + " text not null , " +
-            COLUMN_NAME     + " text not null , " +
-            COLUMN_GENRE    + " int not null , " +
-            COLUMN_LOCATION + " text not null , " +
-            COLUMN_MAJOR    + " text not null, " +
-            COLUMN_BAN      + " text not null, " +
-            COLUMN_LOCKED   + " text not null, " +
-            COLUMN_ATTEMPTS + " int not null );"; //9
+    private static final String TABLE_CREATE = "CREATE TABLE IF NOT EXISTS "
+            + TABLE_NAME + " ("
+            + KEY_ID          + " integer not null primary key autoincrement , "
+            + COLUMN_USERNAME + " text not null , "
+            + COLUMN_PASSWORD + " text not null , "
+            + COLUMN_NAME     + " text not null , "
+            + COLUMN_GENRE    + " int not null , "
+            + COLUMN_LOCATION + " text not null , "
+            + COLUMN_MAJOR    + " text not null, "
+            + COLUMN_BAN      + " text not null, "
+            + COLUMN_LOCKED   + " text not null, "
+            + COLUMN_ATTEMPTS + " int not null );";
     private static User currentUser;
     private Context c;
 
-    static SQLiteDatabase db;
+    private static SQLiteDatabase db;
 
     /**
      * Constructor
@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Method to call when program is created
-     * @param db
+     * @param db the database
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -65,27 +65,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Method for when database is to be upgraded
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db the database
+     * @param oldVersion old version number
+     * @param newVersion new version number
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String query = "DROP TABLE IF EXISTS "+TABLE_NAME;
+        String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
         db.execSQL(query);
         this.onCreate(db);
     }
 
     /**
      * Tests to see if the user is locked
-     * @param u
-     * @return
+     * @param u the user to be checked
+     * @return true if the user is locked
      */
     public boolean userLocked(User u) {
         db = this.getReadableDatabase();
-        String query = "select * from " + TABLE_NAME + " where username like \'" + u.getUsername() + "\'";
-        Cursor cursor = db.rawQuery(query , null);
-        if(cursor.moveToFirst()) {
+        String query = "select * from " + TABLE_NAME
+                + " where username like \'" + u.getUsername() + "\'";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
             return cursor.getInt(6) >= 3;
         }
         return false;
@@ -93,8 +94,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Logs a user into database
-     * @param username
-     * @param password
+     * @param username the username
+     * @param password the password
      * @return true if successful
      */
     public int handleLogInRequest(String username, String password) {
@@ -103,11 +104,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return 0;
         }
         db = this.getReadableDatabase();
-        String query = "select * from " + TABLE_NAME + " where username like \'" + username + "\'";
-        Cursor cursor = db.rawQuery(query , null);
-        if(cursor.moveToFirst()) {
-            if (password.equals(cursor.getString(2)) && cursor.getString(7).equals("false")
-                    && cursor.getString(8).equals("false") && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED) {
+        String query = "select * from " + TABLE_NAME
+                + " where username like \'" + username + "\'";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            if (password.equals(cursor.getString(2)) && cursor
+                    .getString(7).equals("false")
+                    && cursor.getString(8).equals("false")
+                    && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED) {
                 currentUser = new RegUser(username, password);
                 currentUser.setRealName(cursor.getString(3));
                 currentUser.setFavoriteGenre(cursor.getInt(4));
@@ -117,18 +121,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_ATTEMPTS, 0);
-                db.update(TABLE_NAME, values, "username like \'" + username + "\'", null);
+                db.update(TABLE_NAME, values, "username like \'"
+                        + username + "\'", null);
                 cursor.close();
                 return 0;
             } else {
                 db = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_ATTEMPTS, cursor.getInt(9) + 1);
-                if (cursor.getString(8).equals("false") && cursor.getInt(9) >= RegUser.ATTEMPTS_ALLOWED) {
+                if (cursor.getString(8).equals("false") && cursor
+                        .getInt(9) >= RegUser.ATTEMPTS_ALLOWED) {
                     values.put(COLUMN_LOCKED, "true");
                 }
-                db.update(TABLE_NAME, values, "username like \'" + username + "\'", null);
-                if(cursor.getString(7).equals("true")){
+                db.update(TABLE_NAME, values, "username like \'"
+                        + username + "\'", null);
+                if (cursor.getString(7).equals("true")) {
                     return 2;
                 } else if (cursor.getString(8).equals("true")) {
                     return 3;
@@ -141,7 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * A way to add a user into the database
-     * @param u
+     * @param u the user to be added
      */
     public void addUser(User u) {
         currentUser = u;
@@ -165,7 +172,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * A method to update the information of a user
-     * @param u
+     * @param u the user to be updated
      */
     public void updateUser(User u) {
         db = this.getWritableDatabase();
@@ -184,7 +191,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
 
-        db.update(TABLE_NAME, values, "username like \'" + u.getUsername() + "\'", null);
+        db.update(TABLE_NAME, values, "username like \'"
+                + u.getUsername() + "\'", null);
         db.close();
     }
 
@@ -194,19 +202,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public User lastLogIn() {
         return currentUser;
-    } //TODO change to get current user
+    }
 
     /**
      * tells if a specific username is valid
-     * @param u
-     * @return
+     * @param u the username
+     * @return true if the user is in the system
      */
     public boolean isInSystem(String u) {
         if (u.equals("admin")) {
             return true;
         }
         db = this.getReadableDatabase();
-        String query = "select username from " + TABLE_NAME + " where username like \'" + u + "\'";
+        String query = "select username from " + TABLE_NAME
+                + " where username like \'" + u + "\'";
         Cursor cursor = db.rawQuery(query, null);
         return cursor.getCount() > 0;
     }
@@ -215,22 +224,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * returns a list of all users
      * @return List of users
      */
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
         db = this.getReadableDatabase();
         String query = "select * from " + TABLE_NAME;
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
-            RegUser tempUser = new RegUser(cursor.getString(1), cursor.getString(2));
+        while (!cursor.isAfterLast()) {
+            RegUser tempUser = new RegUser(cursor
+                    .getString(1), cursor.getString(2));
             tempUser.setRealName(cursor.getString(3));
             tempUser.setFavoriteGenre(cursor.getInt(4));
             tempUser.setLocation(cursor.getString(5));
             tempUser.setMajor(cursor.getString(6));
-            if(cursor.getString(7).equals("true")) {
+            if (cursor.getString(7).equals("true")) {
                 tempUser.ban();
             }
-            if(cursor.getString(8).equals("true")) {
+            if (cursor.getString(8).equals("true")) {
                 tempUser.lock();
             }
             list.add(tempUser);
@@ -239,6 +249,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * returns the context
+     * @return the context
+     */
     public Context getContext() {
         return c;
     }

@@ -13,13 +13,16 @@ public abstract class User implements Serializable {
     private String major;
     private boolean loggedIn;
     private int favoriteGenre;
-    private static String[] genres = {"Action & Adventure", "Animation", "Art House & International",
-            "Classics", "Comedy", "Drama", "Horror", "Kids & Family", "Mystery & Suspense", "Romance", "Science Fiction & Fantasy",
-            "Documentary", "Musical & Performing Arts", "Special Interest", "Sports & Fitness", "Television", "Western"};
+    private static String[] genres = {"Action & Adventure",
+        "Animation", "Art House & International",
+        "Classics", "Comedy", "Drama", "Horror", "Kids & Family",
+        "Mystery & Suspense", "Romance", "Science Fiction & Fantasy",
+        "Documentary", "Musical & Performing Arts", "Special Interest",
+        "Sports & Fitness", "Television", "Western"};
 
 
 
-    /*
+    /**
     * @param username the users username
     * @param password the users password
      */
@@ -32,7 +35,7 @@ public abstract class User implements Serializable {
         this.major = "";
         loggedIn = false;
     }
-    /*
+    /**
     * used to tell if the user is an admin user
     * @return true if the user is an admin user
      */
@@ -40,7 +43,7 @@ public abstract class User implements Serializable {
         return this instanceof AdminUser;
     }
 
-    /*
+    /**
     * returns the genres of the user
     * @return String[] genres
      */
@@ -48,58 +51,76 @@ public abstract class User implements Serializable {
         return genres;
     }
 
+    /**
+     * returns the favorite genre
+     * @return integer representign the genre
+     */
     public int getFavoriteGenreNum() {
         return favoriteGenre;
     }
 
-    /*
+    /**
     * sets the users logged in status to false
      */
     public void logout() {
         loggedIn = false;
     }
 
-    /*
+    /**
     * returns true if the account is locked
     * @return boolean true if the account is locked
      */
     public abstract boolean getLockStatus();
 
-    /*
+    /**
     * returns the username
-    * @param String the username the users username
+    * @return username the username the users username
      */
-    public String getUsername() { return username; }
-    /*
+    public String getUsername() {
+        return username;
+    }
+
+    /**
     * returns the password
-    * @param String the password the users password
+    * @return password the password the users password
      */
-    public String getPassword() { return password; }
-    /*
+    public String getPassword() {
+        return password;
+    }
+
+    /**
     * return the real name of the user
     * @return String realName the users realName
      */
-    public String getRealName() { return realName; }
+    public String getRealName() {
+        return realName;
+    }
 
-    /*
+    /**
     * returns the location of the user
     * @return String the location of the user
      */
-    public String getLocation() { return location; }
+    public String getLocation() {
+        return location;
+    }
 
-    /*
+    /**
     * return the users favorite genre
     * @return String the users favorite genre
      */
-    public String getFavoriteGenre() { return genres[favoriteGenre]; }
+    public String getFavoriteGenre() {
+        return genres[favoriteGenre];
+    }
 
-    /*
+    /**
     * return the users major
     * @return String the users major
      */
-    public String getMajor() { return major; }
+    public String getMajor() {
+        return major;
+    }
 
-    /*
+    /**
      * sets the realName of the User
      * @param s the new realName
      */
@@ -107,7 +128,7 @@ public abstract class User implements Serializable {
         realName = s;
     }
 
-    /*
+    /**
      * sets the location of the User
      * @param s the new location
      */
@@ -115,15 +136,15 @@ public abstract class User implements Serializable {
         location = s;
     }
 
-    /*
+    /**
      * sets the favoriteGenre of the User
-     * @param s the new favoriteGenre
+     * @param i the new favoriteGenre
      */
     public void setFavoriteGenre(int i) {
         favoriteGenre = i;
     }
 
-    /*
+    /**
      * sets the major of the User
      * @param s the new major
      */
@@ -131,18 +152,26 @@ public abstract class User implements Serializable {
         major = s;
     }
 
-    /*
-    * returns the number of login attempts for this user
+    /**
+     * returns the number of login attempts for this user
+     * @return login attempts
      */
     protected int getLogAttempts() {
         return 0;
     }
 
-    protected void setFailedAttempts(int num) {};
+    /**
+     * set the failed attempts number
+     * @param num the number to set attempts to
+     */
+    protected void setFailedAttempts(int num) {
 
-    /*
+    }
+
+    /**
         * determines if the login is valid
         * @param password the
+        * @return true if logged in
          */
     public boolean logIn(String password) {
         boolean result = this.password.equals(password);
@@ -157,7 +186,7 @@ public abstract class User implements Serializable {
     public boolean isLoggedIn() {
         return loggedIn;
     }
-    /*
+    /**
     * determines if the two objects are equal
     * @param o the other object ot compare
     * @return boolean true if the objects are equal
@@ -175,7 +204,7 @@ public abstract class User implements Serializable {
                 && password.equalsIgnoreCase(other.password);
     }
 
-    /*
+    /**
     * returns the hashcode of the User
     * @return int the hashCode
      */
