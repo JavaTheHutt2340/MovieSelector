@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -107,11 +106,5 @@ public class MovieViewActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("test", "MovieViewActivity closed");
     }
 }

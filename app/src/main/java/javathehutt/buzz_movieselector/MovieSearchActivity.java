@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -101,11 +100,5 @@ public class MovieSearchActivity extends Activity {
     public void onResume() {
         super.onResume();
         searchBar.setQuery("", false);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("test", "MovieSearchActivity closed");
     }
 }

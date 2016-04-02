@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.facebook.CallbackManager;
@@ -66,11 +65,5 @@ public class LoggedOut extends FragmentActivity
             startActivity(intent);
             callbackManager.onActivityResult(requestCode, resultCode, intent);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("test", "loggedOut closed");
     }
 }
