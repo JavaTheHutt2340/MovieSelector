@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -108,7 +107,6 @@ public class DisplayMoviesActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (state == 4) {
-                Log.i("test2", "called");
                 for (int i = 0; i < movieAdapter.getCount(); i++) {
                     if (!movieAdapter.getItem(i).containsGenre(u
                             .getFavoriteGenre())) {
@@ -117,7 +115,6 @@ public class DisplayMoviesActivity extends Activity {
                 }
             }
             if (movieAdapter.getCount() < totalNumber && count < 100) {
-                Log.i("test2", "count" + movieAdapter.getCount());
                 switch (state) {
                 case 1:
                     rtjson.newDVDReleases(increment, count++, false);

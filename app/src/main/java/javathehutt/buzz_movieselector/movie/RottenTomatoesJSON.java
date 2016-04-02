@@ -131,7 +131,6 @@ public class RottenTomatoesJSOn implements MovieSource {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject resp) {
-                        Log.i("test", "rest response received");
                         JSONArray array = null;
                         try {
                             array = resp.getJSONArray("movies");
@@ -218,7 +217,6 @@ public class RottenTomatoesJSOn implements MovieSource {
         protected Void doInBackground(final String... params) {
             final Long l = Long.valueOf(params[1]) * 75;
             try {
-                Log.i("task", params[1]);
                 if (params[1] != null) {
                     Thread.sleep(l);
                 }
@@ -269,13 +267,12 @@ public class RottenTomatoesJSOn implements MovieSource {
                                 Intent i = new Intent();
                                 i.setAction("test");
                                 context.sendBroadcast(i);
-                                Log.i("test2", "message broadcast");
                             }
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.i("volley", "failure");
+                            Log.d("volley", "failure");
                         }
                     });
             queue.add(jsObjRequest);
@@ -285,7 +282,6 @@ public class RottenTomatoesJSOn implements MovieSource {
         @Override
         protected void onProgressUpdate(Movie... params) {
             displayMovie(params[0]);
-            Log.i("task", params[0].getName());
         }
     }
 }
