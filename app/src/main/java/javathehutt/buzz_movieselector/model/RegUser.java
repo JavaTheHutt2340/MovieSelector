@@ -3,13 +3,13 @@ package javathehutt.buzz_movieselector.model;
 /**
  * Created by JasonGibson on 2/2/16.
  */
-public class RegUser extends User{
+public class RegUser extends User {
     private boolean locked;
     private boolean banned;
     private int failedAttempts;
     public static final int ATTEMPTS_ALLOWED = 5;
 
-    /*
+    /**
     * constructor for the User class
     * @param username the users username
     * @param password the users password
@@ -21,7 +21,7 @@ public class RegUser extends User{
         banned = false;
     }
 
-    /*
+    /**
     * used to determined if the account is locked
     * @return locked true if the user is locked false otherwise
      */
@@ -36,31 +36,31 @@ public class RegUser extends User{
     }
 
     @Override
-    protected int getLogAttempts(){
+    protected int getLogAttempts() {
         return failedAttempts;
     }
-    /*
+    /**
     * locks the user
      */
     public void lock() {
         locked = true;
     }
 
-    /*
+    /**
     * unlocks the user account
      */
     public void unlock() {
         locked = false;
     }
 
-    /*
+    /**
     * sets the user account to banned
      */
     public void ban() {
         banned = true;
     }
 
-    /*
+    /**
     * returns true if the user is banned
     * @return boolean is banned
      */
@@ -68,18 +68,17 @@ public class RegUser extends User{
         return banned;
     }
 
-    /*
+    /**
     * sets the user account to be unbanned
      */
     public void unBan() {
         banned = false;
     }
 
-    /*
-    * @param password the password the person is using to login
-    * @return true if the password matches the stored password
+    /**
+    * @return true if the user is locked
      */
-    public boolean isLocked(){
+    public boolean isLocked() {
         return locked;
     }
 
@@ -99,6 +98,7 @@ public class RegUser extends User{
 
     @Override
     public String toString() {
-        return getUsername() + ": " + getPassword() + "\nlock status: " + locked + "\nban status: " + banned;
+        return getUsername() + ": " + getPassword() + "\nlock status: "
+                + locked + "\nban status: " + banned;
     }
 }

@@ -37,18 +37,18 @@ import javathehutt.buzz_movieselector.model.User;
  * Class using Volley in order to access Movie objects
  * Created by Mohammed on 2/16/2016.
  */
-public class RottenTomatoesJSON implements MovieSource {
+public class RottenTomatoesJSOn implements MovieSource {
     private static RequestQueue queue;
-    Context context;
-    Intent ratingsIntent;
+    private Context context;
+    private Intent ratingsIntent;
     private ArrayAdapter<Movie> adapter;
     private DependencyContainer dc;
-    User u;
+    private User u;
     /**
-     * Constructor for a RottenTomatoesJSON interfacer
-     * @param context
+     * Constructor for a RottenTomatoesJSOn interfacer
+     * @param context the context
      */
-    public RottenTomatoesJSON(Context context) {
+    public RottenTomatoesJSOn(Context context) {
         adapter = DisplayMoviesActivity.getAdapter();
         this.context = context;
         dc = new DependencyInjectionContainer(context);
@@ -65,7 +65,8 @@ public class RottenTomatoesJSON implements MovieSource {
     @Override
     public void newMovieReleases(int limit, int page) {
         String url =
-                "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey="
+                "http://api.rottentomatoes.com/api/public/v1."
+                        + "0/lists/movies/opening.json?apikey="
                         + KEY + "&limit=" + limit + "&page=" + page;
         passOnMoviesList(url, false);
     }
@@ -77,7 +78,8 @@ public class RottenTomatoesJSON implements MovieSource {
     @Override
     public void newDVDReleases(int limit, int page, boolean b) {
         String url =
-                "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?apikey="
+                "http://api.rottentomatoes.com/api/public"
+                        + "/v1.0/lists/dvds/new_releases.json?apikey="
                         + KEY + "&page_limit=" + limit + "&page=" + page;
         passOnMoviesList(url, b);
     }
@@ -94,14 +96,19 @@ public class RottenTomatoesJSON implements MovieSource {
         }
         String[] nameParts = name.split(" ");
         name = "";
-        for(int i = 0; i < nameParts.length - 1; i++) {
+        for (int i = 0; i < nameParts.length - 1; i++) {
             name += nameParts[i] + "%20";
         }
         name += nameParts[nameParts.length - 1];
-        String url = URL + KEY +"&q=" + name + "&page_limit=" + limit  + "&page=" + page;
+        String url = URL + KEY + "&q=" + name + "&page_limit="
+                + limit  + "&page=" + page;
         passOnMoviesList(url, false);
     }
 
+    /**
+     * gets a similar movie
+     * @param url the url to search
+     */
     public void similarMovies(String url) {
         url = url.substring(0, url.indexOf(".json")); // remove .json
         url += "/similar.json?apikey=" + KEY; //create the correct URL
@@ -110,34 +117,30 @@ public class RottenTomatoesJSON implements MovieSource {
         passOnMoviesList(url, true, true);
     }
 
-        /**
-         * Sets on Volley queue JsonObjectRequest to retrieve movie information
-         *  if information is obtained, create Movie list, and pass on to displayMovies
-         * @param url specific String URL based on specific movie to view
-         */
+    /**
+     * Sets on Volley queue JsonObjectRequest to retrieve movie information
+     *  if information is obtained, create Movie list
+     *  , and pass on to displayMovies
+     * @param url specific String URL based on specific movie to view
+     * @param filter the filer
+     */
     private void passOnMoviesList(String url, final boolean ... filter) {
         final boolean f = filter.length >= 1 ? false : filter[1];
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+                Request.Method.GET, url, "",
+                new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject resp) {
-                        //context.registerReceiver(new Receiver(), new IntentFilter("test2"));
                         Log.i("test", "rest response received");
-                        //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
                         JSONArray array = null;
                         try {
-                            //Log.i("test", resp.getString("movies") + "");
                             array = resp.getJSONArray("movies");
-                           // Log.i("test", array. + "");
                         } catch (JSONException e) {
-                            //Log.i("test", "fail");
                             e.printStackTrace();
                         }
-                        //From that object, we extract the array of actual data labeled result
                         List<String> list = new ArrayList<>();
                         for (int i = 0; i < array.length(); i++) {
                             try {
-                                //for each array element, we have to create an object
                                 JSONObject jsonObject = array.getJSONObject(i);
                                 assert jsonObject != null;
                                 list.add(jsonObject.optString("id"));
@@ -148,8 +151,8 @@ public class RottenTomatoesJSON implements MovieSource {
                         }
                         for (int i = 0; i < list.size(); i++) {
                             Task task = new Task();
-                            task.execute(list.get(i), i + "", filter[0] ? "true" : "false"
-                                    , f ? "true" : "false");
+                            task.execute(list.get(i), i + "", filter[0] ? "true"
+                                    : "false", f ? "true" : "false");
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -161,6 +164,10 @@ public class RottenTomatoesJSON implements MovieSource {
         queue.add(jsObjRequest);
     }
 
+    /**
+     * gets a similar movie
+     * @param m Movie
+     */
     public void similarMovies(Movie m) {
         String url = m.getApiUrl();
         similarMovies(url);
@@ -172,7 +179,7 @@ public class RottenTomatoesJSON implements MovieSource {
      *  with new movies to display
      * @param movie a Movie to display
      */
-    private void displayMovie(Movie movie) {;
+    private void displayMovie(Movie movie) {
         adapter.add(movie);
         adapter.sort(new Comparator<Movie>() {
             @Override
@@ -191,12 +198,19 @@ public class RottenTomatoesJSON implements MovieSource {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("object", adapter.getItem(pos));
                 ratingsIntent.putExtras(bundle);
-                ratingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // added this because it starts activity outside of class
+                ratingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(ratingsIntent);
             }
         });
     }
 
+    /**
+     * Context accessor method
+     * @return Context used to create RTJSON
+     */
+    public Context getContext() {
+        return context;
+    }
 
     private class Task extends AsyncTask<String, Movie, Void> {
 
@@ -211,27 +225,31 @@ public class RottenTomatoesJSON implements MovieSource {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            String url = "http://api.rottentomatoes.com/api/public/v1.0/movies/" + params[0] + ".json?apikey=" + KEY;
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
+            String url = "http://api.rottentomatoes.com/api/public"
+                    + "/v1.0/movies/" + params[0] + ".json?apikey=" + KEY;
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+                    Request.Method.GET, url, "", new Response
+                    .Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject resp) {
-                            //Log.i("test2", "rest response received for individual movie");
-                            //Now we parse the information.  Looking at the format, everything encapsulated in RestResponse object
-                            //From that object, we extract the array of actual data labeled result
                             try {
-                                //for each array element, we have to create an object
                                 assert resp != null;
                                 String title = resp.optString("title");
                                 int year = resp.optInt("year");
                                 String synopsis = resp.optString("synopsis");
-                                JSONObject rating = resp.getJSONObject("ratings");
-                                String critics_rating = rating.optString("critics_rating");
-                                int critics_score = rating.optInt("critics_score");
+                                JSONObject rating = resp
+                                        .getJSONObject("ratings");
+                                String criticsRating = rating
+                                        .optString("critics_rating");
+                                int criticsScore = rating
+                                        .optInt("critics_score");
                                 String genre = resp.optString("genres");
-                                String url = resp.getJSONObject("links").getString("self");
-                                String altUrl = resp.getJSONObject("links").getString("alternate");
-                                Movie m = new Movie(title, year, critics_rating, critics_score, synopsis, url, genre);
+                                String url = resp.getJSONObject("links")
+                                        .getString("self");
+                                String altUrl = resp.getJSONObject("links")
+                                        .getString("alternate");
+                                Movie m = new Movie(title, year, criticsRating,
+                                        criticsScore, synopsis, url, genre);
                                 m.setAltUrl(altUrl);
                                 if (params[3].equals("true")) {
                                     publishProgress(m);
@@ -247,7 +265,7 @@ public class RottenTomatoesJSON implements MovieSource {
                                 Log.d("volley", "Failed to get JSON object");
                                 e.printStackTrace();
                             }
-                            if(l.equals(Long.valueOf("11") * 75)) {
+                            if (l.equals(Long.valueOf("11") * 75)) {
                                 Intent i = new Intent();
                                 i.setAction("test");
                                 context.sendBroadcast(i);
@@ -269,13 +287,5 @@ public class RottenTomatoesJSON implements MovieSource {
             displayMovie(params[0]);
             Log.i("task", params[0].getName());
         }
-    }
-
-    /**
-     * Context accessor method
-     * @return Context used to create RTJSON
-     */
-    public Context getContext() {
-        return context;
     }
 }
