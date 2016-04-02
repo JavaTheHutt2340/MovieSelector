@@ -22,7 +22,6 @@ import javathehutt.buzz_movieselector.model.User;
  * Java controller for Profile screen
  * @author Frank Marzen
  * @version 1.0
- * @date 02/15/16
  */
 public class ProfileActivity extends Activity {
 

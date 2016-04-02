@@ -22,7 +22,6 @@ public class LoggedOut extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
     /**
      * creates and sets the screen
-     * @param savedInstanceState saved state
      */
     private CallbackManager callbackManager;
     private DependencyContainer dc;

@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
-        this.db = db;
+        DatabaseHelper.db = db;
     }
 
     /**
@@ -86,10 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "select * from " + TABLE_NAME
                 + " where username like \'" + u.getUsername() + "\'";
         Cursor cursor = db.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            return cursor.getInt(6) >= 3;
-        }
-        return false;
+        return cursor.moveToFirst() && cursor.getInt(6) >= 3;
     }
 
     /**
