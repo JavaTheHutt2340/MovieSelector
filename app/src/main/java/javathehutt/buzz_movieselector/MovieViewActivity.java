@@ -1,10 +1,8 @@
 package javathehutt.buzz_movieselector;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.v4.media.MediaBrowserCompat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +16,6 @@ import com.facebook.share.widget.ShareButton;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.movie.Movie;
-import javathehutt.buzz_movieselector.movie.MovieMapRatingManager;
-import javathehutt.buzz_movieselector.movie.MovieRatingManager;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MovieViewActivity extends Activity {
@@ -48,7 +44,8 @@ public class MovieViewActivity extends Activity {
         title = (TextView) findViewById(R.id.Title);
         title.setText(m.getName());
         movieInfo = (TextView) findViewById(R.id.MovieInfo);
-        movieInfo.setText("1. " + m.getYear() + "\n" + "2." + m.getCriticsRating() + "\n" + "3."
+        movieInfo.setText("1. " + m.getYear() + "\n" + "2."
+                + m.getCriticsRating() + "\n" + "3."
                 + m.getCriticsScore() + "\n" + "\n" + "4." + m.getSynopsis()
                 + "\n" + "5." + m.getAltUrl());
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
@@ -56,7 +53,8 @@ public class MovieViewActivity extends Activity {
         //share button
         share = (ShareButton) findViewById(R.id.shareButton);
         share.setEnabled(FacebookFragment.getAt() != null);
-        share.setVisibility(FacebookFragment.getAt() != null ? View.VISIBLE : View.GONE);
+        share.setVisibility(FacebookFragment.getAt()
+                != null ? View.VISIBLE : View.GONE);
         if (m.getAltUrl() != null) {
             ShareLinkContent content = new ShareLinkContent.Builder()
                     .setContentUrl(Uri.parse(m.getAltUrl()))
@@ -72,20 +70,23 @@ public class MovieViewActivity extends Activity {
         //manager = new MovieMapRatingManager();
         //ratingBar.setRating(manager.getRating(m));
         ratingBar.setRating(rating);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        ratingBar.setOnRatingBarChangeListener(new RatingBar
+                .OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                Toast.makeText(getApplicationContext(), "Your Selected Ratings  : "
-                        + String.valueOf(rating), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Your Selected Ratings  : "
+                        + String.valueOf(rating), Toast
+                                .LENGTH_SHORT).show();
             }
         });
     }
 
     /**
      * Method for when rating a movie is done
-     * @param v
+     * @param v the view
      */
-    public void ratingButtonClick (View v) {
+    public void ratingButtonClick(View v) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putFloat(m.getApiUrl(), ratingBar.getRating());
         editor.commit();
@@ -96,9 +97,9 @@ public class MovieViewActivity extends Activity {
 
     /**
      * Method for when looking up similar movies
-     * @param v
+     * @param v the view
      */
-    public void similarMovies (View v) {
+    public void similarMovies(View v) {
         new RottenTomatoesJSON(getApplicationContext()).similarMovies(m);
         finish();
     }

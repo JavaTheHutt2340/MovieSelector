@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -36,7 +35,7 @@ public class MainMenuActivity extends Activity {
     /**
      * method for button to open profile
      *  from MainMenu
-     * @param v
+     * @param v the view
      */
     public void openProfileClick(View v) {
         Intent intent = new Intent(this, ProfileActivity.class);
@@ -46,7 +45,7 @@ public class MainMenuActivity extends Activity {
     /**
      * method for button to logOut
      *  from MainMenu
-     * @param v
+     * @param v the view
      */
     public void logOutClick(View v) {
         u.logout();
@@ -64,16 +63,20 @@ public class MainMenuActivity extends Activity {
         finish();
     }
 
-    /*
+    /**
     * method for onClick for search movie
     * @param v the view
      */
-    public void searchMovies(View v){
+    public void searchMovies(View v) {
         Intent i = new Intent(this, MovieSearchActivity.class);
         startActivity(i);
     }
 
-    public void userListClick(View v){
+    /**
+     * on click for user list button
+     * @param v the view
+     */
+    public void userListClick(View v) {
         Intent i = new Intent(this, UserListActivity.class);
         startActivity(i);
     }

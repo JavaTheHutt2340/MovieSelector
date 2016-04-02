@@ -22,13 +22,15 @@ import javathehutt.buzz_movieselector.model.RegUser;
  */
 public class RegisterActivity extends Activity {
 
-    private EditText etUsername, etPassword, etConfirmPassword;
+    private EditText etUsername;
+    private EditText etPassword;
+    private EditText etConfirmPassword;
     private DependencyContainer dc;
     private DatabaseHelper helper;
 
     /**
      * Initializes the RegisterActivity class
-     * @param savedInstanceState Used so that you don't lose the activity when you back out of it
+     * @param savedInstanceState stores saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +40,17 @@ public class RegisterActivity extends Activity {
         helper = dc.getDatabaseDep();
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
+        etConfirmPassword = (EditText)
+                findViewById(R.id.etConfirmPassword);
     }
 
     /**
      * Checks if fields are valid when entering register information.
      * @return true if fields are valid or false if not.
      */
-    private boolean validFields(){
-        return etConfirmPassword.getText().toString().equals(etPassword.getText().toString())
+    private boolean validFields() {
+        return etConfirmPassword.getText().toString()
+                .equals(etPassword.getText().toString())
                 && etUsername.getText().toString().trim().length() > 0
                 && etPassword.getText().toString().length() > 0
                 && !etPassword.getText().toString().contains(" ");
@@ -56,8 +60,9 @@ public class RegisterActivity extends Activity {
      * ensures password contains no space characters
      * @return true if password allowed
      */
-    private boolean validPassword(){
-        return !etPassword.getText().toString().contains(" ");
+    private boolean validPassword() {
+        return !etPassword
+                .getText().toString().contains(" ");
     }
     /**
      * Represents onClick for register button.
@@ -75,18 +80,19 @@ public class RegisterActivity extends Activity {
                 CharSequence text = "Password cannot contain spaces.";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-            } else if (validFields()){
-                RegUser user = new RegUser(etUsername.getText().toString().trim(), etPassword.getText().toString());
+            } else if (validFields()) {
+                RegUser user = new RegUser(etUsername.getText()
+                        .toString().trim(), etPassword.getText()
+                        .toString());
                 helper.addUser(user);
                 CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                //System.out.println(helper.handleLogInRequest(user.getUsername(), etPassword.getText().toString()));
-                Log.i("login", helper.isInSystem(etUsername.getText().toString().trim()) + "");
                 Intent intent = new Intent(this, MainMenuActivity.class);
                 startActivity(intent);
                 finish();
-            } else if(!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
+            } else if (!etPassword.getText().toString()
+                    .equals(etConfirmPassword.getText().toString())) {
                 CharSequence text = "Passwords don't match.";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,9 +16,11 @@ import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 
-public class LoginActivity extends FragmentActivity implements FacebookFragment.OnFragmentInteractionListener {
+public class LoginActivity extends FragmentActivity
+        implements FacebookFragment.OnFragmentInteractionListener {
     private CallbackManager callbackManager;
-    private EditText etUsername, etPassword;
+    private EditText etUsername;
+    private EditText etPassword;
     private DependencyContainer dc;
     private DatabaseHelper helper;
 
@@ -38,11 +39,12 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
 
     /**
      * Method called when User attempts to login
-     * @param v
+     * @param v the view
      */
     public void userLoginButtonClick(View v) {
         if (helper.isInSystem(etUsername.getText().toString().toLowerCase())) {
-            int value = helper.handleLogInRequest(etUsername.getText().toString().toLowerCase(), etPassword.getText().toString());
+            int value = helper.handleLogInRequest(etUsername.getText()
+                    .toString().toLowerCase(), etPassword.getText().toString());
             if (value == 0) {
                 Context context = getApplicationContext();
                 CharSequence text = "Log In Successful!";
@@ -76,7 +78,7 @@ public class LoginActivity extends FragmentActivity implements FacebookFragment.
     /**
      * Method called when user no
      * longer wishes to log in
-     * @param v
+     * @param v the view
      */
     public void cancelButtonClick(View v) {
         finish();
