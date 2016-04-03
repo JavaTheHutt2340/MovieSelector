@@ -24,17 +24,24 @@ configurations.all {
     resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
 }
 
-task pmd (type: Pmd, dependsOn: assembleDebug) {
+task pmd(type: Pmd) {
+    ruleSetFiles = files("${project.rootDir}/config/quality/pmd/pmd-ruleset.xml")
+    ignoreFailures = false
+    ruleSets = []
 
-    description 'Run pmd'
-    group 'verification'
-
-    ruleSets = ["basic", "braces", "strings", "design", "unusedcode"]
-    source = fileTree('src/main/java')
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
 
     reports {
         xml.enabled = false
         html.enabled = true
+        xml {
+            destination "$project.buildDir/reports/pmd/pmd.xml"
+        }
+        html {
+            destination "$project.buildDir/reports/pmd/pmd.html"
+        }
     }
 }
 

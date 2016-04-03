@@ -1,26 +1,19 @@
 package javathehutt.buzz_movieselector;
 
 import android.app.Application;
-import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ApplicationTestCase;
-import android.util.Log;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.RegUser;
-import javathehutt.buzz_movieselector.model.User;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

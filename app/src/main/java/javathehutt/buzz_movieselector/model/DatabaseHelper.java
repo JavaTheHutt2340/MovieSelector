@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,19 +77,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Tests to see if the user is locked
-     * @param u the user to be checked
-     * @return true if the user is locked
-     */
-    public boolean userLocked(User u) {
-        db = this.getReadableDatabase();
-        String query = "select * from " + TABLE_NAME
-                + " where username like \'" + u.getUsername() + "\'";
-        Cursor cursor = db.rawQuery(query, null);
-        return cursor.moveToFirst() && cursor.getInt(6) >= 3;
-    }
-
-    /**
      * Logs a user into database
      * @param username the username
      * @param password the password
@@ -133,8 +119,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
                 db.update(TABLE_NAME, values, "username like \'"
                         + username + "\'", null);
-                Log.i("unittest", "banned = " + cursor.getString(7));
-                Log.i("unittest", "locked = " + cursor.getString(8));
                 if (cursor.getString(7).equals("true")) {
                     return 2;
                 } else if (cursor.getString(8).equals("true")) {
@@ -182,15 +166,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_LOCATION, u.getLocation());
         values.put(COLUMN_MAJOR, u.getMajor());
         if (u instanceof RegUser) {
-            Log.i("unittest", "reg user");
             RegUser temp = (RegUser) u;
             values.put(COLUMN_BAN, temp.getBanStatus() ? "true" : "false");
             values.put(COLUMN_LOCKED, temp.getLockStatus() ? "true" : "false");
             if (!temp.getLockStatus()) {
                 values.put(COLUMN_ATTEMPTS, 0);
             }
-            Log.i("unittest", "update banned = " + temp.getBanStatus());
-            Log.i("unittest", "update locked = " + temp.getLockStatus());
         }
 
         db.update(TABLE_NAME, values, "username like \'"
@@ -219,7 +200,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "select username from " + TABLE_NAME
                 + " where username like \'" + u + "\'";
         Cursor cursor = db.rawQuery(query, null);
-        return cursor.getCount() > 0;
+        int temp = cursor.getCount();
+        cursor.close();
+        return temp > 0;
     }
 
     /**
@@ -248,6 +231,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             list.add(tempUser);
             cursor.moveToNext();
         }
+        cursor.close();
         return list;
     }
 

@@ -23,7 +23,6 @@ import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 
 public class MainActivity extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
-    private CallbackManager callbackManager;
     private DependencyContainer dc;
 
     @Override
@@ -31,7 +30,7 @@ public class MainActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         dc = new DependencyInjectionContainer(this);
-        callbackManager = dc.getCallbackManagDep();
+        CallbackManager callbackManager = dc.getCallbackManagDep();
         setContentView(R.layout.activity_welcome_screen);
         //This code will create Facebook hash for android development
         try {
