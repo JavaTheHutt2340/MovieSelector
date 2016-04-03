@@ -92,7 +92,16 @@ public class RottenTomatoesJSON implements MovieSource {
     @Override
     public void searchMovieByName(String name, int limit, int page) {
         if (name == null || name.length() == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Please give valid"
+                    + " name");
+        }
+        if (limit <= 0) {
+            throw new IllegalArgumentException("Limit should be"
+                    + " positive");
+        }
+        if (page <= 0) {
+            throw new IllegalArgumentException("Page number should"
+                    +" be positive");
         }
         String[] nameParts = name.split(" ");
         name = "";
