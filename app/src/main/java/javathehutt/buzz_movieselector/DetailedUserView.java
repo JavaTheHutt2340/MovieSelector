@@ -16,7 +16,6 @@ public class DetailedUserView extends Activity {
     private Button banButton;
     private Button lockButton;
     private DatabaseHelper db;
-    private DependencyContainer dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class DetailedUserView extends Activity {
         } else {
             banButton.setText("ban account");
         }
-        dc = new DependencyInjectionContainer(this);
+        DependencyContainer dc = new DependencyInjectionContainer(this);
         db = dc.getDatabaseDep();
     }
 

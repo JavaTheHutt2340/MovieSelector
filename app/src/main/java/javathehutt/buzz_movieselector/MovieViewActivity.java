@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 
@@ -21,7 +22,6 @@ public class MovieViewActivity extends Activity {
 
     private RatingBar ratingBar;
     //private MovieRatingManager manager;
-    private DependencyContainer dc;
     private Movie m;
     private TextView title;
     private TextView movieInfo;
@@ -31,7 +31,7 @@ public class MovieViewActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dc = new DependencyInjectionContainer(this);
+        DependencyContainer dc = new DependencyInjectionContainer(this);
         setContentView(R.layout.activity_movie_view);
 
         sharedPref = this.getPreferences(MODE_PRIVATE);
@@ -43,10 +43,9 @@ public class MovieViewActivity extends Activity {
         title = (TextView) findViewById(R.id.Title);
         title.setText(m.getName());
         movieInfo = (TextView) findViewById(R.id.MovieInfo);
-        movieInfo.setText("1. " + m.getYear() + "\n" + "2."
-                + m.getCriticsRating() + "\n" + "3."
-                + m.getCriticsScore() + "\n" + "\n" + "4." + m.getSynopsis()
-                + "\n" + "5." + m.getAltUrl());
+        movieInfo.setText(String.format("Year: %d\n\nCritics Rating: %s\n\n"
+                + "Critics Score: %s\n\nSynopsis: %s", m.getYear()
+                , m.getCriticsRating(), m.getCriticsScore(), m.getSynopsis()));
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         //share button
@@ -75,7 +74,7 @@ public class MovieViewActivity extends Activity {
                                         boolean fromUser) {
                 Toast.makeText(getApplicationContext(),
                         "Your Selected Ratings  : "
-                        + String.valueOf(rating), Toast
+                        + rating, Toast
                                 .LENGTH_SHORT).show();
             }
         });
@@ -88,7 +87,7 @@ public class MovieViewActivity extends Activity {
     public void ratingButtonClick(View v) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putFloat(m.getApiUrl(), ratingBar.getRating());
-        editor.commit();
+        editor.apply();
 
         //manager.addRatedMovie(m, ratingBar.getRating());
         finish();

@@ -30,15 +30,13 @@ public class DisplayMoviesActivity extends Activity {
             .buzz_movieselector.movie.Movie> movieAdapter;
     private MovieSource rtjson;
     private int state;
-    private DependencyContainer dc;
-    private DatabaseHelper db;
     private User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dc = new DependencyInjectionContainer(this);
-        db = dc.getDatabaseDep();
+        DependencyContainer dc = new DependencyInjectionContainer(this);
+        DatabaseHelper db = dc.getDatabaseDep();
         setContentView(R.layout.activity_display_movies);
         displayMoviesView = (ListView) findViewById(R.id.displayMoviesView);
         movieAdapter = new ArrayAdapter<>(this,
@@ -101,8 +99,8 @@ public class DisplayMoviesActivity extends Activity {
 
     private class Receiver extends BroadcastReceiver {
         private int count = 2;
-        private final int totalNumber = 12;
-        private final int increment = 12;
+        private static final int totalNumber = 12;
+        private static final int increment = 12;
 
         @Override
         public void onReceive(Context context, Intent intent) {

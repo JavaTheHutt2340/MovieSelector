@@ -14,7 +14,6 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
  */
 public class DependencyInjectionContainer implements DependencyContainer {
     private static MovieSource ms;
-    private static CallbackManager cb;
     private static MovieRatingManager mr;
     private static DatabaseHelper dh;
     private Context c;
