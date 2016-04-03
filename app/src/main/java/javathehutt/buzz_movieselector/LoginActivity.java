@@ -88,13 +88,4 @@ public class LoginActivity extends FragmentActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == 1) {
-            Intent intent = new Intent(this, MainMenuActivity.class);
-            startActivity(intent);
-            callbackManager.onActivityResult(requestCode, resultCode, intent);
-        }
-    }
 }
