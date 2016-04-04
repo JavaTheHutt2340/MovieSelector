@@ -13,13 +13,13 @@ public class FacebookUser extends RegUser {
     /**
      * creates a facebook user
      * @param name users name
-     * @param id users id
-     * @param at users access token
+     * @param userid users id
+     * @param atoken users access token
      */
-    public FacebookUser(String name, String id, AccessToken at) {
-        super(name, id);
-        this.id = id;
-        this.at = at;
+    public FacebookUser(String name, String userid, AccessToken atoken) {
+        super(name, userid);
+        this.id = userid;
+        this.at = atoken;
     }
 
 

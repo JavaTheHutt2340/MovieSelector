@@ -50,20 +50,20 @@ public class DisplayMoviesActivity extends Activity {
         state = bundle.getInt("key");
         u = db.lastLogIn();
         switch (state) {
-        case 1:
-            rtjson.newDVDReleases(12, 1, false);
-            break;
-        case 2:
-            rtjson.searchMovieByName(searchText, 12, 1);
-            break;
-        case 3:
-            rtjson.newMovieReleases(12, 1);
-            break;
-        case 4:
-            rtjson.newDVDReleases(12, 1, true);
-            break;
-        default:
-            break;
+            case 1:
+                rtjson.newDVDReleases(12, 1, false);
+                break;
+            case 2:
+                rtjson.searchMovieByName(searchText, 12, 1);
+                break;
+            case 3:
+                rtjson.newMovieReleases(12, 1);
+                break;
+            case 4:
+                rtjson.newDVDReleases(12, 1, true);
+                break;
+            default:
+                break;
         }
 
     }
@@ -103,7 +103,8 @@ public class DisplayMoviesActivity extends Activity {
         private static final int increment = 12;
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context,
+                              Intent intent) {
             if (state == 4) {
                 for (int i = 0; i < movieAdapter.getCount(); i++) {
                     if (!movieAdapter.getItem(i).containsGenre(u

@@ -23,14 +23,10 @@ public class LoggedOut extends FragmentActivity
     /**
      * creates and sets the screen
      */
-    private CallbackManager callbackManager;
-    private DependencyContainer dc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
-        dc = new DependencyInjectionContainer(getApplication());
-        callbackManager = dc.getCallbackManagDep();
         setContentView(R.layout.activity_logged_out);
     }
 
@@ -48,7 +44,7 @@ public class LoggedOut extends FragmentActivity
      * @param v current view
      */
     public void returnLogIn(View v) {
-        Intent intent = new Intent(this, LoginActivity.class);
+        final Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

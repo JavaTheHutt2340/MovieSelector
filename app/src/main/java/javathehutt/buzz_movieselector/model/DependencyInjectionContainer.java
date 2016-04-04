@@ -22,8 +22,8 @@ public class DependencyInjectionContainer implements DependencyContainer {
      * constructor
      * @param c the context
      */
-    public DependencyInjectionContainer(Context c) {
-        this.c = c;
+    public DependencyInjectionContainer(Context context) {
+        this.c = context;
     }
 
     @Override

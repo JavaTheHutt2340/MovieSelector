@@ -40,18 +40,16 @@ import javathehutt.buzz_movieselector.model.User;
 public class RottenTomatoesJSON implements MovieSource {
     private static RequestQueue queue;
     private Context context;
-    private Intent ratingsIntent;
     private ArrayAdapter<Movie> adapter;
-    private DependencyContainer dc;
     private User u;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
-     * @param context the context
+     * @param c the context
      */
-    public RottenTomatoesJSON(Context context) {
+    public RottenTomatoesJSON(Context c) {
         adapter = DisplayMoviesActivity.getAdapter();
-        this.context = context;
-        dc = new DependencyInjectionContainer(context);
+        this.context = c;
+        DependencyContainer dc = new DependencyInjectionContainer(context);
         if (null == queue) {
             queue = Volley.newRequestQueue(context);
         }
@@ -61,6 +59,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * Method to call for new Movie Releases
      * Generates URL, sends into passOnMoviesList()
      * @param limit most movies per page
+     * @param page which page out of all pages to use
      */
     @Override
     public void newMovieReleases(int limit, int page) {
@@ -74,6 +73,8 @@ public class RottenTomatoesJSON implements MovieSource {
      * Method to call for new DVD movie releases
      * Generates URL, sends into passOnMoviesList()
      * @param limit most movies per page
+     * @param page which page out of all pages to use
+     * @param b to passOn
      */
     @Override
     public void newDVDReleases(int limit, int page, boolean b) {
@@ -88,6 +89,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * Method to search for movie based on name
      * @param name title of movie
      * @param limit most movies per page
+     * @param page which page out of all pages to use
      */
     @Override
     public void searchMovieByName(String name, int limit, int page) {
@@ -159,7 +161,7 @@ public class RottenTomatoesJSON implements MovieSource {
                         }
                         for (int i = 0; i < list.size(); i++) {
                             Task task = new Task();
-                            task.execute(list.get(i), i + "", filter[0] ? "true"
+                            task.execute(list.get(i), Integer.toString(i), filter[0] ? "true"
                                     : "false", f ? "true" : "false");
                         }
                     }
@@ -202,7 +204,7 @@ public class RottenTomatoesJSON implements MovieSource {
             public void onItemClick(AdapterView<?> arg0, View view, int pos,
                                     long arg3) {
                 //Here pos is the position of row clicked
-                ratingsIntent = new Intent(context, MovieViewActivity.class);
+                Intent ratingsIntent = new Intent(context, MovieViewActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("object", adapter.getItem(pos));
                 ratingsIntent.putExtras(bundle);

@@ -41,8 +41,6 @@ import javathehutt.buzz_movieselector.model.RegUser;
  */
 public class FacebookFragment extends Fragment {
     private CallbackManager callbackManager;
-    private LoginButton button;
-    private DependencyContainer dc;
     private static AccessToken at;
     private OnFragmentInteractionListener mListener;
 
@@ -68,7 +66,7 @@ public class FacebookFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        dc = new DependencyInjectionContainer(getContext());
+        DependencyContainer dc = new DependencyInjectionContainer(getContext());
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getContext());
         callbackManager = dc.getCallbackManagDep();
@@ -100,7 +98,7 @@ public class FacebookFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_facebook, container, false);
-        button = (LoginButton) v.findViewById(R.id.login_button);
+        LoginButton button = (LoginButton) v.findViewById(R.id.login_button);
         button.setReadPermissions("public_profile", "email", "user_friends");
         button.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -110,7 +108,6 @@ public class FacebookFragment extends Fragment {
                     final AccessToken accessToken = loginResult
                             .getAccessToken();
                     at = accessToken;
-                    Log.d("AccessToken", accessToken.toString());
                     GraphRequest request = GraphRequest.newMeRequest(
                         accessToken,
                         new GraphRequest.GraphJSONObjectCallback() {
@@ -119,12 +116,9 @@ public class FacebookFragment extends Fragment {
                                     JSONObject object,
                                     GraphResponse response) {
                                 try {
-                                    Log.d("AccessToken", object.toString());
                                     String name = object.getString("name");
                                     String link = object.getString("link");
                                     String id = object.getString("id");
-                                    Log.d("AccessToken", name);
-                                    Log.d("AccessToken", id);
                                     RegUser u = new FacebookUser(name, id,
                                             accessToken);
                                     DatabaseHelper db = new
@@ -173,7 +167,7 @@ public class FacebookFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
+            throw new IllegalStateException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
