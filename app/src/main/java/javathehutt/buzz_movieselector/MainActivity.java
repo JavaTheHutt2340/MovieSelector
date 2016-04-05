@@ -27,7 +27,7 @@ public class MainActivity extends FragmentActivity
         //final DependencyContainer dc = new DependencyInjectionContainer(this);
         setContentView(R.layout.activity_welcome_screen);
         //This code will create Facebook hash for android development
-        try {
+        /*try {
             final PackageInfo info = getPackageManager().getPackageInfo(
                     "javathehutt.buzz_movieselector",
                     PackageManager.GET_SIGNATURES);
@@ -44,7 +44,7 @@ public class MainActivity extends FragmentActivity
         } catch (NoSuchAlgorithmException e) {
             Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++"
                     + e.toString());
-        }
+        }*/
     }
 
 
