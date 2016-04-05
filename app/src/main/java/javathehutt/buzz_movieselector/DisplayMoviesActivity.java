@@ -31,6 +31,7 @@ public class DisplayMoviesActivity extends Activity {
     private MovieSource rtjson;
     private int state;
     private User u;
+    private static final int STARTING_NUMBER = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +52,16 @@ public class DisplayMoviesActivity extends Activity {
         u = db.lastLogIn();
         switch (state) {
             case 1:
-                rtjson.newDVDReleases(12, 1, false);
+                rtjson.newDVDReleases(STARTING_NUMBER, 1, false);
                 break;
             case 2:
-                rtjson.searchMovieByName(searchText, 12, 1);
+                rtjson.searchMovieByName(searchText, STARTING_NUMBER, 1);
                 break;
             case 3:
-                rtjson.newMovieReleases(12, 1);
+                rtjson.newMovieReleases(STARTING_NUMBER, 1);
                 break;
             case 4:
-                rtjson.newDVDReleases(12, 1, true);
+                rtjson.newDVDReleases(STARTING_NUMBER, 1, true);
                 break;
             default:
                 break;

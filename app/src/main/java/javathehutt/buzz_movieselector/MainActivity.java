@@ -11,15 +11,11 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
-import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javathehutt.buzz_movieselector.model.DependencyContainer;
-import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 
 public class MainActivity extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
@@ -28,7 +24,7 @@ public class MainActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        final DependencyContainer dc = new DependencyInjectionContainer(this);
+        //final DependencyContainer dc = new DependencyInjectionContainer(this);
         setContentView(R.layout.activity_welcome_screen);
         //This code will create Facebook hash for android development
         try {

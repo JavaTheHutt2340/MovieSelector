@@ -78,9 +78,10 @@ public class Movie implements Serializable {
       * @param s the list of genres
      */
     public void setGenre(String s) {
-        s = s.replaceAll("\"", "");
-        s = s.substring(1, s.length() - 1);
-        genre = s.split(",");
+        String result;
+        result = s.replaceAll("\"", "");
+        result = result.substring(1, s.length() - 1);
+        genre = result.split(",");
     }
 
     /**

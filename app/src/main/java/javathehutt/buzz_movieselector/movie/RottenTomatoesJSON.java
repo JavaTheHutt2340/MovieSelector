@@ -106,12 +106,13 @@ public class RottenTomatoesJSON implements MovieSource {
                     +" be positive");
         }
         final String[] nameParts = name.split(" ");
-        name = "";
+        //name = "";
+        String result = "";
         for (int i = 0; i < nameParts.length - 1; i++) {
-            name += nameParts[i] + "%20";
+            result += nameParts[i] + "%20";
         }
-        name += nameParts[nameParts.length - 1];
-        final String url = URL + KEY + "&q=" + name + "&page_limit="
+        result += nameParts[nameParts.length - 1];
+        final String url = URL + KEY + "&q=" + result + "&page_limit="
                 + limit  + "&page=" + page;
         passOnMoviesList(url, false);
     }
@@ -121,11 +122,12 @@ public class RottenTomatoesJSON implements MovieSource {
      * @param url the url to search
      */
     public void similarMovies(String url) {
-        url = url.substring(0, url.indexOf(".json")); // remove .json
-        url += "/similar.json?apikey=" + KEY; //create the correct URL
-        url = "http:" + url;
+        String result = url;
+        result = result.substring(0, result.indexOf(".json")); // remove .json
+        result += "/similar.json?apikey=" + KEY; //create the correct URL
+        result = "http:" + result;
         adapter.clear();
-        passOnMoviesList(url, true, true);
+        passOnMoviesList(result, true, true);
     }
 
     /**
