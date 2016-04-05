@@ -203,28 +203,30 @@ public class RottenTomatoesJSON implements MovieSource {
      * @param movie a Movie to display
      */
     private void displayMovie(Movie movie) {
-        adapter.add(movie);
-        adapter.sort(new Comparator<Movie>() {
-            @Override
-            public int compare(Movie lhs, Movie rhs) {
-                return rhs.getCriticsScoreInt() - lhs.getCriticsScoreInt();
-            }
-        });
-        final ListView listView = DisplayMoviesActivity.getListView();
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View view, int pos,
-                                    long arg3) {
-                //Here pos is the position of row clicked
-                final Intent ratingsIntent = new Intent(context, MovieViewActivity.class);
-                final Bundle bundle = new Bundle();
-                bundle.putSerializable("object", adapter.getItem(pos));
-                ratingsIntent.putExtras(bundle);
-                ratingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(ratingsIntent);
-            }
-        });
+        if (movie != null) {
+            adapter.add(movie);
+            adapter.sort(new Comparator<Movie>() {
+                @Override
+                public int compare(Movie lhs, Movie rhs) {
+                    return rhs.getCriticsScoreInt() - lhs.getCriticsScoreInt();
+                }
+            });
+            final ListView listView = DisplayMoviesActivity.getListView();
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View view, int pos,
+                                        long arg3) {
+                    //Here pos is the position of row clicked
+                    final Intent ratingsIntent = new Intent(context, MovieViewActivity.class);
+                    final Bundle bundle = new Bundle();
+                    bundle.putSerializable("object", adapter.getItem(pos));
+                    ratingsIntent.putExtras(bundle);
+                    ratingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(ratingsIntent);
+                }
+            });
+        }
     }
 
     /**
