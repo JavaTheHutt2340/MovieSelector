@@ -12,11 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
-import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-
-import javathehutt.buzz_movieselector.model.DependencyContainer;
-import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 
 public class LoggedOut extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
