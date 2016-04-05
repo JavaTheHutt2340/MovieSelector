@@ -13,7 +13,8 @@ import java.util.List;
  * Created by Frank on 3/7/2016.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static int currentCount = 0;
+    private static int currentCount = 0; //Represents number of users in database
+    private static final String TEXTNOTNULL = " text not null , ";
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "users.db";
     public static final String KEY_ID = "_id";
@@ -30,14 +31,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_CREATE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_NAME + " ("
             + KEY_ID          + " integer not null primary key autoincrement , "
-            + COLUMN_USERNAME + " text not null , "
-            + COLUMN_PASSWORD + " text not null , "
-            + COLUMN_NAME     + " text not null , "
+            + COLUMN_USERNAME + TEXTNOTNULL
+            + COLUMN_PASSWORD + TEXTNOTNULL
+            + COLUMN_NAME     + TEXTNOTNULL
             + COLUMN_GENRE    + " int not null , "
-            + COLUMN_LOCATION + " text not null , "
-            + COLUMN_MAJOR    + " text not null, "
-            + COLUMN_BAN      + " text not null, "
-            + COLUMN_LOCKED   + " text not null, "
+            + COLUMN_LOCATION + TEXTNOTNULL
+            + COLUMN_MAJOR    + TEXTNOTNULL
+            + COLUMN_BAN      + TEXTNOTNULL
+            + COLUMN_LOCKED   + TEXTNOTNULL
             + COLUMN_ATTEMPTS + " int not null );";
     private static User currentUser;
     private Context c;
@@ -55,25 +56,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Method to call when program is created
-     * @param db the database
+     * @param database the database
      */
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
-        DatabaseHelper.db = db;
+    public void onCreate(SQLiteDatabase database) {
+        database.execSQL(TABLE_CREATE);
+        DatabaseHelper.db = database;
     }
 
     /**
      * Method for when database is to be upgraded
-     * @param db the database
+     * @param database the database
      * @param oldVersion old version number
      * @param newVersion new version number
      */
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
-        db.execSQL(query);
-        this.onCreate(db);
+    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+        final String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
+        database.execSQL(query);
+        this.onCreate(database);
     }
 
     /**
@@ -82,15 +83,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param password the password
      * @return 0 if successful
      */
-    public int handleLogInRequest(String username, String password) {
+    public int handleLogInRequest(String username,
+                                  String password) {
         if (username.equals("admin") && password.equals("admin")) {
             currentUser = new AdminUser("admin", "admin");
             return 0;
         }
         db = this.getReadableDatabase();
-        String query = "select * from " + TABLE_NAME
+        final String query = "select * from " + TABLE_NAME
                 + " where username like \'" + username + "\'";
-        Cursor cursor = db.rawQuery(query, null);
+        final Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             if (password.equals(cursor.getString(2)) && cursor
                     .getString(7).equals("false")
@@ -103,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 currentUser.setMajor(cursor.getString(6));
                 currentUser.setFailedAttempts(0);
                 db = this.getWritableDatabase();
-                ContentValues values = new ContentValues();
+                final ContentValues values = new ContentValues();
                 values.put(COLUMN_ATTEMPTS, 0);
                 db.update(TABLE_NAME, values, "username like \'"
                         + username + "\'", null);

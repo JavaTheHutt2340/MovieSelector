@@ -15,23 +15,23 @@ public class Movie implements Serializable {
     private String altUrl;
     /**
      * Standard constructor for movie
-     * @param name of movie
-     * @param year of movie
-     * @param criticsRating representing whether movie is Rotten or otherwise
-     * @param criticsScore representing numerical grade 0 - 100
-     * @param synopsis String summary
-     * @param genre the genre of the movie
-     * @param url the url for the movie
+     * @param mname of movie
+     * @param myear of movie
+     * @param mcriticsRating representing whether movie is Rotten or otherwise
+     * @param mcriticsScore representing numerical grade 0 - 100
+     * @param msynopsis String summary
+     * @param mgenre the genre of the movie
+     * @param murl the url for the movie
      */
-    public Movie(String name, int year, String criticsRating,
-                 int criticsScore, String synopsis, String url, String genre) {
-        this.name = name;
-        this.year = year;
-        this.criticsRating = criticsRating;
-        this.criticsScore = criticsScore;
-        this.synopsis = synopsis;
-        this.apiUrl = url;
-        setGenre(genre);
+    public Movie(String mname, int myear, String mcriticsRating,
+                 int mcriticsScore, String msynopsis, String murl, String mgenre) {
+        this.name = mname;
+        this.year = myear;
+        this.criticsRating = mcriticsRating;
+        this.criticsScore = mcriticsScore;
+        this.synopsis = msynopsis;
+        this.apiUrl = murl;
+        setGenre(mgenre);
     }
 
     /**
@@ -122,7 +122,7 @@ public class Movie implements Serializable {
      */
     public String getCriticsScore() {
         if (criticsScore != -1) {
-            return "" + criticsScore;
+            return Integer.toString(criticsScore);
         }
         return "No rating yet";
     }
@@ -153,7 +153,7 @@ public class Movie implements Serializable {
         if (!(o instanceof Movie)) {
             return false;
         }
-        Movie m = (Movie) o;
+        final Movie m = (Movie) o;
         return m.name.equals(name) && m.year == year;
     }
 

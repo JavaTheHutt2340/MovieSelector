@@ -23,22 +23,20 @@ import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 
 public class MainActivity extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
-    private DependencyContainer dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        dc = new DependencyInjectionContainer(this);
-        CallbackManager callbackManager = dc.getCallbackManagDep();
+        DependencyContainer dc = new DependencyInjectionContainer(this);
         setContentView(R.layout.activity_welcome_screen);
         //This code will create Facebook hash for android development
         try {
-            PackageInfo info = getPackageManager().getPackageInfo(
+            final PackageInfo info = getPackageManager().getPackageInfo(
                     "javathehutt.buzz_movieselector",
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
+                final MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++"
                         + Base64.encodeToString(md.digest(), Base64.DEFAULT));
@@ -71,7 +69,7 @@ public class MainActivity extends FragmentActivity
      * @param v the view
      */
     public void registerButtonClick(View v) {
-        Intent register = new Intent(this, RegisterActivity.class);
+        final Intent register = new Intent(this, RegisterActivity.class);
         startActivity(register);
     }
 
@@ -82,7 +80,7 @@ public class MainActivity extends FragmentActivity
      * @param v the view
      */
     public void loginButtonClick(View v) {
-        Intent login = new Intent(this, LoginActivity.class);
+        final Intent login = new Intent(this, LoginActivity.class);
         startActivityForResult(login, 1);
     }
 

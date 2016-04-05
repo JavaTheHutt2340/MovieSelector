@@ -27,7 +27,6 @@ public class ProfileActivity extends Activity {
 
     private User u;
     private DatabaseHelper helper;
-    private DependencyContainer dc;
 
     /**
      * creates the activity, sets screen, and
@@ -38,23 +37,23 @@ public class ProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        dc = new DependencyInjectionContainer(this);
+        DependencyContainer dc = new DependencyInjectionContainer(this);
         helper = dc.getDatabaseDep();
         u = helper.lastLogIn();
 
-        TextView realName = (TextView) findViewById(R.id.realNameEdit);
+        final TextView realName = (TextView) findViewById(R.id.realNameEdit);
         realName.setText(u.getRealName());
 
         setTitle(u.getUsername() + "'s Profile");
 
-        TextView location = (TextView) findViewById(R.id.locationProfileEdit);
+        final TextView location = (TextView) findViewById(R.id.locationProfileEdit);
         location.setText(u.getLocation());
 
-        TextView major = (TextView) findViewById(R.id.major);
+        final TextView major = (TextView) findViewById(R.id.major);
         major.setText(u.getMajor());
 
-        Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        final Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 new ArrayList<>(Arrays.asList(javathehutt
                         .buzz_movieselector.model.User.getGenres())));
@@ -71,37 +70,37 @@ public class ProfileActivity extends Activity {
      * @param v view
      */
     public void updateProfileClick(View v) {
-        TextView realName = (TextView) findViewById(R.id.realNameEdit);
+        final TextView realName = (TextView) findViewById(R.id.realNameEdit);
         u.setRealName(realName.getText().toString());
 
-        TextView location = (TextView) findViewById(R.id.locationProfileEdit);
+        final TextView location = (TextView) findViewById(R.id.locationProfileEdit);
         u.setLocation(location.getText().toString());
 
-        Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
+        final Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
         u.setFavoriteGenre(genreSpinner.getSelectedItemPosition());
 
-        TextView major = (TextView) findViewById(R.id.major);
+        final TextView major = (TextView) findViewById(R.id.major);
         u.setMajor(major.getText().toString());
 
         helper.updateUser(u);
 
         //transfer focus to the dummy element
         // to prevent cursor from going to EditText
-        LinearLayout focusHolder =
+        final LinearLayout focusHolder =
                 (LinearLayout) findViewById(R.id.focusHolder);
         focusHolder.requestFocus();
 
         //hide the keyboard
-        InputMethodManager imm = (InputMethodManager)
+        final InputMethodManager imm = (InputMethodManager)
                 this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         View view = this.getCurrentFocus();
         if (view == null) {
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        CharSequence text = "Profile updated!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this, text, duration);
+        final CharSequence text = "Profile updated!";
+        final int duration = Toast.LENGTH_SHORT;
+        final Toast toast = Toast.makeText(this, text, duration);
         toast.show();
     }
 

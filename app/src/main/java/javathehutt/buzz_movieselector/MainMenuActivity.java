@@ -16,18 +16,16 @@ import javathehutt.buzz_movieselector.model.User;
 public class MainMenuActivity extends Activity {
 
     private User u;
-    private DatabaseHelper db;
-    private DependencyContainer dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dc = new DependencyInjectionContainer(this);
-        db = dc.getDatabaseDep();
+        DependencyContainer dc = new DependencyInjectionContainer(this);
+        DatabaseHelper db = dc.getDatabaseDep();
         setContentView(R.layout.activity_main_menu);
         u = db.lastLogIn();
         System.out.println(u.getUsername());
-        Button userListButton = (Button) findViewById(R.id.button3);
+        final Button userListButton = (Button) findViewById(R.id.button3);
         userListButton.setEnabled(u.isAdmin());
         userListButton.setVisibility(u.isAdmin() ? View.VISIBLE : View.GONE);
     }
@@ -38,7 +36,7 @@ public class MainMenuActivity extends Activity {
      * @param v the view
      */
     public void openProfileClick(View v) {
-        Intent intent = new Intent(this, ProfileActivity.class);
+        final Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
@@ -51,13 +49,13 @@ public class MainMenuActivity extends Activity {
         u.logout();
         FacebookFragment.clear();
 
-        Context context = getApplicationContext();
-        CharSequence text = "Successfully Logged Out!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
+        final Context context = getApplicationContext();
+        final CharSequence text = "Successfully Logged Out!";
+        final int duration = Toast.LENGTH_SHORT;
+        final Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        Intent i = new Intent(this, LoggedOut.class);
+        final Intent i = new Intent(this, LoggedOut.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
@@ -68,7 +66,7 @@ public class MainMenuActivity extends Activity {
     * @param v the view
      */
     public void searchMovies(View v) {
-        Intent i = new Intent(this, MovieSearchActivity.class);
+        final Intent i = new Intent(this, MovieSearchActivity.class);
         startActivity(i);
     }
 
@@ -77,7 +75,7 @@ public class MainMenuActivity extends Activity {
      * @param v the view
      */
     public void userListClick(View v) {
-        Intent i = new Intent(this, UserListActivity.class);
+        final Intent i = new Intent(this, UserListActivity.class);
         startActivity(i);
     }
 }

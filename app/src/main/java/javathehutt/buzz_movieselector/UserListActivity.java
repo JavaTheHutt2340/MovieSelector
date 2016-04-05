@@ -18,18 +18,16 @@ import javathehutt.buzz_movieselector.model.User;
 
 public class UserListActivity extends Activity {
 
-    private ListView userListView;
     private final List<User> users = new ArrayList<>();
     private DatabaseHelper helper;
-    private DependencyContainer dc;
     private ArrayAdapter<User> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
-        dc = new DependencyInjectionContainer(this);
-        userListView = (ListView) findViewById(R.id.userListView);
+        DependencyContainer dc = new DependencyInjectionContainer(this);
+        ListView userListView = (ListView) findViewById(R.id.userListView);
         helper = dc.getDatabaseDep();
         users.addAll(helper.getAllUsers());
         adapter = new ArrayAdapter<>(this,

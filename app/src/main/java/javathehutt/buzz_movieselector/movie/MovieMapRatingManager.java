@@ -33,7 +33,7 @@ public class MovieMapRatingManager implements MovieRatingManager {
             throw new IllegalArgumentException("cannot get a "
                     + "rating from a null string");
         }
-        Float rating = ratingMap.get(s);
+        final Float rating = ratingMap.get(s);
         return rating == null ? 0.0f : rating;
     }
 }

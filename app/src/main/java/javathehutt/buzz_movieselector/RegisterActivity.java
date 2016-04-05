@@ -24,7 +24,6 @@ public class RegisterActivity extends Activity {
     private EditText etUsername;
     private EditText etPassword;
     private EditText etConfirmPassword;
-    private DependencyContainer dc;
     private DatabaseHelper helper;
 
     /**
@@ -35,7 +34,7 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        dc = new DependencyInjectionContainer(this);
+        DependencyContainer dc = new DependencyInjectionContainer(this);
         helper = dc.getDatabaseDep();
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -81,8 +80,8 @@ public class RegisterActivity extends Activity {
                 toast.show();
             } else if (validFields()) {
                 RegUser user = new RegUser(etUsername.getText()
-                        .toString().trim(), etPassword.getText()
-                        .toString());
+                            .toString().trim(), etPassword.getText()
+                            .toString());
                 helper.addUser(user);
                 CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);

@@ -23,12 +23,12 @@ public abstract class User implements Serializable {
 
 
     /**
-    * @param username the users username
-    * @param password the users password
+    * @param name the users username
+    * @param pd the users password
      */
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public User(String name, String pd) {
+        this.username = name;
+        this.password = pd;
         this.realName = "";
         this.location = "";
         this.favoriteGenre = 0;
@@ -170,11 +170,11 @@ public abstract class User implements Serializable {
 
     /**
         * determines if the login is valid
-        * @param password the
+        * @param pd the
         * @return true if logged in
          */
-    public boolean logIn(String password) {
-        boolean result = this.password.equals(password);
+    public boolean logIn(String pd) {
+        boolean result = this.password.equals(pd);
         loggedIn = result;
         return result;
     }
