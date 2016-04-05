@@ -113,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return 0;
             } else {
                 db = this.getWritableDatabase();
-                ContentValues values = new ContentValues();
+                final ContentValues values = new ContentValues();
                 values.put(COLUMN_ATTEMPTS, cursor.getInt(9) + 1);
                 if (cursor.getString(8).equals("false") && cursor
                         .getInt(9) >= RegUser.ATTEMPTS_ALLOWED) {

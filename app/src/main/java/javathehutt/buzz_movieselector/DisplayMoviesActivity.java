@@ -130,9 +130,9 @@ public class DisplayMoviesActivity extends Activity {
                         rtjson.newDVDReleases(INCREMENT, count++, true);
                     }
                     break;
-                default:
-                    break;
-                }
+                    default:
+                        break;
+                    }
             }
         }
     }

@@ -80,8 +80,8 @@ public class RegisterActivity extends Activity {
                 toast.show();
             } else if (validFields()) {
                 RegUser user = new RegUser(etUsername.getText()
-                            .toString().trim(), etPassword.getText()
-                            .toString());
+                                .toString().trim(), etPassword.getText()
+                                .toString());
                 helper.addUser(user);
                 CharSequence text = "User Successfully Registered!";
                 Toast toast = Toast.makeText(context, text, duration);

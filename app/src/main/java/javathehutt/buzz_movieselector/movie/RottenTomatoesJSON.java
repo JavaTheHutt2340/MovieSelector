@@ -272,7 +272,6 @@ public class RottenTomatoesJSON implements MovieSource {
                                     publishProgress(m);
                                 }
                             } catch (JSONException e) {
-                                Log.d("volley", "Failed to get JSON object");
                                 Log.e("JSON", e.getStackTrace().toString());
                             }
                             if (l.equals(Long.valueOf("11") * 75)) {
