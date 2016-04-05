@@ -174,8 +174,9 @@ public class RottenTomatoesJSON implements MovieSource {
                         }
                         for (int i = 0; i < list.size(); i++) {
                             final Task task = new Task();
-                            task.execute(list.get(i), Integer.toString(i), filter[0] ? "true"
-                                    : "false", f ? "true" : "false");
+                            final String trueS = "true";
+                            task.execute(list.get(i), Integer.toString(i), filter[0] ? trueS
+                                    : "false", f ? trueS : "false");
                         }
                     }
                 }, new Response.ErrorListener() {
