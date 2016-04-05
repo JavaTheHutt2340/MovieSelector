@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import javathehutt.buzz_movieselector.R;
+
 /**
  * Created by Frank on 3/7/2016.
  */
@@ -141,8 +143,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public int handleLogInRequest(String username,
                                   String password) {
-        if ("admin".equals(username) && "admin".equals(password)) {
-            currentUser = new AdminUser("admin", "admin");
+        final String admin = "admin";
+        if (admin.equals(username) && admin.equals(password)) {
+            currentUser = new AdminUser(admin, admin);
             return 0;
         }
         db = this.getReadableDatabase();
@@ -165,18 +168,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.close();
                 return 0;
             } else {
+                final String trueS = c.getString(R.string.trueS);
                 db = this.getWritableDatabase();
                 final ContentValues values = new ContentValues();
                 values.put(COLUMN_ATTEMPTS, cursor.getInt(9) + 1);
                 if ("false".equals(cursor.getString(8)) && cursor
                         .getInt(9) >= RegUser.ATTEMPTS_ALLOWED) {
-                    values.put(COLUMN_LOCKED, "true");
+                    values.put(COLUMN_LOCKED, trueS);
                 }
                 db.update(TABLE_NAME, values, "username like \'"
                         + username + "\'", null);
-                if ("true".equals(cursor.getString(7))) {
+                if (trueS.equals(cursor.getString(7))) {
                     return 2;
-                } else if ("true".equals(cursor.getString(8))) {
+                } else if (trueS.equals(cursor.getString(8))) {
                     return 3;
                 }
             }
@@ -192,12 +196,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return true if the password is valid
      */
     private boolean validLogin(String password, Cursor cursor) {
-        /*return password.equals(cursor.getString(2)) && cursor
-                .getString(7).equals("false")
-                && cursor.getString(8).equals("false")
-                && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED;*/
-        return password.equals(cursor.getString(2)) && "false".equals(cursor
-                .getString(7)) && "false".equals(cursor.getString(8))
+        final String falseS = "false";
+        return password.equals(cursor.getString(2)) && falseS.equals(cursor
+                .getString(7)) && falseS.equals(cursor.getString(8))
                 && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED;
 
     }
@@ -208,6 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void addUser(User u) {
         currentUser = u;
+        final String falseS = "false";
         db = this.getWritableDatabase();
         final ContentValues values = new ContentValues();
         values.put(COLUMN_USERNAME, u.getUsername());
@@ -216,8 +218,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_GENRE, u.getFavoriteGenreNum());
         values.put(COLUMN_LOCATION, u.getLocation());
         values.put(COLUMN_MAJOR, u.getMajor());
-        values.put(COLUMN_BAN, "false");
-        values.put(COLUMN_LOCKED, "false");
+        values.put(COLUMN_BAN, falseS);
+        values.put(COLUMN_LOCKED, falseS);
         values.put(COLUMN_ATTEMPTS, 0);
         values.put(KEY_ID, currentCount++);
 
@@ -239,8 +241,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_MAJOR, u.getMajor());
         if (u instanceof RegUser) {
             final RegUser temp = (RegUser) u;
-            values.put(COLUMN_BAN, temp.getBanStatus() ? "true" : "false");
-            values.put(COLUMN_LOCKED, temp.getLockStatus() ? "true" : "false");
+            values.put(COLUMN_BAN, temp.getBanStatus() ? c.getString(R.string.trueS) :
+                    c.getString(R.string.falseS));
+            values.put(COLUMN_LOCKED, temp.getLockStatus() ? c.getString(R.string.trueS) :
+                    c.getString(R.string.falseS));
             if (!temp.getLockStatus()) {
                 values.put(COLUMN_ATTEMPTS, 0);
             }

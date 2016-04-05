@@ -25,6 +25,11 @@ public class MovieSearchActivity extends Activity {
      */
     private DatabaseHelper helper;
 
+    /**
+     * key string constant
+     */
+    private static final String KEY = "key";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +48,7 @@ public class MovieSearchActivity extends Activity {
     public void dVDReleasesClick(View v) {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
-        bundle.putInt("key", 1);
+        bundle.putInt(KEY, 1);
         i.putExtras(bundle);
         startActivity(i);
     }
@@ -64,7 +69,7 @@ public class MovieSearchActivity extends Activity {
             final Intent i = new Intent(this, DisplayMoviesActivity.class);
             i.putExtra("text", searchText);
             final Bundle bundle = new Bundle();
-            bundle.putInt("key", 2);
+            bundle.putInt(KEY, 2);
             i.putExtras(bundle);
             startActivity(i);
         }
@@ -78,7 +83,7 @@ public class MovieSearchActivity extends Activity {
     public void inTheatreClick(View v) {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
-        bundle.putInt("key", 3);
+        bundle.putInt(KEY, 3);
         i.putExtras(bundle);
         startActivity(i);
     }
@@ -91,7 +96,7 @@ public class MovieSearchActivity extends Activity {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
         final User u = helper.lastLogIn();
-        bundle.putInt("key", 4);
+        bundle.putInt(KEY, 4);
         final ArrayList<String> list = new ArrayList<>();
         list.add(u.getFavoriteGenre());
         list.add(u.getMajor());

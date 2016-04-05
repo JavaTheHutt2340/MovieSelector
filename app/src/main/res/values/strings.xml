@@ -131,4 +131,6 @@
     <string name="Lock">lock account</string>
     <string name="unBan">unBan account</string>
     <string name="Ban">ban account</string>
+    <string name="trueS">true</string>
+    <string name="falseS">false</string>
 </resources>

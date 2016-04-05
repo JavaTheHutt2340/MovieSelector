@@ -130,6 +130,10 @@ public class DisplayMoviesActivity extends Activity {
          */
         private static final int INCREMENT = 20;
 
+        /**
+         * returns if the program should continue
+         * @return true is yes
+         */
         private boolean isValid() {
             return movieAdapter.getCount() < TOTAL_NUMBER && count < 100;
         }
