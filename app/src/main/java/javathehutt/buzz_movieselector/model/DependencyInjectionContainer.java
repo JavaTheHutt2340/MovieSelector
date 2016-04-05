@@ -20,14 +20,14 @@ public class DependencyInjectionContainer implements DependencyContainer {
 
     /**
      * constructor
-     * @param c the context
+     * @param context the context
      */
     public DependencyInjectionContainer(Context context) {
         this.c = context;
     }
 
     @Override
-    public DatabaseHelper getDatabaseDep() {
+    public final DatabaseHelper getDatabaseDep() {
         if (dh == null || dh.getContext() != c) {
             dh = new DatabaseHelper(c);
         }
@@ -35,7 +35,7 @@ public class DependencyInjectionContainer implements DependencyContainer {
     }
 
     @Override
-    public MovieSource getRottenTomDep() {
+    public final MovieSource getRottenTomDep() {
         if (ms == null || ms.getContext() != c) {
             ms = new RottenTomatoesJSON(c);
         }
@@ -43,7 +43,7 @@ public class DependencyInjectionContainer implements DependencyContainer {
     }
 
     @Override
-    public MovieRatingManager getMovieRatingDep() {
+    public final MovieRatingManager getMovieRatingDep() {
         if (mr ==  null) {
             mr = new MovieMapRatingManager();
         }
@@ -51,7 +51,7 @@ public class DependencyInjectionContainer implements DependencyContainer {
     }
 
     @Override
-    public CallbackManager getCallbackManagDep() {
+    public final CallbackManager getCallbackManagDep() {
         return CallbackManager.Factory.create();
     }
 }

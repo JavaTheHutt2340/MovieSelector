@@ -128,7 +128,7 @@ public class FacebookFragment extends Fragment {
                                     startActivity(new Intent(getContext(),
                                             MainMenuActivity.class));
                                 } catch (JSONException e) {
-                                    e.printStackTrace();
+                                    Log.e("Facebook Graph", e.getStackTrace().toString());
                                 }
 
                             }

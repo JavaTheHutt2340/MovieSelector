@@ -99,8 +99,8 @@ public class DisplayMoviesActivity extends Activity {
 
     private class Receiver extends BroadcastReceiver {
         private int count = 2;
-        private static final int totalNumber = 12;
-        private static final int increment = 12;
+        private static final int TOTAL_NUMBER = 12;
+        private static final int INCREMENT = 12;
 
         @Override
         public void onReceive(Context context,
@@ -113,21 +113,21 @@ public class DisplayMoviesActivity extends Activity {
                     }
                 }
             }
-            if (movieAdapter.getCount() < totalNumber && count < 100) {
+            if (movieAdapter.getCount() < TOTAL_NUMBER && count < 100) {
                 switch (state) {
                 case 1:
-                    rtjson.newDVDReleases(increment, count++, false);
+                    rtjson.newDVDReleases(INCREMENT, count++, false);
                     break;
                 case 2:
                     String searchText = (getIntent().getStringExtra("text"));
-                    rtjson.searchMovieByName(searchText, increment, count++);
+                    rtjson.searchMovieByName(searchText, INCREMENT, count++);
                     break;
                 case 3:
-                    rtjson.newMovieReleases(increment, count++);
+                    rtjson.newMovieReleases(INCREMENT, count++);
                     break;
                 case 4:
                     if (movieAdapter.getCount() < 6) {
-                        rtjson.newDVDReleases(increment, count++, true);
+                        rtjson.newDVDReleases(INCREMENT, count++, true);
                     }
                     break;
                 default:

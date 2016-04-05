@@ -12,8 +12,6 @@ import android.widget.Toast;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 
-import javathehutt.buzz_movieselector.model.DependencyContainer;
-import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.movie.Movie;
 import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 

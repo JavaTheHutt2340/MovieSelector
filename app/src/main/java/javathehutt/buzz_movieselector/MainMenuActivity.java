@@ -24,7 +24,6 @@ public class MainMenuActivity extends Activity {
         DatabaseHelper db = dc.getDatabaseDep();
         setContentView(R.layout.activity_main_menu);
         u = db.lastLogIn();
-        System.out.println(u.getUsername());
         final Button userListButton = (Button) findViewById(R.id.button3);
         userListButton.setEnabled(u.isAdmin());
         userListButton.setVisibility(u.isAdmin() ? View.VISIBLE : View.GONE);

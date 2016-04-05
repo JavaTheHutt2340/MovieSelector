@@ -19,7 +19,7 @@ public class AdminUser extends User {
     * @return boolean true if the account is locked
      */
     @Override
-    public boolean getLockStatus() {
+    public final boolean getLockStatus() {
         return false;
     }
 
@@ -27,7 +27,7 @@ public class AdminUser extends User {
     * unlocks a RegUser
     * @param user to be unlocked
      */
-    public void unlockAccount(RegUser user) {
+    public final void unlockAccount(RegUser user) {
         if (user.getLockStatus()) {
             user.unlock();
         } else {
@@ -39,7 +39,7 @@ public class AdminUser extends User {
     * locks the given account
     * @param user to be banned
      */
-    public void lockAccount(RegUser user) {
+    public final void lockAccount(RegUser user) {
         if (!user.getLockStatus()) {
             user.lock();
         } else {

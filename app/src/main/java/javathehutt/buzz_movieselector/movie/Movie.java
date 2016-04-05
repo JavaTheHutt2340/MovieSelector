@@ -51,10 +51,10 @@ public class Movie implements Serializable {
 
     /**
      * gets the name of the movie
-     * @param name the name
+     * @param n the name
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String n) {
+        this.name = n;
     }
 
     /**
@@ -78,9 +78,9 @@ public class Movie implements Serializable {
       * @param s the list of genres
      */
     public void setGenre(String s) {
-        s = s.replaceAll("\"", "");
-        s = s.substring(1, s.length() - 1);
-        genre = s.split(",");
+        genre = s.replaceAll("\"", "")
+                .substring(1, s.length() - 1)
+                .split(",");
     }
 
     /**
@@ -176,10 +176,10 @@ public class Movie implements Serializable {
 
     /**
      * Setter method for alternate URL
-     * @param altUrl the alt url for the movie
+     * @param alt the alt url for the movie
      */
-    public void setAltUrl(String altUrl) {
-        this.altUrl = altUrl;
+    public void setAltUrl(String alt) {
+        this.altUrl = alt;
     }
 
     @Override
