@@ -58,15 +58,15 @@ public class FacebookFragment extends Fragment {
      * @return A new instance of fragment FacebookFragment.
      */
     public static FacebookFragment newInstance() {
-        FacebookFragment fragment = new FacebookFragment();
-        Bundle args = new Bundle();
+        final FacebookFragment fragment = new FacebookFragment();
+        final Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        DependencyContainer dc = new DependencyInjectionContainer(getContext());
+        final DependencyContainer dc = new DependencyInjectionContainer(getContext());
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getContext());
         callbackManager = dc.getCallbackManagDep();
@@ -97,8 +97,8 @@ public class FacebookFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_facebook, container, false);
-        LoginButton button = (LoginButton) v.findViewById(R.id.login_button);
+        final View v = inflater.inflate(R.layout.fragment_facebook, container, false);
+        final LoginButton button = (LoginButton) v.findViewById(R.id.login_button);
         button.setReadPermissions("public_profile", "email", "user_friends");
         button.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -108,7 +108,7 @@ public class FacebookFragment extends Fragment {
                     final AccessToken accessToken = loginResult
                             .getAccessToken();
                     at = accessToken;
-                    GraphRequest request = GraphRequest.newMeRequest(
+                    final GraphRequest request = GraphRequest.newMeRequest(
                         accessToken,
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
@@ -116,12 +116,12 @@ public class FacebookFragment extends Fragment {
                                     JSONObject object,
                                     GraphResponse response) {
                                 try {
-                                    String name = object.getString("name");
-                                    String link = object.getString("link");
-                                    String id = object.getString("id");
-                                    RegUser u = new FacebookUser(name, id,
+                                    final String name = object.getString("name");
+                                    final String link = object.getString("link");
+                                    final String id = object.getString("id");
+                                    final RegUser u = new FacebookUser(name, id,
                                             accessToken);
-                                    DatabaseHelper db = new
+                                    final DatabaseHelper db = new
                                             DatabaseHelper(getContext());
                                     db.addUser(u);
                                     db.handleLogInRequest(name, id);
@@ -133,7 +133,7 @@ public class FacebookFragment extends Fragment {
 
                             }
                         });
-                    Bundle parameters = new Bundle();
+                    final Bundle parameters = new Bundle();
                     parameters.putString("fields", "id,name,link");
                     request.setParameters(parameters);
                     request.executeAsync();

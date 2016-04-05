@@ -35,18 +35,18 @@ public class DisplayMoviesActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DependencyContainer dc = new DependencyInjectionContainer(this);
-        DatabaseHelper db = dc.getDatabaseDep();
+        final DependencyContainer dc = new DependencyInjectionContainer(this);
+        final DatabaseHelper db = dc.getDatabaseDep();
         setContentView(R.layout.activity_display_movies);
         displayMoviesView = (ListView) findViewById(R.id.displayMoviesView);
         movieAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 new ArrayList<javathehutt.buzz_movieselector.movie.Movie>());
         displayMoviesView.setAdapter(movieAdapter);
-        String searchText = (getIntent().getStringExtra("text"));
+        final String searchText = (getIntent().getStringExtra("text"));
         this.registerReceiver(new Receiver(), new IntentFilter("test"));
         rtjson = dc.getRottenTomDep();
-        Bundle bundle = getIntent().getExtras();
+        final Bundle bundle = getIntent().getExtras();
         state = bundle.getInt("key");
         u = db.lastLogIn();
         switch (state) {
@@ -99,8 +99,8 @@ public class DisplayMoviesActivity extends Activity {
 
     private class Receiver extends BroadcastReceiver {
         private int count = 2;
-        private static final int totalNumber = 12;
-        private static final int increment = 12;
+        private static final int TOTAL_NUMBER = 12;
+        private static final int INCREMENT = 12;
 
         @Override
         public void onReceive(Context context,
@@ -113,26 +113,26 @@ public class DisplayMoviesActivity extends Activity {
                     }
                 }
             }
-            if (movieAdapter.getCount() < totalNumber && count < 100) {
+            if (movieAdapter.getCount() < TOTAL_NUMBER && count < 100) {
                 switch (state) {
                     case 1:
-                        rtjson.newDVDReleases(increment, count++, false);
+                        rtjson.newDVDReleases(INCREMENT, count++, false);
                         break;
                     case 2:
-                        String searchText = (getIntent().getStringExtra("text"));
-                        rtjson.searchMovieByName(searchText, increment, count++);
+                        final String searchText = (getIntent().getStringExtra("text"));
+                        rtjson.searchMovieByName(searchText, INCREMENT, count++);
                         break;
                     case 3:
-                        rtjson.newMovieReleases(increment, count++);
+                        rtjson.newMovieReleases(INCREMENT, count++);
                         break;
                     case 4:
                         if (movieAdapter.getCount() < 6) {
-                            rtjson.newDVDReleases(increment, count++, true);
+                            rtjson.newDVDReleases(INCREMENT, count++, true);
                         }
                         break;
                     default:
                         break;
-                    }
+                }
             }
         }
     }

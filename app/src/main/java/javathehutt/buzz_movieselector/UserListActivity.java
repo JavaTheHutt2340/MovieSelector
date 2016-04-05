@@ -26,8 +26,8 @@ public class UserListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
-        DependencyContainer dc = new DependencyInjectionContainer(this);
-        ListView userListView = (ListView) findViewById(R.id.userListView);
+        final DependencyContainer dc = new DependencyInjectionContainer(this);
+        final ListView userListView = (ListView) findViewById(R.id.userListView);
         helper = dc.getDatabaseDep();
         users.addAll(helper.getAllUsers());
         adapter = new ArrayAdapter<>(this,
@@ -38,9 +38,9 @@ public class UserListActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0,
                                     View view, int pos, long arg3) {
-                Intent intent = new Intent(getBaseContext(),
+                final Intent intent = new Intent(getBaseContext(),
                         DetailedUserView.class);
-                Bundle bundle = new Bundle();
+                final Bundle bundle = new Bundle();
                 bundle.putSerializable("user", users.get(pos));
                 intent.putExtra("bundle", bundle);
                 startActivity(intent);

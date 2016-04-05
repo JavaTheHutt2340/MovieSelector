@@ -35,16 +35,16 @@ public class MovieViewActivity extends Activity {
         //manager = dc.getMovieRatingDep();
         final Bundle bundle = getIntent().getExtras();
         m = (Movie) bundle.getSerializable("object");
-        TextView title = (TextView) findViewById(R.id.Title);
+        final TextView title = (TextView) findViewById(R.id.Title);
         title.setText(m.getName());
-        TextView movieInfo = (TextView) findViewById(R.id.MovieInfo);
+        final TextView movieInfo = (TextView) findViewById(R.id.MovieInfo);
         movieInfo.setText(String.format("Year: %d\n\nCritics Rating: %s\n\n"
                 + "Critics Score: %s\n\nSynopsis: %s", m.getYear()
                 , m.getCriticsRating(), m.getCriticsScore(), m.getSynopsis()));
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         //share button
-        ShareButton share = (ShareButton) findViewById(R.id.shareButton);
+        final ShareButton share = (ShareButton) findViewById(R.id.shareButton);
         share.setEnabled(FacebookFragment.getAt() != null);
         share.setVisibility(FacebookFragment.getAt()
                 != null ? View.VISIBLE : View.GONE);

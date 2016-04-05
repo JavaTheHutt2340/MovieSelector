@@ -22,6 +22,7 @@ public class LoggedOut extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
     /**
      * creates and sets the screen
+     * @param savedInstanceState the saved data
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

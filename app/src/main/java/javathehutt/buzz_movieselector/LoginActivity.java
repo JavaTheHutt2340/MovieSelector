@@ -28,7 +28,7 @@ public class LoginActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         FacebookSdk.sdkInitialize(this);
-        DependencyContainer dc = new DependencyInjectionContainer(this);
+        final DependencyContainer dc = new DependencyInjectionContainer(this);
         helper = dc.getDatabaseDep();
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);

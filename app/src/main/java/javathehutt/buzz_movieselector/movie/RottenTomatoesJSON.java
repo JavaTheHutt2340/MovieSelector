@@ -49,7 +49,7 @@ public class RottenTomatoesJSON implements MovieSource {
     public RottenTomatoesJSON(Context c) {
         adapter = DisplayMoviesActivity.getAdapter();
         this.context = c;
-        DependencyContainer dc = new DependencyInjectionContainer(context);
+        final DependencyContainer dc = new DependencyInjectionContainer(context);
         if (null == queue) {
             queue = Volley.newRequestQueue(context);
         }
@@ -63,7 +63,7 @@ public class RottenTomatoesJSON implements MovieSource {
      */
     @Override
     public void newMovieReleases(int limit, int page) {
-        String url =
+        final String url =
                 "http://api.rottentomatoes.com/api/public/v1."
                         + "0/lists/movies/opening.json?apikey="
                         + KEY + "&limit=" + limit + "&page=" + page;
@@ -78,7 +78,7 @@ public class RottenTomatoesJSON implements MovieSource {
      */
     @Override
     public void newDVDReleases(int limit, int page, boolean b) {
-        String url =
+        final String url =
                 "http://api.rottentomatoes.com/api/public"
                         + "/v1.0/lists/dvds/new_releases.json?apikey="
                         + KEY + "&page_limit=" + limit + "&page=" + page;
@@ -105,13 +105,13 @@ public class RottenTomatoesJSON implements MovieSource {
             throw new IllegalArgumentException("Page number should"
                     +" be positive");
         }
-        String[] nameParts = name.split(" ");
+        final String[] nameParts = name.split(" ");
         name = "";
         for (int i = 0; i < nameParts.length - 1; i++) {
             name += nameParts[i] + "%20";
         }
         name += nameParts[nameParts.length - 1];
-        String url = URL + KEY + "&q=" + name + "&page_limit="
+        final String url = URL + KEY + "&q=" + name + "&page_limit="
                 + limit  + "&page=" + page;
         passOnMoviesList(url, false);
     }
@@ -136,8 +136,8 @@ public class RottenTomatoesJSON implements MovieSource {
      * @param filter the filer
      */
     private void passOnMoviesList(String url, final boolean ... filter) {
-        final boolean f = filter.length >= 1 ? false : filter[1];
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+        final boolean f = filter.length < 1 && filter[1];
+        final JsonObjectRequest jsObjRequest = new JsonObjectRequest(
                 Request.Method.GET, url, "",
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -149,10 +149,10 @@ public class RottenTomatoesJSON implements MovieSource {
                             Log.e("JSON", "error");
                         }
 
-                        List<String> list = new ArrayList<>();
+                        final List<String> list = new ArrayList<>();
                         for (int i = 0; i < array.length(); i++) {
                             try {
-                                JSONObject jsonObject = array.getJSONObject(i);
+                                final JSONObject jsonObject = array.getJSONObject(i);
                                 assert jsonObject != null;
                                 list.add(jsonObject.optString("id"));
                             } catch (JSONException e) {
@@ -161,7 +161,7 @@ public class RottenTomatoesJSON implements MovieSource {
                             }
                         }
                         for (int i = 0; i < list.size(); i++) {
-                            Task task = new Task();
+                            final Task task = new Task();
                             task.execute(list.get(i), Integer.toString(i), filter[0] ? "true"
                                     : "false", f ? "true" : "false");
                         }
@@ -180,7 +180,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * @param m Movie
      */
     public void similarMovies(Movie m) {
-        String url = m.getApiUrl();
+        final String url = m.getApiUrl();
         similarMovies(url);
 
     }
@@ -198,15 +198,15 @@ public class RottenTomatoesJSON implements MovieSource {
                 return rhs.getCriticsScoreInt() - lhs.getCriticsScoreInt();
             }
         });
-        ListView listView = DisplayMoviesActivity.getListView();
+        final ListView listView = DisplayMoviesActivity.getListView();
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int pos,
                                     long arg3) {
                 //Here pos is the position of row clicked
-                Intent ratingsIntent = new Intent(context, MovieViewActivity.class);
-                Bundle bundle = new Bundle();
+                final Intent ratingsIntent = new Intent(context, MovieViewActivity.class);
+                final Bundle bundle = new Bundle();
                 bundle.putSerializable("object", adapter.getItem(pos));
                 ratingsIntent.putExtras(bundle);
                 ratingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -235,30 +235,30 @@ public class RottenTomatoesJSON implements MovieSource {
             } catch (InterruptedException e) {
                 Log.e("JSON", "error");
             }
-            String url = "http://api.rottentomatoes.com/api/public"
+            final String url = "http://api.rottentomatoes.com/api/public"
                     + "/v1.0/movies/" + params[0] + ".json?apikey=" + KEY;
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+            final JsonObjectRequest jsObjRequest = new JsonObjectRequest(
                     Request.Method.GET, url, "", new Response
                     .Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject resp) {
                             try {
                                 assert resp != null;
-                                String title = resp.optString("title");
-                                int year = resp.optInt("year");
-                                String synopsis = resp.optString("synopsis");
-                                JSONObject rating = resp
+                                final String title = resp.optString("title");
+                                final int year = resp.optInt("year");
+                                final String synopsis = resp.optString("synopsis");
+                                final JSONObject rating = resp
                                         .getJSONObject("ratings");
-                                String criticsRating = rating
+                                final String criticsRating = rating
                                         .optString("critics_rating");
-                                int criticsScore = rating
+                                final int criticsScore = rating
                                         .optInt("critics_score");
-                                String genre = resp.optString("genres");
-                                String url = resp.getJSONObject("links")
+                                final String genre = resp.optString("genres");
+                                final String url = resp.getJSONObject("links")
                                         .getString("self");
-                                String altUrl = resp.getJSONObject("links")
+                                final String altUrl = resp.getJSONObject("links")
                                         .getString("alternate");
-                                Movie m = new Movie(title, year, criticsRating,
+                                final Movie m = new Movie(title, year, criticsRating,
                                         criticsScore, synopsis, url, genre);
                                 m.setAltUrl(altUrl);
                                 if (params[3].equals("true")) {
@@ -275,7 +275,7 @@ public class RottenTomatoesJSON implements MovieSource {
                                 Log.d("volley", "Failed to get JSON object");
                             }
                             if (l.equals(Long.valueOf("11") * 75)) {
-                                Intent i = new Intent();
+                                final Intent i = new Intent();
                                 i.setAction("test");
                                 context.sendBroadcast(i);
                             }

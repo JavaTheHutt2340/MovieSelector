@@ -34,7 +34,7 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        DependencyContainer dc = new DependencyInjectionContainer(this);
+        final DependencyContainer dc = new DependencyInjectionContainer(this);
         helper = dc.getDatabaseDep();
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -67,36 +67,36 @@ public class RegisterActivity extends Activity {
      * @param v displays the register button
      */
     public void registerButtonClick(View v) {
-        int duration = Toast.LENGTH_SHORT;
-        Context context = getApplicationContext();
+        final int duration = Toast.LENGTH_SHORT;
+        final Context context = getApplicationContext();
         if (helper.isInSystem(etUsername.getText().toString())) {
-            CharSequence text = "Username is taken.";
-            Toast toast = Toast.makeText(context, text, duration);
+            final CharSequence text = "Username is taken.";
+            final Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         } else {
             if (!validPassword()) {
-                CharSequence text = "Password cannot contain spaces.";
-                Toast toast = Toast.makeText(context, text, duration);
+                final CharSequence text = "Password cannot contain spaces.";
+                final Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             } else if (validFields()) {
-                RegUser user = new RegUser(etUsername.getText()
+                final RegUser user = new RegUser(etUsername.getText()
                                 .toString().trim(), etPassword.getText()
-                                .toString());
+                                    .toString());
                 helper.addUser(user);
-                CharSequence text = "User Successfully Registered!";
-                Toast toast = Toast.makeText(context, text, duration);
+                final CharSequence text = "User Successfully Registered!";
+                final Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                Intent intent = new Intent(this, MainMenuActivity.class);
+                final Intent intent = new Intent(this, MainMenuActivity.class);
                 startActivity(intent);
                 finish();
             } else if (!etPassword.getText().toString()
                     .equals(etConfirmPassword.getText().toString())) {
-                CharSequence text = "Passwords don't match.";
-                Toast toast = Toast.makeText(context, text, duration);
+                final CharSequence text = "Passwords don't match.";
+                final Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             } else {
-                CharSequence text = "Please fill out all fields.";
-                Toast toast = Toast.makeText(context, text, duration);
+                final CharSequence text = "Please fill out all fields.";
+                final Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             }
 
