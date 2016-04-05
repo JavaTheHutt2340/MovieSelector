@@ -30,6 +30,7 @@ public class DisplayMoviesActivity extends Activity {
             .buzz_movieselector.movie.Movie> movieAdapter;
     private MovieSource rtjson;
     private int state;
+    private final int MAX_DISPLAY = 12;
     private User u;
 
     @Override
@@ -51,16 +52,16 @@ public class DisplayMoviesActivity extends Activity {
         u = db.lastLogIn();
         switch (state) {
             case 1:
-                rtjson.newDVDReleases(12, 1, false);
+                rtjson.newDVDReleases(MAX_DISPLAY, 1, false);
                 break;
             case 2:
-                rtjson.searchMovieByName(searchText, 12, 1);
+                rtjson.searchMovieByName(searchText, MAX_DISPLAY, 1);
                 break;
             case 3:
-                rtjson.newMovieReleases(12, 1);
+                rtjson.newMovieReleases(MAX_DISPLAY, 1);
                 break;
             case 4:
-                rtjson.newDVDReleases(12, 1, true);
+                rtjson.newDVDReleases(MAX_DISPLAY, 1, true);
                 break;
             default:
                 break;
