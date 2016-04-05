@@ -146,6 +146,7 @@ public class RottenTomatoesJSON implements MovieSource {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                         List<String> list = new ArrayList<>();
                         for (int i = 0; i < array.length(); i++) {
                             try {
