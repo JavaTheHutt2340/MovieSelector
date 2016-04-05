@@ -152,39 +152,48 @@ public class RottenTomatoesJSON implements MovieSource {
     private void passOnMoviesList(String url, final boolean ... filter) {
         final boolean f = filter.length < 1 && filter[1];
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest(
-                Request.Method.GET, url, "",
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject resp) {
-                        JSONArray array = null;
-                        try {
-                            array = resp.getJSONArray("movies");
-                        } catch (JSONException e) {
-                            Log.e("JSON", "error");
-                        }
-                        final List<String> list = new ArrayList<>();
-                        for (int i = 0; i < array.length(); i++) {
-                            try {
-                                final JSONObject jsonObject = array.getJSONObject(i);
-                                assert jsonObject != null;
-                                list.add(jsonObject.optString("id"));
-                            } catch (JSONException e) {
-                                Log.d("VolleyApp", "Failed to get JSON object");
-                            }
-                        }
-                        for (int i = 0; i < list.size(); i++) {
-                            final Task task = new Task();
-                            task.execute(list.get(i), Integer.toString(i), filter[0] ? "true"
-                                    : "false", f ? "true" : "false");
-                        }
-                    }
-                }, new Response.ErrorListener() {
+                Request.Method.GET, url, "", new MovieResponse(filter, f) , new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
                     }
                 });
         queue.add(jsObjRequest);
+    }
+
+    private class MovieResponse implements Response.Listener<JSONObject> {
+
+        boolean[] filter;
+        boolean f;
+        public MovieResponse(boolean[] boolArray, boolean bool) {
+            filter = boolArray;
+            f = bool;
+        }
+
+        @Override
+        public void onResponse(JSONObject resp) {
+            JSONArray array = null;
+            try {
+                array = resp.getJSONArray("movies");
+            } catch (JSONException e) {
+                Log.e("JSON", "error");
+            }
+            final List<String> list = new ArrayList<>();
+            for (int i = 0; i < array.length(); i++) {
+                try {
+                    final JSONObject jsonObject = array.getJSONObject(i);
+                    assert jsonObject != null;
+                    list.add(jsonObject.optString("id"));
+                } catch (JSONException e) {
+                    Log.d("VolleyApp", "Failed to get JSON object");
+                }
+            }
+            for (int i = 0; i < list.size(); i++) {
+                final Task task = new Task();
+                task.execute(list.get(i), Integer.toString(i), filter[0] ? "true"
+                        : "false", f ? "true" : "false");
+            }
+        }
     }
 
     /**
@@ -250,49 +259,7 @@ public class RottenTomatoesJSON implements MovieSource {
             final String url = "http://api.rottentomatoes.com/api/public"
                     + "/v1.0/movies/" + params[0] + ".json?apikey=" + KEY;
             final JsonObjectRequest jsObjRequest = new JsonObjectRequest(
-                    Request.Method.GET, url, "", new Response
-                    .Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject resp) {
-                            try {
-                                assert resp != null;
-                                final String title = resp.optString("title");
-                                final int year = resp.optInt("year");
-                                final String synopsis = resp.optString("synopsis");
-                                final JSONObject rating = resp
-                                        .getJSONObject("ratings");
-                                final String criticsRating = rating
-                                        .optString("critics_rating");
-                                final int criticsScore = rating
-                                        .optInt("critics_score");
-                                final String genre = resp.optString("genres");
-                                final String url = resp.getJSONObject("links")
-                                        .getString("self");
-                                final String altUrl = resp.getJSONObject("links")
-                                        .getString("alternate");
-                                final Movie m = new Movie(title, year, criticsRating,
-                                        criticsScore, synopsis, url, genre);
-                                m.setAltUrl(altUrl);
-                                if ("true".equals(params[3])) {
-                                    publishProgress(m);
-                                }
-                                if ("true".equals(params[2])) {
-                                    if (m.containsGenre(u.getFavoriteGenre())) {
-                                        publishProgress(m);
-                                    }
-                                } else {
-                                    publishProgress(m);
-                                }
-                            } catch (JSONException e) {
-                                Log.d("volley", "Failed to get JSON object");
-                            }
-                            if (l.equals(Long.valueOf("11") * 75)) {
-                                final Intent i = new Intent();
-                                i.setAction("test");
-                                context.sendBroadcast(i);
-                            }
-                        }
-                    }, new Response.ErrorListener() {
+                    Request.Method.GET, url, "", new ResponseListener(params, l) , new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.d("volley", "failure");
@@ -300,6 +267,57 @@ public class RottenTomatoesJSON implements MovieSource {
                     });
             queue.add(jsObjRequest);
             return null;
+        }
+
+        private class ResponseListener implements Response
+                .Listener<JSONObject> {
+            String[] params;
+            Long l;
+            public ResponseListener(String[] passedIn, Long passedInLong) {
+                params = passedIn;
+                l = passedInLong;
+            }
+
+            @Override
+            public void onResponse(JSONObject resp) {
+                try {
+                    assert resp != null;
+                    final String title = resp.optString("title");
+                    final int year = resp.optInt("year");
+                    final String synopsis = resp.optString("synopsis");
+                    final JSONObject rating = resp
+                            .getJSONObject("ratings");
+                    final String criticsRating = rating
+                            .optString("critics_rating");
+                    final int criticsScore = rating
+                            .optInt("critics_score");
+                    final String genre = resp.optString("genres");
+                    final String url = resp.getJSONObject("links")
+                            .getString("self");
+                    final String altUrl = resp.getJSONObject("links")
+                            .getString("alternate");
+                    final Movie m = new Movie(title, year, criticsRating,
+                            criticsScore, synopsis, url, genre);
+                    m.setAltUrl(altUrl);
+                    if ("true".equals(params[3])) {
+                        publishProgress(m);
+                    }
+                    if ("true".equals(params[2])) {
+                        if (m.containsGenre(u.getFavoriteGenre())) {
+                            publishProgress(m);
+                        }
+                    } else {
+                        publishProgress(m);
+                    }
+                } catch (JSONException e) {
+                    Log.d("volley", "Failed to get JSON object");
+                }
+                if (l.equals(Long.valueOf("11") * 75)) {
+                    final Intent i = new Intent();
+                    i.setAction("test");
+                    context.sendBroadcast(i);
+                }
+            }
         }
 
         @Override

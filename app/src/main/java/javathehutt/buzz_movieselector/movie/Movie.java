@@ -104,7 +104,7 @@ public class Movie implements Serializable {
     public void setGenre(String s) {
         String result;
         result = s.replaceAll("\"", "");
-        result = result.substring(1, s.length() - 1);
+        result = result.substring(1, result.length() - 1);
         genre = result.split(",");
     }
 
