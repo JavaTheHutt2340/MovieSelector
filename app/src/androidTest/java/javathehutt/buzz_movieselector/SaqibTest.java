@@ -1,5 +1,6 @@
 package javathehutt.buzz_movieselector;
         import android.app.Application;
+        import android.net.nsd.NsdManager;
         import android.os.Bundle;
         import android.support.test.rule.ActivityTestRule;
         import android.support.test.runner.AndroidJUnit4;
@@ -24,7 +25,7 @@ package javathehutt.buzz_movieselector;
         import org.junit.BeforeClass;
         import org.junit.ClassRule;
         import org.junit.FixMethodOrder;
-        import org.junit.Assert;
+        import org.junit.Assert.*;
         import org.junit.Test;
         import org.junit.runner.RunWith;
         import org.junit.runners.MethodSorters;
@@ -36,50 +37,32 @@ package javathehutt.buzz_movieselector;
  */
 @RunWith(AndroidJUnit4.class)
 public class SaqibTest extends ApplicationTestCase<Application> {
-    private static DatabaseHelper DBH;
+    private static DatabaseHelper db;
+    private static RegUser u = new RegUser("bob", "bob");
     public SaqibTest() {
         super(Application.class);
     }
     @ClassRule
-    public static ActivityTestRule<DetailedUserView> activity = new ActivityTestRule(DetailedUserView.class);
+    public static ActivityTestRule<MainActivity> activity = new ActivityTestRule(MainActivity.class);
 
     @BeforeClass
     public static void setup() {
-        Bundle b = new Bundle();
-        RegUser regUser = new RegUser("hello", "buy");
-        b.putSerializable("user", regUser);
-        activity.getActivity().onCreate(b);
-        DependencyInjectionContainer DIC = new DependencyInjectionContainer(activity.getActivity());
-        DBH = DIC.getDatabaseDep();
-        DBH.addUser(regUser);
+        db = new DatabaseHelper(activity.getActivity().getApplicationContext());
+        db.addUser(u);
     }
     @Test
-    public void testIfLocked() {
-        //onView(withId(R.id.lockButton)).perform(click());
-        //onView(withId(R.id.lockButton)).check(matches(withText("unlock account")));
-        List<User> users = DBH.getAllUsers();
-        RegUser user = new RegUser("goodbye", "buenos diaz");
-        for (User u : users) {
-            if (u.getUsername().equals("hello")) {
-                user = (RegUser) u;
+    public void testUpdateUser() {
+        u.setFavoriteGenre(3);
+        u.setLocation("Georgia");
+        u.setMajor("Computer Science");
+        u.setRealName("Saqib");
+        db.updateUser(u);
+        RegUser user1 = new RegUser("Carl", "Carl");
+        for (User user : db.getAllUsers()) {
+            if (user.equals(u)) {
+                user1 = (RegUser) user;
             }
         }
-        Assert.assertTrue(user.getLockStatus());
+        assertTrue(user1.getFavoriteGenre().equals("Art House & International"));
     }
-
-    @Test
-    public void testIfUnlocked() {
-        //onView(withId(R.id.lockButton)).perform(click());
-        //onView(withId(R.id.lockButton)).check(matches(withText("unlock account")));
-        List<User> users = DBH.getAllUsers();
-        RegUser user = new RegUser("goodbye", "buenos diaz");
-        for (User u : users) {
-            if (u.getUsername().equals("hello")) {
-                user = (RegUser) u;
-            }
-        }
-        Assert.assertTrue(!user.getLockStatus());
-    }
-
-
 }
