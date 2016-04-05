@@ -139,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addUser(User u) {
         currentUser = u;
         db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(COLUMN_USERNAME, u.getUsername());
         values.put(COLUMN_PASSWORD, u.getPassword());
         values.put(COLUMN_NAME, u.getRealName());
@@ -161,14 +161,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void updateUser(User u) {
         db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
 
         values.put(COLUMN_NAME, u.getRealName());
         values.put(COLUMN_GENRE, u.getFavoriteGenreNum());
         values.put(COLUMN_LOCATION, u.getLocation());
         values.put(COLUMN_MAJOR, u.getMajor());
         if (u instanceof RegUser) {
-            RegUser temp = (RegUser) u;
+            final RegUser temp = (RegUser) u;
             values.put(COLUMN_BAN, temp.getBanStatus() ? "true" : "false");
             values.put(COLUMN_LOCKED, temp.getLockStatus() ? "true" : "false");
             if (!temp.getLockStatus()) {
@@ -199,10 +199,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
         db = this.getReadableDatabase();
-        String query = "select username from " + TABLE_NAME
+        final String query = "select username from " + TABLE_NAME
                 + " where username like \'" + u + "\'";
-        Cursor cursor = db.rawQuery(query, null);
-        int temp = cursor.getCount();
+        final Cursor cursor = db.rawQuery(query, null);
+        final int temp = cursor.getCount();
         cursor.close();
         return temp > 0;
     }
@@ -212,13 +212,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return List of users
      */
     public List<User> getAllUsers() {
-        List<User> list = new ArrayList<>();
+        final List<User> list = new ArrayList<>();
         db = this.getReadableDatabase();
-        String query = "select * from " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(query, null);
+        final String query = "select * from " + TABLE_NAME;
+        final Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            RegUser tempUser = new RegUser(cursor
+            final RegUser tempUser = new RegUser(cursor
                     .getString(1), cursor.getString(2));
             tempUser.setRealName(cursor.getString(3));
             tempUser.setFavoriteGenre(cursor.getInt(4));

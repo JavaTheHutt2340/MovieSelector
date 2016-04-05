@@ -174,7 +174,7 @@ public abstract class User implements Serializable {
         * @return true if logged in
          */
     public boolean logIn(String pd) {
-        boolean result = this.password.equals(pd);
+        final boolean result = this.password.equals(pd);
         loggedIn = result;
         return result;
     }
@@ -199,7 +199,7 @@ public abstract class User implements Serializable {
         if (!(o instanceof User)) {
             return false;
         }
-        User other = (User) o;
+        final User other = (User) o;
         return other.getUsername().equalsIgnoreCase(this.getUsername())
                 && password.equalsIgnoreCase(other.password);
     }

@@ -20,11 +20,10 @@ public class MainMenuActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DependencyContainer dc = new DependencyInjectionContainer(this);
-        DatabaseHelper db = dc.getDatabaseDep();
+        final DependencyContainer dc = new DependencyInjectionContainer(this);
+        final DatabaseHelper db = dc.getDatabaseDep();
         setContentView(R.layout.activity_main_menu);
         u = db.lastLogIn();
-        System.out.println(u.getUsername());
         final Button userListButton = (Button) findViewById(R.id.button3);
         userListButton.setEnabled(u.isAdmin());
         userListButton.setVisibility(u.isAdmin() ? View.VISIBLE : View.GONE);

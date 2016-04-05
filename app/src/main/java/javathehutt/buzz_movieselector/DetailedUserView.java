@@ -21,7 +21,7 @@ public class DetailedUserView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_user_view);
-        Bundle bundle = getIntent().getBundleExtra("bundle");
+        final Bundle bundle = getIntent().getBundleExtra("bundle");
         u = (RegUser) bundle.getSerializable("user");
         banButton = (Button) findViewById(R.id.banButton);
         lockButton = (Button) findViewById(R.id.lockButton);
@@ -35,7 +35,7 @@ public class DetailedUserView extends Activity {
         } else {
             banButton.setText("ban account");
         }
-        DependencyContainer dc = new DependencyInjectionContainer(this);
+        final DependencyContainer dc = new DependencyInjectionContainer(this);
         db = dc.getDatabaseDep();
     }
 

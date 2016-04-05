@@ -51,10 +51,10 @@ public class Movie implements Serializable {
 
     /**
      * gets the name of the movie
-     * @param name the name
+     * @param nname the name
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nname) {
+        this.name = nname;
     }
 
     /**
@@ -176,10 +176,10 @@ public class Movie implements Serializable {
 
     /**
      * Setter method for alternate URL
-     * @param altUrl the alt url for the movie
+     * @param maltUrl the alt url for the movie
      */
-    public void setAltUrl(String altUrl) {
-        this.altUrl = altUrl;
+    public void setAltUrl(String maltUrl) {
+        this.altUrl = maltUrl;
     }
 
     @Override

@@ -23,7 +23,7 @@ public class MovieSearchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DependencyContainer dc = new DependencyInjectionContainer(this);
+        final DependencyContainer dc = new DependencyInjectionContainer(this);
         helper = dc.getDatabaseDep();
         setContentView(R.layout.activity_movie_search);
         searchBar = (SearchView) findViewById(R.id.searchView);

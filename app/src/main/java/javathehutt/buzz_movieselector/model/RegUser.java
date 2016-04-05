@@ -87,7 +87,7 @@ public class RegUser extends User {
         if (locked || banned) {
             return false;
         } else {
-            boolean result = super.logIn(password);
+            final boolean result = super.logIn(password);
             failedAttempts = result ? 0 : ++failedAttempts;
             if (failedAttempts == ATTEMPTS_ALLOWED) {
                 lock();
