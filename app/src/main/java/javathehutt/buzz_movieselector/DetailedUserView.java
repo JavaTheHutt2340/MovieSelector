@@ -38,14 +38,14 @@ public class DetailedUserView extends Activity {
         banButton = (Button) findViewById(R.id.banButton);
         lockButton = (Button) findViewById(R.id.lockButton);
         if (u.getLockStatus()) {
-            lockButton.setText("unlock account");
+            lockButton.setText(R.string.unlock);
         } else {
-            lockButton.setText("lock account");
+            lockButton.setText(R.string.Lock);
         }
         if (u.getBanStatus()) {
-            banButton.setText("unBan account");
+            banButton.setText(R.string.unBan);
         } else {
-            banButton.setText("ban account");
+            banButton.setText(R.string.Ban);
         }
         final DependencyContainer dc = new DependencyInjectionContainer(this);
         db = dc.getDatabaseDep();
@@ -59,11 +59,11 @@ public class DetailedUserView extends Activity {
         if (u.getLockStatus()) {
             u.unlock();
             db.updateUser(u);
-            lockButton.setText("lock account");
+            lockButton.setText(R.string.Lock);
         } else {
             u.lock();
             db.updateUser(u);
-            lockButton.setText("unlock account");
+            lockButton.setText(R.string.unlock);
         }
     }
 
@@ -75,11 +75,11 @@ public class DetailedUserView extends Activity {
         if (u.getBanStatus()) {
             u.unBan();
             db.updateUser(u);
-            banButton.setText("ban account");
+            banButton.setText(R.string.Ban);
         } else {
             u.ban();
             db.updateUser(u);
-            banButton.setText("unBan account");
+            banButton.setText(R.string.unBan);
         }
     }
 
