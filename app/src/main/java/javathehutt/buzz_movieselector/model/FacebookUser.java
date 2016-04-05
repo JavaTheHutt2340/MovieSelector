@@ -7,7 +7,13 @@ import com.facebook.login.LoginManager;
  * Created by Mohammed on 2/28/2016.
  */
 public class FacebookUser extends RegUser {
+    /**
+     * access token
+     */
     private AccessToken at;
+    /**
+     * the user id
+     */
     private String id;
 
     /**

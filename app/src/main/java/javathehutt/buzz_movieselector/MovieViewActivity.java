@@ -17,9 +17,18 @@ import javathehutt.buzz_movieselector.movie.RottenTomatoesJSON;
 
 public class MovieViewActivity extends Activity {
 
+    /**
+     * the rating bar
+     */
     private RatingBar ratingBar;
     //private MovieRatingManager manager;
+    /**
+     * the movie to rate
+     */
     private Movie m;
+    /**
+     * shared Preferences
+     */
     private SharedPreferences sharedPref;
 
     @Override

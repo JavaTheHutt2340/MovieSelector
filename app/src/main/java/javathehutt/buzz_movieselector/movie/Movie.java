@@ -5,13 +5,37 @@ import java.io.Serializable;
  * Created by Mohammed on 2/16/2016.
  */
 public class Movie implements Serializable {
+    /**
+     * name of the movie
+     */
     private String name;
+    /**
+     * year of the movie
+     */
     private int year;
+    /**
+     * critics rating of the movie
+     */
     private String criticsRating;
+    /**
+     * critics score of the movie
+     */
     private int criticsScore;
+    /**
+     * synopsis of the movie
+     */
     private String synopsis;
+    /**
+     * api url of the movie
+     */
     private String apiUrl;
+    /**
+     * genrel of the movie
+     */
     private String[] genre;
+    /**
+     * the alternate url of the movie
+     */
     private String altUrl;
     /**
      * Standard constructor for movie

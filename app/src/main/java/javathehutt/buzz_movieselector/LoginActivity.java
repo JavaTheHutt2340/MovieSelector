@@ -17,8 +17,17 @@ import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 
 public class LoginActivity extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
+    /**
+     * the username text field
+     */
     private EditText etUsername;
+    /**
+     * password text field
+     */
     private EditText etPassword;
+    /**
+     * the database interfacer
+     */
     private DatabaseHelper helper;
 
 

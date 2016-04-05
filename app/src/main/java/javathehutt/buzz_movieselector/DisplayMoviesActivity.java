@@ -25,12 +25,30 @@ import javathehutt.buzz_movieselector.movie.MovieSource;
  */
 public class DisplayMoviesActivity extends Activity {
 
+    /**
+     * the LitView that holds the movies
+     */
     private static ListView displayMoviesView;
+    /**
+     * the array adapter for the listview
+     */
     private static ArrayAdapter<javathehutt
             .buzz_movieselector.movie.Movie> movieAdapter;
+    /**
+     * the Movie Source
+     */
     private MovieSource rtjson;
+    /**
+     * the state of the application
+     */
     private int state;
+    /**
+     * the current user
+     */
     private User u;
+    /**
+     * the starting number of movies to pull
+     */
     private static final int STARTING_NUMBER = 20;
 
     @Override
@@ -99,9 +117,18 @@ public class DisplayMoviesActivity extends Activity {
     }
 
     private class Receiver extends BroadcastReceiver {
+        /**
+         * page to start looking at
+         */
         private int count = 2;
+        /**
+         * total number of movies needed to not pull more
+         */
         private static final int TOTAL_NUMBER = 12;
-        private static final int INCREMENT = 12;
+        /**
+         * how many movies to pull extra
+         */
+        private static final int INCREMENT = 20;
 
         @Override
         public void onReceive(Context context,

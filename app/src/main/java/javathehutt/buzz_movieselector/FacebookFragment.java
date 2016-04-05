@@ -40,8 +40,17 @@ import javathehutt.buzz_movieselector.model.RegUser;
  * create an instance of this fragment.
  */
 public class FacebookFragment extends Fragment {
+    /**
+     * the callback manager
+     */
     private CallbackManager callbackManager;
+    /**
+     * the access token
+     */
     private static AccessToken at;
+    /**
+     * the fragment interaction listener
+     */
     private OnFragmentInteractionListener mListener;
 
     /**

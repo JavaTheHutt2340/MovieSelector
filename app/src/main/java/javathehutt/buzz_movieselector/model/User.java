@@ -6,13 +6,37 @@ import java.io.Serializable;
  * Created by JasonGibson on 2/2/16.
  */
 public abstract class User implements Serializable {
+    /**
+     * the username of the user
+     */
     private String username;
+    /**
+     * the password of the user
+     */
     private String password;
+    /**
+     * the real name of the user
+     */
     private String realName;
+    /**
+     * the location of the user
+     */
     private String location;
+    /**
+     * the major of the user
+     */
     private String major;
+    /**
+     * the loggin status of the user
+     */
     private boolean loggedIn;
+    /**
+     * the favorite genre of the user
+     */
     private int favoriteGenre;
+    /**
+     * the a list of genres of the user
+     */
     private static String[] genres = {"Action & Adventure",
         "Animation", "Art House & International",
         "Classics", "Comedy", "Drama", "Horror", "Kids & Family",
