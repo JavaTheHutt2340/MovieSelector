@@ -146,7 +146,7 @@ public class RottenTomatoesJSON implements MovieSource {
                         try {
                             array = resp.getJSONArray("movies");
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Log.e("JSON", "error");
                         }
                         List<String> list = new ArrayList<>();
                         for (int i = 0; i < array.length(); i++) {
@@ -156,7 +156,7 @@ public class RottenTomatoesJSON implements MovieSource {
                                 list.add(jsonObject.optString("id"));
                             } catch (JSONException e) {
                                 Log.d("VolleyApp", "Failed to get JSON object");
-                                e.printStackTrace();
+                                Log.e("JSON", "error");
                             }
                         }
                         for (int i = 0; i < list.size(); i++) {
@@ -232,7 +232,7 @@ public class RottenTomatoesJSON implements MovieSource {
                     Thread.sleep(l);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.e("JSON", "error");
             }
             String url = "http://api.rottentomatoes.com/api/public"
                     + "/v1.0/movies/" + params[0] + ".json?apikey=" + KEY;
@@ -272,7 +272,6 @@ public class RottenTomatoesJSON implements MovieSource {
                                 }
                             } catch (JSONException e) {
                                 Log.d("volley", "Failed to get JSON object");
-                                e.printStackTrace();
                             }
                             if (l.equals(Long.valueOf("11") * 75)) {
                                 Intent i = new Intent();

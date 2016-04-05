@@ -115,24 +115,24 @@ public class DisplayMoviesActivity extends Activity {
             }
             if (movieAdapter.getCount() < totalNumber && count < 100) {
                 switch (state) {
-                case 1:
-                    rtjson.newDVDReleases(increment, count++, false);
-                    break;
-                case 2:
-                    String searchText = (getIntent().getStringExtra("text"));
-                    rtjson.searchMovieByName(searchText, increment, count++);
-                    break;
-                case 3:
-                    rtjson.newMovieReleases(increment, count++);
-                    break;
-                case 4:
-                    if (movieAdapter.getCount() < 6) {
-                        rtjson.newDVDReleases(increment, count++, true);
+                    case 1:
+                        rtjson.newDVDReleases(increment, count++, false);
+                        break;
+                    case 2:
+                        String searchText = (getIntent().getStringExtra("text"));
+                        rtjson.searchMovieByName(searchText, increment, count++);
+                        break;
+                    case 3:
+                        rtjson.newMovieReleases(increment, count++);
+                        break;
+                    case 4:
+                        if (movieAdapter.getCount() < 6) {
+                            rtjson.newDVDReleases(increment, count++, true);
+                        }
+                        break;
+                    default:
+                        break;
                     }
-                    break;
-                default:
-                    break;
-                }
             }
         }
     }
