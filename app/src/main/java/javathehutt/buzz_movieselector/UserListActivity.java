@@ -18,8 +18,17 @@ import javathehutt.buzz_movieselector.model.User;
 
 public class UserListActivity extends Activity {
 
+    /**
+     * the list of all users
+     */
     private final List<User> users = new ArrayList<>();
+    /**
+     * the database interfacer
+     */
     private DatabaseHelper helper;
+    /**
+     * the adapter of the user list view
+     */
     private ArrayAdapter<User> adapter;
 
     @Override

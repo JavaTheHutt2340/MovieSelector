@@ -38,9 +38,21 @@ import javathehutt.buzz_movieselector.model.User;
  * Created by Mohammed on 2/16/2016.
  */
 public class RottenTomatoesJSON implements MovieSource {
+    /**
+     * the rest queue
+     */
     private static RequestQueue queue;
+    /**
+     * the context
+     */
     private Context context;
+    /**
+     * the adapter for the movies
+     */
     private ArrayAdapter<Movie> adapter;
+    /**
+     * the current user
+     */
     private User u;
     /**
      * Constructor for a RottenTomatoesJSON interfacer
@@ -150,7 +162,6 @@ public class RottenTomatoesJSON implements MovieSource {
                         } catch (JSONException e) {
                             Log.e("JSON", "error");
                         }
-
                         final List<String> list = new ArrayList<>();
                         for (int i = 0; i < array.length(); i++) {
                             try {
@@ -159,7 +170,6 @@ public class RottenTomatoesJSON implements MovieSource {
                                 list.add(jsonObject.optString("id"));
                             } catch (JSONException e) {
                                 Log.d("VolleyApp", "Failed to get JSON object");
-                                Log.e("JSON", "error");
                             }
                         }
                         for (int i = 0; i < list.size(); i++) {
@@ -263,10 +273,10 @@ public class RottenTomatoesJSON implements MovieSource {
                                 final Movie m = new Movie(title, year, criticsRating,
                                         criticsScore, synopsis, url, genre);
                                 m.setAltUrl(altUrl);
-                                if (params[3].equals("true")) {
+                                if ("true".equals(params[3])) {
                                     publishProgress(m);
                                 }
-                                if (params[2].equals("true")) {
+                                if ("true".equals(params[2])) {
                                     if (m.containsGenre(u.getFavoriteGenre())) {
                                         publishProgress(m);
                                     }

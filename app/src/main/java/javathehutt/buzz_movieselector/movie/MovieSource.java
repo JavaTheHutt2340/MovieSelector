@@ -8,7 +8,13 @@ import android.content.Context;
  */
 
 public interface MovieSource {
+    /**
+     * RT api key
+     */
     String KEY = "yedukp76ffytfuy24zsqk7f5";
+    /**
+     * url base case for rest calls
+     */
     String URL = "http://api.rottentomatoes."
             + "com/api/public/v1.0/movies.json?apikey=";
     /**

@@ -16,8 +16,13 @@ import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
 
 public class MovieSearchActivity extends Activity {
-
+    /**
+     * search movie widget
+     */
     private SearchView searchBar;
+    /**
+     * database interfacer
+     */
     private DatabaseHelper helper;
 
     @Override

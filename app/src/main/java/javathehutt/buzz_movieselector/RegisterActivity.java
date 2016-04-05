@@ -21,9 +21,21 @@ import javathehutt.buzz_movieselector.model.RegUser;
  */
 public class RegisterActivity extends Activity {
 
+    /**
+     * the username textfield
+     */
     private EditText etUsername;
+    /**
+     * the password textfield
+     */
     private EditText etPassword;
+    /**
+     * the confirm password textfield
+     */
     private EditText etConfirmPassword;
+    /**
+     * the databse interfacer
+     */
     private DatabaseHelper helper;
 
     /**

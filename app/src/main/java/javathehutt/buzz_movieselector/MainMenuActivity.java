@@ -15,6 +15,9 @@ import javathehutt.buzz_movieselector.model.User;
 
 public class MainMenuActivity extends Activity {
 
+    /**
+     * the current user
+     */
     private User u;
 
     @Override

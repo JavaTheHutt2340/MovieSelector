@@ -25,7 +25,13 @@ import javathehutt.buzz_movieselector.model.User;
  */
 public class ProfileActivity extends Activity {
 
+    /**
+     * the current user
+     */
     private User u;
+    /**
+     * the database helper
+     */
     private DatabaseHelper helper;
 
     /**

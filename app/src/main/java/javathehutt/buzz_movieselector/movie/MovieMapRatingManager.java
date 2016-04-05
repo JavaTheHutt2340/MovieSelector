@@ -7,6 +7,9 @@ import java.util.Map;
  * Created by JasonGibson on 2/29/16.
  */
 public class MovieMapRatingManager implements MovieRatingManager {
+    /**
+     * the map pf movies to ratings
+     */
     private static Map<Movie, Float> ratingMap;
 
     /**

@@ -4,9 +4,21 @@ package javathehutt.buzz_movieselector.model;
  * Created by JasonGibson on 2/2/16.
  */
 public class RegUser extends User {
+    /**
+     * if the user is locked
+     */
     private boolean locked;
+    /**
+     * if the user is banned
+     */
     private boolean banned;
+    /**
+     * number of failed attempts
+     */
     private int failedAttempts;
+    /**
+     * the number of failed attempts allowed
+     */
     public static final int ATTEMPTS_ALLOWED = 5;
 
     /**

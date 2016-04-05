@@ -12,9 +12,21 @@ import javathehutt.buzz_movieselector.model.RegUser;
 
 public class DetailedUserView extends Activity {
 
+    /**
+     * the current user
+     */
     private RegUser u;
+    /**
+     * button to ban/unban user
+     */
     private Button banButton;
+    /**
+     * button to lock or unlock user
+     */
     private Button lockButton;
+    /**
+     * the database interfacer
+     */
     private DatabaseHelper db;
 
     @Override
