@@ -46,6 +46,7 @@ public class DisplayMoviesActivity extends Activity {
      * the current user
      */
     private User u;
+    private final int MAX_DISPLAY = 12;
     /**
      * the starting number of movies to pull
      */
@@ -70,15 +71,19 @@ public class DisplayMoviesActivity extends Activity {
         u = db.lastLogIn();
         switch (state) {
             case 1:
+                movieAdapter.clear();
                 rtjson.newDVDReleases(STARTING_NUMBER, 1, false);
                 break;
             case 2:
+                movieAdapter.clear();
                 rtjson.searchMovieByName(searchText, STARTING_NUMBER, 1);
                 break;
             case 3:
+                movieAdapter.clear();
                 rtjson.newMovieReleases(STARTING_NUMBER, 1);
                 break;
             case 4:
+                movieAdapter.clear();
                 rtjson.newDVDReleases(STARTING_NUMBER, 1, true);
                 break;
             default:
@@ -117,6 +122,10 @@ public class DisplayMoviesActivity extends Activity {
     }
 
     private class Receiver extends BroadcastReceiver {
+        /**
+         * Max number of movies to call
+         */
+        private static final int MAX_COUNT = 100;
         /**
          * page to start looking at
          */
@@ -162,9 +171,7 @@ public class DisplayMoviesActivity extends Activity {
                         rtjson.newMovieReleases(INCREMENT, count++);
                         break;
                     case 4:
-                        if (movieAdapter.getCount() < 6) {
-                            rtjson.newDVDReleases(INCREMENT, count++, true);
-                        }
+                        rtjson.newDVDReleases(INCREMENT, count++, true);
                         break;
                     default:
                         break;

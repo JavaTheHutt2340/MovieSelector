@@ -16,7 +16,6 @@ public class MainActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        //final DependencyContainer dc = new DependencyInjectionContainer(this);
         setContentView(R.layout.activity_welcome_screen);
         //This code will create Facebook hash for android development
         /*try {

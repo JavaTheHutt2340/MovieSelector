@@ -1,6 +1,5 @@
 package javathehutt.buzz_movieselector;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,10 +47,6 @@ public class FacebookFragment extends Fragment {
      * the access token
      */
     private static AccessToken at;
-    /**
-     * the fragment interaction listener
-     */
-    private OnFragmentInteractionListener mListener;
 
     /**
      * constructor for facebook fragment
@@ -109,83 +104,62 @@ public class FacebookFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_facebook, container, false);
         final LoginButton button = (LoginButton) v.findViewById(R.id.login_button);
         button.setReadPermissions("public_profile", "email", "user_friends");
-        button.registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(LoginResult loginResult) {
-                    Log.e("FACEBOOK", "ONSUCCESS");
-                    final AccessToken accessToken = loginResult
-                            .getAccessToken();
-                    at = accessToken;
-                    final GraphRequest request = GraphRequest.newMeRequest(
-                        accessToken,
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
-                                try {
-                                    final String name = object.getString("name");
-                                    final String link = object.getString("link");
-                                    final String id = object.getString("id");
-                                    final RegUser u = new FacebookUser(name, id,
-                                            accessToken);
-                                    final DatabaseHelper db = new
-                                            DatabaseHelper(getContext());
-                                    db.addUser(u);
-                                    db.handleLogInRequest(name, id);
-                                    startActivity(new Intent(getContext(),
-                                            MainMenuActivity.class));
-                                } catch (JSONException e) {
-                                    Log.e("facebook", "error");
-                                }
-
-                            }
-                        });
-                    final Bundle parameters = new Bundle();
-                    parameters.putString("fields", "id,name,link");
-                    request.setParameters(parameters);
-                    request.executeAsync();
-                }
-
-                @Override
-                public void onCancel() {
-                    Toast.makeText(getContext(), "Log In Cancelled!",
-                            Toast.LENGTH_SHORT).show();
-                    Log.i("D", "Facebook login cancelled.");
-                }
-
-                @Override
-                public void onError(FacebookException error) {
-                    Toast.makeText(getContext(), "Log In Error!",
-                            Toast.LENGTH_SHORT).show();
-                    Log.e("D", "Facebook login cancelled.");
-                    Log.e("D", error.toString());
-                }
-            });
+        button.registerCallback(callbackManager, new CustomCallBack());
         button.setFragment(this);
-
         return v;
     }
 
+    private class CustomCallBack implements FacebookCallback<LoginResult> {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            Log.e("FACEBOOK", "ONSUCCESS");
+            final AccessToken accessToken = loginResult
+                    .getAccessToken();
+            at = accessToken;
+            final GraphRequest request = GraphRequest.newMeRequest(
+                    accessToken,
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            try {
+                                final String name = object.getString("name");
+                                final String id = object.getString("id");
+                                final RegUser u = new FacebookUser(name, id, accessToken);
+                                final DatabaseHelper db = new DatabaseHelper(getContext());
+                                db.addUser(u);
+                                db.handleLogInRequest(name, id);
+                                startActivity(new Intent(getContext(), MainMenuActivity.class));
+                            } catch (JSONException e) {
+                                Log.e("facebook", "error");
+                            }
 
+                        }
+                    });
+            final Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,link");
+            request.setParameters(parameters);
+            request.executeAsync();
+        }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new IllegalStateException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+        @Override
+        public void onCancel() {
+            Toast.makeText(getContext(), "Log In Cancelled!",
+                    Toast.LENGTH_SHORT).show();
+            Log.i("D", "Facebook login cancelled.");
+        }
+
+        @Override
+        public void onError(FacebookException error) {
+            Toast.makeText(getContext(), "Log In Error!",
+                    Toast.LENGTH_SHORT).show();
+            Log.e("D", "Facebook login cancelled.");
+            Log.e("D", error.toString());
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this
