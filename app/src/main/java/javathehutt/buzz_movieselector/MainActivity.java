@@ -1,21 +1,13 @@
 package javathehutt.buzz_movieselector;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
@@ -26,7 +18,7 @@ public class MainActivity extends FragmentActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_welcome_screen);
         //This code will create Facebook hash for android development
-        try {
+        /*try {
             final PackageInfo info = getPackageManager().getPackageInfo(
                     "javathehutt.buzz_movieselector",
                     PackageManager.GET_SIGNATURES);
@@ -43,7 +35,7 @@ public class MainActivity extends FragmentActivity
         } catch (NoSuchAlgorithmException e) {
             Log.e("KeyHash:", "++++++++++++++++++++++++++++++++++++++"
                     + e.toString());
-        }
+        }*/
     }
 
 
