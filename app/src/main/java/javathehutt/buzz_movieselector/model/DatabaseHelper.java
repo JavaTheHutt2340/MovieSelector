@@ -14,6 +14,21 @@ import java.util.List;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     /**
+     * Utility String for admin user check
+     */
+    private static final String ADMIN = "admin";
+
+    /**
+     * Utility String for false
+     */
+    private static final String FALSE_STRING = "false";
+
+    /**
+     * Utility String for true
+     */
+    private static final String TRUE_STRING = "true";
+
+    /**
      * Represents number of users in database
      */
     private static int currentCount = 0;
@@ -141,8 +156,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public int handleLogInRequest(String username,
                                   String password) {
-        if ("admin".equals(username) && "admin".equals(password)) {
-            currentUser = new AdminUser("admin", "admin");
+        if (ADMIN.equals(username) && ADMIN.equals(password)) {
+            currentUser = new AdminUser(ADMIN, ADMIN);
             return 0;
         }
         db = this.getReadableDatabase();
@@ -168,15 +183,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db = this.getWritableDatabase();
                 final ContentValues values = new ContentValues();
                 values.put(COLUMN_ATTEMPTS, cursor.getInt(9) + 1);
-                if ("false".equals(cursor.getString(8)) && cursor
+                if (FALSE_STRING.equals(cursor.getString(8)) && cursor
                         .getInt(9) >= RegUser.ATTEMPTS_ALLOWED) {
-                    values.put(COLUMN_LOCKED, "true");
+                    values.put(COLUMN_LOCKED, TRUE_STRING);
                 }
                 db.update(TABLE_NAME, values, "username like \'"
                         + username + "\'", null);
-                if ("true".equals(cursor.getString(7))) {
+                if (TRUE_STRING.equals(cursor.getString(7))) {
                     return 2;
-                } else if ("true".equals(cursor.getString(8))) {
+                } else if (TRUE_STRING.equals(cursor.getString(8))) {
                     return 3;
                 }
             }
@@ -196,8 +211,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .getString(7).equals("false")
                 && cursor.getString(8).equals("false")
                 && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED;*/
-        return password.equals(cursor.getString(2)) && "false".equals(cursor
-                .getString(7)) && "false".equals(cursor.getString(8))
+        return password.equals(cursor.getString(2)) && FALSE_STRING.equals(cursor
+                .getString(7)) && FALSE_STRING.equals(cursor.getString(8))
                 && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED;
 
     }
@@ -216,8 +231,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_GENRE, u.getFavoriteGenreNum());
         values.put(COLUMN_LOCATION, u.getLocation());
         values.put(COLUMN_MAJOR, u.getMajor());
-        values.put(COLUMN_BAN, "false");
-        values.put(COLUMN_LOCKED, "false");
+        values.put(COLUMN_BAN, FALSE_STRING);
+        values.put(COLUMN_LOCKED, FALSE_STRING);
         values.put(COLUMN_ATTEMPTS, 0);
         values.put(KEY_ID, currentCount++);
 
@@ -239,8 +254,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_MAJOR, u.getMajor());
         if (u instanceof RegUser) {
             final RegUser temp = (RegUser) u;
-            values.put(COLUMN_BAN, temp.getBanStatus() ? "true" : "false");
-            values.put(COLUMN_LOCKED, temp.getLockStatus() ? "true" : "false");
+            values.put(COLUMN_BAN, temp.getBanStatus() ? TRUE_STRING : FALSE_STRING);
+            values.put(COLUMN_LOCKED, temp.getLockStatus() ? TRUE_STRING : FALSE_STRING);
             if (!temp.getLockStatus()) {
                 values.put(COLUMN_ATTEMPTS, 0);
             }
@@ -265,7 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return true if the user is in the system
      */
     public boolean isInSystem(String u) {
-        if ("admin".equals(u)) {
+        if (ADMIN.equals(u)) {
             return true;
         }
         db = this.getReadableDatabase();
@@ -294,10 +309,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             tempUser.setFavoriteGenre(cursor.getInt(4));
             tempUser.setLocation(cursor.getString(5));
             tempUser.setMajor(cursor.getString(6));
-            if ("true".equals(cursor.getString(7))) {
+            if (TRUE_STRING.equals(cursor.getString(7))) {
                 tempUser.ban();
             }
-            if ("true".equals(cursor.getString(8))) {
+            if (TRUE_STRING.equals(cursor.getString(8))) {
                 tempUser.lock();
             }
             list.add(tempUser);

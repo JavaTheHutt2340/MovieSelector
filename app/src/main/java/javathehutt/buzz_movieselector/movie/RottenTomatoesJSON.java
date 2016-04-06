@@ -39,6 +39,10 @@ import javathehutt.buzz_movieselector.model.User;
  */
 public class RottenTomatoesJSON implements MovieSource {
     /**
+     * private utility boolean String
+     */
+    private static final String TRUE_STRING = "true";
+    /**
      * the rest queue
      */
     private static RequestQueue queue;
@@ -161,41 +165,6 @@ public class RottenTomatoesJSON implements MovieSource {
         queue.add(jsObjRequest);
     }
 
-    private class MovieResponse implements Response.Listener<JSONObject> {
-
-        boolean[] filter;
-        boolean f;
-        public MovieResponse(boolean[] boolArray, boolean bool) {
-            filter = boolArray;
-            f = bool;
-        }
-
-        @Override
-        public void onResponse(JSONObject resp) {
-            JSONArray array = null;
-            try {
-                array = resp.getJSONArray("movies");
-            } catch (JSONException e) {
-                Log.e("JSON", "error");
-            }
-            final List<String> list = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                try {
-                    final JSONObject jsonObject = array.getJSONObject(i);
-                    assert jsonObject != null;
-                    list.add(jsonObject.optString("id"));
-                } catch (JSONException e) {
-                    Log.d("VolleyApp", "Failed to get JSON object");
-                }
-            }
-            for (int i = 0; i < list.size(); i++) {
-                final Task task = new Task();
-                task.execute(list.get(i), Integer.toString(i), filter[0] ? "true"
-                        : "false", f ? "true" : "false");
-            }
-        }
-    }
-
     /**
      * gets a similar movie
      * @param m Movie
@@ -203,7 +172,6 @@ public class RottenTomatoesJSON implements MovieSource {
     public void similarMovies(Movie m) {
         final String url = m.getApiUrl();
         similarMovies(url);
-
     }
 
     /**
@@ -269,10 +237,14 @@ public class RottenTomatoesJSON implements MovieSource {
             return null;
         }
 
-        private class ResponseListener implements Response
-                .Listener<JSONObject> {
-            String[] params;
-            Long l;
+        @Override
+        protected void onProgressUpdate(Movie... params) {
+            displayMovie(params[0]);
+        }
+
+        private class ResponseListener implements Response.Listener<JSONObject> {
+            private String[] params;
+            private Long l;
             public ResponseListener(String[] passedIn, Long passedInLong) {
                 params = passedIn;
                 l = passedInLong;
@@ -299,10 +271,10 @@ public class RottenTomatoesJSON implements MovieSource {
                     final Movie m = new Movie(title, year, criticsRating,
                             criticsScore, synopsis, url, genre);
                     m.setAltUrl(altUrl);
-                    if ("true".equals(params[3])) {
+                    if (TRUE_STRING.equals(params[3])) {
                         publishProgress(m);
                     }
-                    if ("true".equals(params[2])) {
+                    if (TRUE_STRING.equals(params[2])) {
                         if (m.containsGenre(u.getFavoriteGenre())) {
                             publishProgress(m);
                         }
@@ -319,10 +291,40 @@ public class RottenTomatoesJSON implements MovieSource {
                 }
             }
         }
+    }
+
+    private class MovieResponse implements Response.Listener<JSONObject> {
+
+        private boolean[] filter;
+        private boolean f;
+        public MovieResponse(boolean[] boolArray, boolean bool) {
+            filter = boolArray;
+            f = bool;
+        }
 
         @Override
-        protected void onProgressUpdate(Movie... params) {
-            displayMovie(params[0]);
+        public void onResponse(JSONObject resp) {
+            JSONArray array = null;
+            try {
+                array = resp.getJSONArray("movies");
+            } catch (JSONException e) {
+                Log.e("JSON", "error");
+            }
+            final List<String> list = new ArrayList<>();
+            for (int i = 0; i < array.length(); i++) {
+                try {
+                    final JSONObject jsonObject = array.getJSONObject(i);
+                    assert jsonObject != null;
+                    list.add(jsonObject.optString("id"));
+                } catch (JSONException e) {
+                    Log.d("VolleyApp", "Failed to get JSON object");
+                }
+            }
+            for (int i = 0; i < list.size(); i++) {
+                final Task task = new Task();
+                task.execute(list.get(i), Integer.toString(i), filter[0] ? TRUE_STRING
+                        : "false", f ? TRUE_STRING : "false");
+            }
         }
     }
 }
