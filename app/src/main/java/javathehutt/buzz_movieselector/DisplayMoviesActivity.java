@@ -46,6 +46,7 @@ public class DisplayMoviesActivity extends Activity {
      * the current user
      */
     private User u;
+    private final int MAX_DISPLAY = 12;
     /**
      * the starting number of movies to pull
      */

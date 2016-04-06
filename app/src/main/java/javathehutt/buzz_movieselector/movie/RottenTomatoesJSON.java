@@ -154,12 +154,12 @@ public class RottenTomatoesJSON implements MovieSource {
      * @param filter the filer
      */
     private void passOnMoviesList(String url, final boolean ... filter) {
+
         final boolean f = filter.length < 1 && filter[1];
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest(
                 Request.Method.GET, url, "", new MovieResponse(filter, f) , new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 });
         queue.add(jsObjRequest);
@@ -222,7 +222,7 @@ public class RottenTomatoesJSON implements MovieSource {
                     Thread.sleep(l);
                 }
             } catch (InterruptedException e) {
-                Log.e("JSON", "error");
+                Log.e("Async", e.getStackTrace().toString());
             }
             final String url = "http://api.rottentomatoes.com/api/public"
                     + "/v1.0/movies/" + params[0] + ".json?apikey=" + KEY;
