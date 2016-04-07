@@ -69,7 +69,7 @@ public class Movie implements Serializable {
      * Accessor method to get name of Movie
      * @return String representing name of Movie
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
@@ -77,7 +77,7 @@ public class Movie implements Serializable {
      * gets the name of the movie
      * @param nname the name
      */
-    public void setName(String nname) {
+    public final void setName(String nname) {
         this.name = nname;
     }
 
@@ -85,7 +85,7 @@ public class Movie implements Serializable {
      * Accessor method to get year of Movie
      * @return int representing year of Movie
      */
-    public int getYear() {
+    public final int getYear() {
         return year;
     }
 
@@ -93,7 +93,7 @@ public class Movie implements Serializable {
      * Accessor method to get the genre of Movie
      * @return String representing genre of Movie
      */
-    public String[] getGenre() {
+    public final String[] getGenre() {
         return genre;
     }
 
@@ -101,7 +101,7 @@ public class Movie implements Serializable {
      * method to handle genre input from JSON
       * @param s the list of genres
      */
-    public void setGenre(String s) {
+    public final void setGenre(String s) {
         String result;
         result = s.replaceAll("\"", "");
         result = result.substring(1, result.length() - 1);
@@ -113,7 +113,7 @@ public class Movie implements Serializable {
      * @param s String representing Genre
      * @return true if it is genre
      */
-    public boolean containsGenre(String s) {
+    public final boolean containsGenre(String s) {
         for (int i = 0; i < genre.length; i++) {
             if (s.equalsIgnoreCase(genre[i])) {
                 return true;
@@ -126,7 +126,7 @@ public class Movie implements Serializable {
      * Accessor method to get critics rating
      * @return String representing fresh, rotten, or in between movie
      */
-    public String getCriticsRating() {
+    public final String getCriticsRating() {
         if (criticsRating.trim().length() == 0) {
             return "No rating yet";
         }
@@ -137,7 +137,7 @@ public class Movie implements Serializable {
      * Accessor method
      * @return criticsScore
      */
-    public int getCriticsScoreInt() {
+    public final int getCriticsScoreInt() {
         return criticsScore;
     }
 
@@ -145,7 +145,7 @@ public class Movie implements Serializable {
      * Accessor method to get critics score
      * @return String 0 - 100 or "No rating yet" string
      */
-    public String getCriticsScore() {
+    public final String getCriticsScore() {
         if (criticsScore != -1) {
             return Integer.toString(criticsScore);
         }
@@ -156,7 +156,7 @@ public class Movie implements Serializable {
      * Accessor method to get summary of movie
      * @return String of movie summary
      */
-    public String getSynopsis() {
+    public final String getSynopsis() {
         if (synopsis != null && synopsis.length() != 0) {
             return synopsis;
         }
@@ -164,14 +164,14 @@ public class Movie implements Serializable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int h = 17;
         h += 31 * name.hashCode();
         h += 31 * year;
         return h;
     }
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (null == o) {
             return false;
         }
@@ -186,7 +186,7 @@ public class Movie implements Serializable {
      * Accessor method to API url for REST calls
      * @return URL string
      */
-    public String getApiUrl() {
+    public final String getApiUrl() {
         return apiUrl;
     }
 
@@ -195,7 +195,7 @@ public class Movie implements Serializable {
      *  URL that goes to actual rotten tomatoes website
      * @return String
      */
-    public String getAltUrl() {
+    public final String getAltUrl() {
         return altUrl;
     }
 
@@ -203,12 +203,12 @@ public class Movie implements Serializable {
      * Setter method for alternate URL
      * @param maltUrl the alt url for the movie
      */
-    public void setAltUrl(String maltUrl) {
+    public final void setAltUrl(String maltUrl) {
         this.altUrl = maltUrl;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Title: " + getName() + "\nYear: " + getYear()
                 + "\nRating: " + getCriticsRating()
                 + " Critics Score: " + getCriticsScore();

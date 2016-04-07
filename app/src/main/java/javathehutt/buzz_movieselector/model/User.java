@@ -63,7 +63,7 @@ public abstract class User implements Serializable {
     * used to tell if the user is an admin user
     * @return true if the user is an admin user
      */
-    public boolean isAdmin() {
+    public final boolean isAdmin() {
         return this instanceof AdminUser;
     }
 
@@ -79,7 +79,7 @@ public abstract class User implements Serializable {
      * returns the favorite genre
      * @return integer representign the genre
      */
-    public int getFavoriteGenreNum() {
+    public final int getFavoriteGenreNum() {
         return favoriteGenre;
     }
 
@@ -100,7 +100,7 @@ public abstract class User implements Serializable {
     * returns the username
     * @return username the username the users username
      */
-    public String getUsername() {
+    public final String getUsername() {
         return username;
     }
 
@@ -108,7 +108,7 @@ public abstract class User implements Serializable {
     * returns the password
     * @return password the password the users password
      */
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
 
@@ -116,7 +116,7 @@ public abstract class User implements Serializable {
     * return the real name of the user
     * @return String realName the users realName
      */
-    public String getRealName() {
+    public final String getRealName() {
         return realName;
     }
 
@@ -124,7 +124,7 @@ public abstract class User implements Serializable {
     * returns the location of the user
     * @return String the location of the user
      */
-    public String getLocation() {
+    public final String getLocation() {
         return location;
     }
 
@@ -132,7 +132,7 @@ public abstract class User implements Serializable {
     * return the users favorite genre
     * @return String the users favorite genre
      */
-    public String getFavoriteGenre() {
+    public final String getFavoriteGenre() {
         return genres[favoriteGenre];
     }
 
@@ -140,7 +140,7 @@ public abstract class User implements Serializable {
     * return the users major
     * @return String the users major
      */
-    public String getMajor() {
+    public final String getMajor() {
         return major;
     }
 
@@ -148,7 +148,7 @@ public abstract class User implements Serializable {
      * sets the realName of the User
      * @param s the new realName
      */
-    public void setRealName(String s) {
+    public final void setRealName(String s) {
         realName = s;
     }
 
@@ -156,7 +156,7 @@ public abstract class User implements Serializable {
      * sets the location of the User
      * @param s the new location
      */
-    public void setLocation(String s) {
+    public final void setLocation(String s) {
         location = s;
     }
 
@@ -164,7 +164,7 @@ public abstract class User implements Serializable {
      * sets the favoriteGenre of the User
      * @param i the new favoriteGenre
      */
-    public void setFavoriteGenre(int i) {
+    public final void setFavoriteGenre(int i) {
         favoriteGenre = i;
     }
 
@@ -172,7 +172,7 @@ public abstract class User implements Serializable {
      * sets the major of the User
      * @param s the new major
      */
-    public void setMajor(String s) {
+    public final void setMajor(String s) {
         major = s;
     }
 
@@ -180,9 +180,7 @@ public abstract class User implements Serializable {
      * returns the number of login attempts for this user
      * @return login attempts
      */
-    protected int getLogAttempts() {
-        return 0;
-    }
+    protected abstract int getLogAttempts();
 
     /**
      * set the failed attempts number
@@ -233,7 +231,7 @@ public abstract class User implements Serializable {
     * @return int the hashCode
      */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = 0;
         result += 17 * password.hashCode();
         result += 21 * username.hashCode();

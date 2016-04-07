@@ -46,14 +46,13 @@ public class DisplayMoviesActivity extends Activity {
      * the current user
      */
     private User u;
-    private final int MAX_DISPLAY = 12;
     /**
      * the starting number of movies to pull
      */
     private static final int STARTING_NUMBER = 20;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final DependencyContainer dc = new DependencyInjectionContainer(this);
         final DatabaseHelper db = dc.getDatabaseDep();
@@ -96,7 +95,7 @@ public class DisplayMoviesActivity extends Activity {
      * gets the context
      * @return the Context
      */
-    public Context getContext() {
+    public final Context getContext() {
         return this;
     }
 
@@ -117,7 +116,7 @@ public class DisplayMoviesActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         finish();
     }
 
@@ -144,7 +143,7 @@ public class DisplayMoviesActivity extends Activity {
          * @return true is yes
          */
         private boolean isValid() {
-            return movieAdapter.getCount() < TOTAL_NUMBER && count < 100;
+            return movieAdapter.getCount() < TOTAL_NUMBER && count < MAX_COUNT;
         }
 
         @Override

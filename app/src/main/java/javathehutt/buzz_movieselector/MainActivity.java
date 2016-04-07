@@ -13,7 +13,7 @@ public class MainActivity extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_welcome_screen);
@@ -40,7 +40,7 @@ public class MainActivity extends FragmentActivity
 
 
     @Override
-    protected void onResume() {
+    protected final void onResume() {
         super.onResume();
 
         // Logs 'install' and 'app activate' App Events.
@@ -55,7 +55,7 @@ public class MainActivity extends FragmentActivity
      *  wishes to register new account
      * @param v the view
      */
-    public void registerButtonClick(View v) {
+    public final void registerButtonClick(View v) {
         final Intent register = new Intent(this, RegisterActivity.class);
         startActivity(register);
     }
@@ -66,7 +66,7 @@ public class MainActivity extends FragmentActivity
      * Method to allow user to login
      * @param v the view
      */
-    public void loginButtonClick(View v) {
+    public final void loginButtonClick(View v) {
         final Intent login = new Intent(this, LoginActivity.class);
         startActivityForResult(login, 1);
     }

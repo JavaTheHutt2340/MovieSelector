@@ -28,13 +28,13 @@ public class FacebookUser extends RegUser {
         this.at = atoken;
     }
 
-
     @Override
-    public boolean logIn(String password) {
+    public final boolean logIn(String password) {
         return at.getUserId() == id;
     }
+
     @Override
-    public void logout() {
+    public final void logout() {
         LoginManager.getInstance().logOut();
         at = null;
         super.logout();

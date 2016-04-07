@@ -21,7 +21,7 @@ public class MainMenuActivity extends Activity {
     private User u;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final DependencyContainer dc = new DependencyInjectionContainer(this);
         final DatabaseHelper db = dc.getDatabaseDep();
@@ -37,7 +37,7 @@ public class MainMenuActivity extends Activity {
      *  from MainMenu
      * @param v the view
      */
-    public void openProfileClick(View v) {
+    public final void openProfileClick(View v) {
         final Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
@@ -47,7 +47,7 @@ public class MainMenuActivity extends Activity {
      *  from MainMenu
      * @param v the view
      */
-    public void logOutClick(View v) {
+    public final void logOutClick(View v) {
         u.logout();
         FacebookFragment.clear();
 
@@ -67,7 +67,7 @@ public class MainMenuActivity extends Activity {
     * method for onClick for search movie
     * @param v the view
      */
-    public void searchMovies(View v) {
+    public final void searchMovies(View v) {
         final Intent i = new Intent(this, MovieSearchActivity.class);
         startActivity(i);
     }
@@ -76,7 +76,7 @@ public class MainMenuActivity extends Activity {
      * on click for user list button
      * @param v the view
      */
-    public void userListClick(View v) {
+    public final void userListClick(View v) {
         final Intent i = new Intent(this, UserListActivity.class);
         startActivity(i);
     }

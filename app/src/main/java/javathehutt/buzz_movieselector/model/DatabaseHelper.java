@@ -132,7 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param database the database
      */
     @Override
-    public void onCreate(SQLiteDatabase database) {
+    public final void onCreate(SQLiteDatabase database) {
         database.execSQL(TABLE_CREATE);
         DatabaseHelper.db = database;
     }
@@ -144,7 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param newVersion new version number
      */
     @Override
-    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+    public final void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         final String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
         database.execSQL(query);
         this.onCreate(database);
@@ -156,7 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param password the password
      * @return 0 if successful
      */
-    public int handleLogInRequest(String username,
+    public final int handleLogInRequest(String username,
                                   String password) {
         if (ADMIN.equals(username) && ADMIN.equals(password)) {
             currentUser = new AdminUser(ADMIN, ADMIN);
@@ -224,7 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * A way to add a user into the database
      * @param u the user to be added
      */
-    public void addUser(User u) {
+    public final void addUser(User u) {
         currentUser = u;
         db = this.getWritableDatabase();
         final ContentValues values = new ContentValues();
@@ -247,7 +247,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * A method to update the information of a user
      * @param u the user to be updated
      */
-    public void updateUser(User u) {
+    public final void updateUser(User u) {
         db = this.getWritableDatabase();
         final ContentValues values = new ContentValues();
 
@@ -275,7 +275,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * returns the last user who logged in
      * @return User object
      */
-    public User lastLogIn() {
+    public final User lastLogIn() {
         return currentUser;
     }
 
@@ -284,7 +284,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param u the username
      * @return true if the user is in the system
      */
-    public boolean isInSystem(String u) {
+    public final boolean isInSystem(String u) {
         if (ADMIN.equals(u)) {
             return true;
         }
@@ -301,7 +301,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * returns a list of all users
      * @return List of users
      */
-    public List<User> getAllUsers() {
+    public final List<User> getAllUsers() {
         final List<User> list = new ArrayList<>();
         db = this.getReadableDatabase();
         final String query = "select * from " + TABLE_NAME;
@@ -331,7 +331,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * returns the context
      * @return the context
      */
-    public Context getContext() {
+    public final Context getContext() {
         return c;
     }
 }

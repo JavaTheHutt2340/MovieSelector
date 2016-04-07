@@ -40,7 +40,7 @@ public class ProfileActivity extends Activity {
      * @param savedInstanceState saved instance state
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         final DependencyContainer dc = new DependencyInjectionContainer(this);
@@ -75,7 +75,7 @@ public class ProfileActivity extends Activity {
      * a dummy widget
      * @param v view
      */
-    public void updateProfileClick(View v) {
+    public final void updateProfileClick(View v) {
         final TextView realName = (TextView) findViewById(R.id.realNameEdit);
         u.setRealName(realName.getText().toString());
 
@@ -114,12 +114,12 @@ public class ProfileActivity extends Activity {
      * Represents onClick for cancel button.
      * @param v displays the cancel button
      */
-    public void mainMenuClick(View v) {
+    public final void mainMenuClick(View v) {
         finish();
     }
 
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         finish();
     }
 }
