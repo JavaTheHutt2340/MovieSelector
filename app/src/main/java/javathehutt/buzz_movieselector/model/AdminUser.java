@@ -46,4 +46,9 @@ public class AdminUser extends User {
             throw new IllegalStateException("Account already locked");
         }
     }
+
+    @Override
+    public final int getLogAttempts() {
+        return 0;
+    }
 }

@@ -21,7 +21,7 @@ public class LoggedOut extends FragmentActivity
      * @param savedInstanceState the saved data
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_logged_out);
@@ -32,7 +32,7 @@ public class LoggedOut extends FragmentActivity
      * Returns user to Home screen.
      * @param v current view
      */
-    public void returnHome(View v) {
+    public final void returnHome(View v) {
         finish();
     }
 
@@ -40,7 +40,7 @@ public class LoggedOut extends FragmentActivity
      * Method for button
      * @param v current view
      */
-    public void returnLogIn(View v) {
+    public final void returnLogIn(View v) {
         final Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();

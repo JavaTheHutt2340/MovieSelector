@@ -78,7 +78,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * @param page which page out of all pages to use
      */
     @Override
-    public void newMovieReleases(int limit, int page) {
+    public final void newMovieReleases(int limit, int page) {
         final String url =
                 "http://api.rottentomatoes.com/api/public/v1."
                         + "0/lists/movies/opening.json?apikey="
@@ -93,7 +93,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * @param b to passOn
      */
     @Override
-    public void newDVDReleases(int limit, int page, boolean b) {
+    public final void newDVDReleases(int limit, int page, boolean b) {
         final String url =
                 "http://api.rottentomatoes.com/api/public"
                         + "/v1.0/lists/dvds/new_releases.json?apikey="
@@ -108,7 +108,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * @param page which page out of all pages to use
      */
     @Override
-    public void searchMovieByName(String name, int limit, int page) {
+    public final void searchMovieByName(String name, int limit, int page) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Please give valid"
                     + " name");
@@ -137,7 +137,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * gets a similar movie
      * @param url the url to search
      */
-    public void similarMovies(String url) {
+    public final void similarMovies(String url) {
         String result = url;
         result = result.substring(0, result.indexOf(".json")); // remove .json
         result += "/similar.json?apikey=" + KEY; //create the correct URL
@@ -169,7 +169,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * gets a similar movie
      * @param m Movie
      */
-    public void similarMovies(Movie m) {
+    public final void similarMovies(Movie m) {
         final String url = m.getApiUrl();
         similarMovies(url);
     }
@@ -210,7 +210,7 @@ public class RottenTomatoesJSON implements MovieSource {
      * Context accessor method
      * @return Context used to create RTJSON
      */
-    public Context getContext() {
+    public final Context getContext() {
         return context;
     }
 

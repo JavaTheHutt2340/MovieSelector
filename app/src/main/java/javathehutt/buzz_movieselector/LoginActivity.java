@@ -32,7 +32,7 @@ public class LoginActivity extends FragmentActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         FacebookSdk.sdkInitialize(this);
@@ -46,7 +46,7 @@ public class LoginActivity extends FragmentActivity
      * Method called when User attempts to login
      * @param v the view
      */
-    public void userLoginButtonClick(View v) {
+    public final void userLoginButtonClick(View v) {
         if (helper.isInSystem(etUsername.getText().toString().toLowerCase())) {
             final int value = helper.handleLogInRequest(etUsername.getText()
                     .toString().toLowerCase(), etPassword.getText().toString());
@@ -85,7 +85,7 @@ public class LoginActivity extends FragmentActivity
      * longer wishes to log in
      * @param v the view
      */
-    public void cancelButtonClick(View v) {
+    public final void cancelButtonClick(View v) {
         finish();
     }
 

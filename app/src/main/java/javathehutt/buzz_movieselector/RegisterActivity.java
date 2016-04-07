@@ -43,7 +43,7 @@ public class RegisterActivity extends Activity {
      * @param savedInstanceState stores saved instance state
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         final DependencyContainer dc = new DependencyInjectionContainer(this);
@@ -78,7 +78,7 @@ public class RegisterActivity extends Activity {
      * Represents onClick for register button.
      * @param v displays the register button
      */
-    public void registerButtonClick(View v) {
+    public final void registerButtonClick(View v) {
         final int duration = Toast.LENGTH_SHORT;
         final Context context = getApplicationContext();
         if (helper.isInSystem(etUsername.getText().toString())) {
@@ -119,7 +119,7 @@ public class RegisterActivity extends Activity {
      * Represents onClick for cancel button.
      * @param v displays the cancel button
      */
-    public void cancelClick(View v) {
+    public final void cancelClick(View v) {
         finish();
     }
 }

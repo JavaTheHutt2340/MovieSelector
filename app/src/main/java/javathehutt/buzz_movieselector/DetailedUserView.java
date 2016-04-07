@@ -30,7 +30,7 @@ public class DetailedUserView extends Activity {
     private DatabaseHelper db;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_user_view);
         final Bundle bundle = getIntent().getBundleExtra("bundle");
@@ -55,7 +55,7 @@ public class DetailedUserView extends Activity {
      * Method to allow admin to lock a specific user
      * @param view the view
      */
-    public void lockButtonClick(View view) {
+    public final void lockButtonClick(View view) {
         if (u.getLockStatus()) {
             u.unlock();
             db.updateUser(u);
@@ -71,7 +71,7 @@ public class DetailedUserView extends Activity {
      * Method to ban a specific user
      * @param view the view
      */
-    public void banButtonClick(View view) {
+    public final void banButtonClick(View view) {
         if (u.getBanStatus()) {
             u.unBan();
             db.updateUser(u);
@@ -84,7 +84,7 @@ public class DetailedUserView extends Activity {
     }
 
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         finish();
     }
 }

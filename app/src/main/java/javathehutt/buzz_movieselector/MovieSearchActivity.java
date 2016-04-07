@@ -31,7 +31,7 @@ public class MovieSearchActivity extends Activity {
     private DatabaseHelper helper;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final DependencyContainer dc = new DependencyInjectionContainer(this);
         helper = dc.getDatabaseDep();
@@ -45,7 +45,7 @@ public class MovieSearchActivity extends Activity {
     * creates the starts the Display Movie activity
     * @param v the view
      */
-    public void dVDReleasesClick(View v) {
+    public final void dVDReleasesClick(View v) {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
         bundle.putInt(KEY_STRING, 1);
@@ -57,7 +57,7 @@ public class MovieSearchActivity extends Activity {
     * creates the starts the Display Movie activity
     * @param v the view
      */
-    public void searchMoviesClick(View v) {
+    public final void searchMoviesClick(View v) {
         if (searchBar.isIconified() || searchBar.getQuery().length() == 0) {
             final Context context = getApplicationContext();
             final CharSequence text = "Please enter movie to search!";
@@ -80,7 +80,7 @@ public class MovieSearchActivity extends Activity {
     * creates the starts the Display Movie activity
     * @param v the view
      */
-    public void inTheatreClick(View v) {
+    public final void inTheatreClick(View v) {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
         bundle.putInt(KEY_STRING, 3);
@@ -92,7 +92,7 @@ public class MovieSearchActivity extends Activity {
      * onclick for recommend button
      * @param v the view
      */
-    public void recommendClick(View v) {
+    public final void recommendClick(View v) {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
         final User u = helper.lastLogIn();
@@ -106,7 +106,7 @@ public class MovieSearchActivity extends Activity {
     }
 
     @Override
-    public void onResume() {
+    public final void onResume() {
         super.onResume();
         searchBar.setQuery("", false);
     }

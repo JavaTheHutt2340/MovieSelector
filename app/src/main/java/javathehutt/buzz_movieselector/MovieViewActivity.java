@@ -32,7 +32,7 @@ public class MovieViewActivity extends Activity {
     private SharedPreferences sharedPref;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_view);
 
@@ -86,7 +86,7 @@ public class MovieViewActivity extends Activity {
      * Method for when rating a movie is done
      * @param v the view
      */
-    public void ratingButtonClick(View v) {
+    public final void ratingButtonClick(View v) {
         final SharedPreferences.Editor editor = sharedPref.edit();
         editor.putFloat(m.getApiUrl(), ratingBar.getRating());
         editor.apply();
@@ -99,13 +99,13 @@ public class MovieViewActivity extends Activity {
      * Method for when looking up similar movies
      * @param v the view
      */
-    public void similarMovies(View v) {
+    public final void similarMovies(View v) {
         new RottenTomatoesJSON(getApplicationContext()).similarMovies(m);
         finish();
     }
 
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         finish();
     }
 }

@@ -38,37 +38,37 @@ public class RegUser extends User {
     * @return locked true if the user is locked false otherwise
      */
     @Override
-    public boolean getLockStatus() {
+    public final boolean getLockStatus() {
         return locked;
     }
 
     @Override
-    protected void setFailedAttempts(int num) {
+    protected final void setFailedAttempts(int num) {
         failedAttempts = num;
     }
 
     @Override
-    protected int getLogAttempts() {
+    protected final int getLogAttempts() {
         return failedAttempts;
     }
     /**
     * locks the user
      */
-    public void lock() {
+    public final void lock() {
         locked = true;
     }
 
     /**
     * unlocks the user account
      */
-    public void unlock() {
+    public final void unlock() {
         locked = false;
     }
 
     /**
     * sets the user account to banned
      */
-    public void ban() {
+    public final void ban() {
         banned = true;
     }
 
@@ -76,21 +76,21 @@ public class RegUser extends User {
     * returns true if the user is banned
     * @return boolean is banned
      */
-    public boolean getBanStatus() {
+    public final boolean getBanStatus() {
         return banned;
     }
 
     /**
     * sets the user account to be unbanned
      */
-    public void unBan() {
+    public final void unBan() {
         banned = false;
     }
 
     /**
     * @return true if the user is locked
      */
-    public boolean isLocked() {
+    public final boolean isLocked() {
         return locked;
     }
 
@@ -109,7 +109,7 @@ public class RegUser extends User {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return getUsername() + ": " + getPassword() + "\nlock status: "
                 + locked + "\nban status: " + banned;
     }

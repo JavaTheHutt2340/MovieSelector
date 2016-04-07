@@ -32,7 +32,7 @@ public class UserListActivity extends Activity {
     private ArrayAdapter<User> adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
         final DependencyContainer dc = new DependencyInjectionContainer(this);
@@ -58,7 +58,7 @@ public class UserListActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
+    protected final void onResume() {
         super.onResume();
         adapter.clear();
         adapter.addAll(helper.getAllUsers());
