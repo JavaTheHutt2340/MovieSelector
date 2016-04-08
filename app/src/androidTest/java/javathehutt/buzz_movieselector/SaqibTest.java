@@ -52,7 +52,7 @@ public class SaqibTest extends ApplicationTestCase<Application> {
     }
     @Test
     public void testUpdateUser() {
-        u.setFavoriteGenre(3);
+        u.setFavoriteGenre(2);
         u.setLocation("Georgia");
         u.setMajor("Computer Science");
         u.setRealName("Saqib");
@@ -63,6 +63,6 @@ public class SaqibTest extends ApplicationTestCase<Application> {
                 user1 = (RegUser) user;
             }
         }
-        assertTrue(user1.getFavoriteGenre().equals("Art House & International"));
+        assertTrue(user1.getLocation().equals("Georgia"));
     }
 }

@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by JasonGibson on 2/2/16.
  */
 public abstract class User implements Serializable {
+    public static final int PRIME1 = 17;
+    public static final int PRIME2 = 31;
     /**
      * the username of the user
      */
@@ -26,10 +28,6 @@ public abstract class User implements Serializable {
      * the major of the user
      */
     private String major;
-    /**
-     * the loggin status of the user
-     */
-    private boolean loggedIn;
     /**
      * the favorite genre of the user
      */
@@ -57,7 +55,6 @@ public abstract class User implements Serializable {
         this.location = "";
         this.favoriteGenre = 0;
         this.major = "";
-        loggedIn = false;
     }
     /**
     * used to tell if the user is an admin user
@@ -86,9 +83,7 @@ public abstract class User implements Serializable {
     /**
     * sets the users logged in status to false
      */
-    public void logout() {
-        loggedIn = false;
-    }
+    public abstract void logout();
 
     /**
     * returns true if the account is locked
@@ -108,7 +103,7 @@ public abstract class User implements Serializable {
     * returns the password
     * @return password the password the users password
      */
-    public final String getPassword() {
+    protected final String getPassword() {
         return password;
     }
 
@@ -195,26 +190,14 @@ public abstract class User implements Serializable {
         * @param pd the
         * @return true if logged in
          */
-    public boolean logIn(String pd) {
-        final boolean result = this.password.equals(pd);
-        loggedIn = result;
-        return result;
-    }
-
-    /**
-     * standard getter method for loggedIn
-     * @return true if loggedIn
-     */
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
+    public abstract boolean logIn(String pd);
     /**
     * determines if the two objects are equal
     * @param o the other object ot compare
     * @return boolean true if the objects are equal
      */
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (null == o) {
             return false;
         }
@@ -232,14 +215,10 @@ public abstract class User implements Serializable {
      */
     @Override
     public final int hashCode() {
-        int result = 0;
-        result += 17 * password.hashCode();
-        result += 21 * username.hashCode();
+        int result = PRIME1;
+        result += PRIME2 * password.hashCode();
+        result += PRIME2 * username.hashCode();
         return result;
-    }
-    @Override
-    public String toString() {
-        return username + ": " + password;
     }
 
 }

@@ -16,6 +16,10 @@ import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
 
 public class MovieSearchActivity extends Activity {
+    public static final int NEWDVD = 1;
+    public static final int BYNAME = 2;
+    public static final int INTHEATRE = 3;
+    public static final int RECOMMEND = 4;
     /**
      * Utility String for bundling with searches
      */
@@ -48,7 +52,7 @@ public class MovieSearchActivity extends Activity {
     public final void dVDReleasesClick(View v) {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
-        bundle.putInt(KEY_STRING, 1);
+        bundle.putInt(KEY_STRING, NEWDVD);
         i.putExtras(bundle);
         startActivity(i);
     }
@@ -69,7 +73,7 @@ public class MovieSearchActivity extends Activity {
             final Intent i = new Intent(this, DisplayMoviesActivity.class);
             i.putExtra("text", searchText);
             final Bundle bundle = new Bundle();
-            bundle.putInt(KEY_STRING, 2);
+            bundle.putInt(KEY_STRING, BYNAME);
             i.putExtras(bundle);
             startActivity(i);
         }
@@ -83,7 +87,7 @@ public class MovieSearchActivity extends Activity {
     public final void inTheatreClick(View v) {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
-        bundle.putInt(KEY_STRING, 3);
+        bundle.putInt(KEY_STRING, INTHEATRE);
         i.putExtras(bundle);
         startActivity(i);
     }
@@ -96,7 +100,7 @@ public class MovieSearchActivity extends Activity {
         final Intent i = new Intent(this, DisplayMoviesActivity.class);
         final Bundle bundle = new Bundle();
         final User u = helper.lastLogIn();
-        bundle.putInt(KEY_STRING, 4);
+        bundle.putInt(KEY_STRING, RECOMMEND);
         final ArrayList<String> list = new ArrayList<>();
         list.add(u.getFavoriteGenre());
         list.add(u.getMajor());
