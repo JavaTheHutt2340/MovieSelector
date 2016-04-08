@@ -36,19 +36,15 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         db.addUser(new RegUser("bob", "bob"));
         db.updateUser(new RegUser("bob", "bob"));
 
-        //if (!db.isInSystem("banned")) {
-            RegUser u1 = new RegUser("banned", "banned");
-            u1.ban();
-            db.updateUser(u1);
-            db.addUser(u1);
-        //}
+        RegUser u1 = new RegUser("banned", "banned");
+        u1.ban();
+        db.addUser(u1);
+        db.updateUser(u1);
 
-        //if (!db.isInSystem("locked")) {
-            RegUser u2 = new RegUser("locked", "locked");
-            u2.lock();
-            db.updateUser(u2);
-            db.addUser(u2);
-        //}
+        RegUser u2 = new RegUser("locked", "locked");
+        u2.lock();
+        db.addUser(u2);
+        db.updateUser(u2);
 
 
     }
