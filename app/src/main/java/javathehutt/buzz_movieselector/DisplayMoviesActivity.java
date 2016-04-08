@@ -69,19 +69,19 @@ public class DisplayMoviesActivity extends Activity {
         state = bundle.getInt("key");
         u = db.lastLogIn();
         switch (state) {
-            case 1:
+            case MovieSearchActivity.NEWDVD:
                 movieAdapter.clear();
                 rtjson.newDVDReleases(STARTING_NUMBER, 1, false);
                 break;
-            case 2:
+            case MovieSearchActivity.BYNAME:
                 movieAdapter.clear();
                 rtjson.searchMovieByName(searchText, STARTING_NUMBER, 1);
                 break;
-            case 3:
+            case MovieSearchActivity.INTHEATRE:
                 movieAdapter.clear();
                 rtjson.newMovieReleases(STARTING_NUMBER, 1);
                 break;
-            case 4:
+            case MovieSearchActivity.RECOMMEND:
                 movieAdapter.clear();
                 rtjson.newDVDReleases(STARTING_NUMBER, 1, true);
                 break;
@@ -117,6 +117,7 @@ public class DisplayMoviesActivity extends Activity {
 
     @Override
     public final void onBackPressed() {
+        movieAdapter.clear();
         finish();
     }
 
@@ -149,7 +150,7 @@ public class DisplayMoviesActivity extends Activity {
         @Override
         public void onReceive(Context context,
                               Intent intent) {
-            if (state == 4) {
+            if (state == MovieSearchActivity.RECOMMEND) {
                 for (int i = 0; i < movieAdapter.getCount(); i++) {
                     if (!movieAdapter.getItem(i).containsGenre(u
                             .getFavoriteGenre())) {
@@ -159,17 +160,17 @@ public class DisplayMoviesActivity extends Activity {
             }
             if (isValid()) {
                 switch (state) {
-                    case 1:
+                    case MovieSearchActivity.NEWDVD:
                         rtjson.newDVDReleases(INCREMENT, count++, false);
                         break;
-                    case 2:
+                    case MovieSearchActivity.BYNAME:
                         final String searchText = (getIntent().getStringExtra("text"));
                         rtjson.searchMovieByName(searchText, INCREMENT, count++);
                         break;
-                    case 3:
+                    case MovieSearchActivity.INTHEATRE:
                         rtjson.newMovieReleases(INCREMENT, count++);
                         break;
-                    case 4:
+                    case MovieSearchActivity.RECOMMEND:
                         rtjson.newDVDReleases(INCREMENT, count++, true);
                         break;
                     default:

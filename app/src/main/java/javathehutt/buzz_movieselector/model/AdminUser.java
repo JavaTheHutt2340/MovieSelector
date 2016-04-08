@@ -13,6 +13,13 @@ public class AdminUser extends User {
         super(username, password);
     }
 
+    @Override
+    public final boolean logIn(String pd) {
+        return pd.equals(getPassword());
+    }
+
+    @Override
+    public void logout(){}
 
     /**
     * returns if the account is locked

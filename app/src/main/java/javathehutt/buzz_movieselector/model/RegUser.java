@@ -3,15 +3,11 @@ package javathehutt.buzz_movieselector.model;
 /**
  * Created by JasonGibson on 2/2/16.
  */
-public class RegUser extends User {
+public class RegUser extends AbstractRegUser {
     /**
      * if the user is locked
      */
     private boolean locked;
-    /**
-     * if the user is banned
-     */
-    private boolean banned;
     /**
      * number of failed attempts
      */
@@ -30,7 +26,6 @@ public class RegUser extends User {
         super(username, password);
         failedAttempts = 0;
         locked = false;
-        banned = false;
     }
 
     /**
@@ -64,28 +59,8 @@ public class RegUser extends User {
     public final void unlock() {
         locked = false;
     }
-
-    /**
-    * sets the user account to banned
-     */
-    public final void ban() {
-        banned = true;
-    }
-
-    /**
-    * returns true if the user is banned
-    * @return boolean is banned
-     */
-    public final boolean getBanStatus() {
-        return banned;
-    }
-
-    /**
-    * sets the user account to be unbanned
-     */
-    public final void unBan() {
-        banned = false;
-    }
+    @Override
+    public final void logout() {}
 
     /**
     * @return true if the user is locked
@@ -95,11 +70,11 @@ public class RegUser extends User {
     }
 
     @Override
-    public boolean logIn(String password) {
-        if (locked || banned) {
+    public final boolean logIn(String password) {
+        if (getLockStatus() || getBanStatus()) {
             return false;
         } else {
-            final boolean result = super.logIn(password);
+            final boolean result = getPassword().equals(password);
             failedAttempts = result ? 0 : ++failedAttempts;
             if (failedAttempts == ATTEMPTS_ALLOWED) {
                 lock();
@@ -111,6 +86,6 @@ public class RegUser extends User {
     @Override
     public final String toString() {
         return getUsername() + ": " + getPassword() + "\nlock status: "
-                + locked + "\nban status: " + banned;
+                + locked + "\nban status: " + getBanStatus();
     }
 }

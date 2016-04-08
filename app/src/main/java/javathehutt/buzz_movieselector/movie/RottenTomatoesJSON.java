@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -244,11 +245,12 @@ public class RottenTomatoesJSON implements MovieSource {
             displayMovie(params[0]);
         }
 
-        private class ResponseListener implements Response.Listener<JSONObject> {
+        private final class ResponseListener implements Response.Listener<JSONObject> {
+            private static final int SIMILARMOVIESPECIALCASE = 3;
             private String[] params;
             private Long l;
-            public ResponseListener(String[] passedIn, Long passedInLong) {
-                params = passedIn;
+            private ResponseListener(String[] passedIn, Long passedInLong) {
+                params = Arrays.copyOf(passedIn, passedIn.length);
                 l = passedInLong;
             }
 
@@ -273,7 +275,7 @@ public class RottenTomatoesJSON implements MovieSource {
                     final Movie m = new Movie(title, year, criticsRating,
                             criticsScore, synopsis, url, genre);
                     m.setAltUrl(altUrl);
-                    if (TRUE_STRING.equals(params[3])) {
+                    if (TRUE_STRING.equals(params[SIMILARMOVIESPECIALCASE])) {
                         publishProgress(m);
                     }
                     if (TRUE_STRING.equals(params[2])) {
@@ -286,21 +288,21 @@ public class RottenTomatoesJSON implements MovieSource {
                 } catch (JSONException e) {
                     Log.d("volley", "Failed to get JSON object");
                 }
-                if (l.equals(Long.valueOf("11") * 75)) {
-                    final Intent i = new Intent();
-                    i.setAction("test");
-                    context.sendBroadcast(i);
-                }
+//                if (l.equals(Long.valueOf("11") * 75)) {
+//                    final Intent i = new Intent();
+//                    i.setAction("test");
+//                    context.sendBroadcast(i);
+//                }
             }
         }
     }
 
-    private class MovieResponse implements Response.Listener<JSONObject> {
+    private final class MovieResponse implements Response.Listener<JSONObject> {
 
         private boolean[] filter;
         private boolean f;
-        public MovieResponse(boolean[] boolArray, boolean bool) {
-            filter = boolArray;
+        private MovieResponse(boolean[] boolArray, boolean bool) {
+            filter = Arrays.copyOf(boolArray, boolArray.length);
             f = bool;
         }
 

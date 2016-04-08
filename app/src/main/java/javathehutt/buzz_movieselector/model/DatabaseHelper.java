@@ -15,6 +15,44 @@ import javathehutt.buzz_movieselector.R;
  * Created by Frank on 3/7/2016.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    /**
+     * int representing column of username
+     */
+    private static final int USERNAME_IND = 1;
+    /**
+     * int representing column of passwords
+     */
+    private static final int PASSWORD_IND = 2;
+    /**
+     * int representing column of real name
+     */
+    private static final int REAL_NAME_IND = 3;
+    /**
+     * int representing column containing fav genre
+     */
+    private static final int GENRE_IND = 4;
+    /**
+     * int representing location column
+     */
+    private static final int LOCATION_IND = 5;
+    /**
+     * int representing major column
+     */
+    private static final int MAJOR_IND = 6;
+    /**
+     * int representing column containing ban info
+     */
+    private static final int BAN_IND = 7;
+    /**
+     * int representing column containing locked info
+     */
+    private static final int LOCKED_INDEX = 8;
+    /**
+     * int representing attempts column ind
+     */
+    private static final int ATTEMPT_IND = 9;
+
     /**
      * Utility String for admin user check
      */
@@ -156,11 +194,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param password the password
      * @return 0 if successful
      */
-    public final int handleLogInRequest(String username,
-                                  String password) {
+    public final int handleLogInRequest(String username, String password) {
         if (ADMIN.equals(username) && ADMIN.equals(password)) {
             currentUser = new AdminUser(ADMIN, ADMIN);
-            return 0;
+            return LoginResult.SUCCESS.ordinal();
         }
         db = this.getReadableDatabase();
         final String query = "select * from " + TABLE_NAME
@@ -169,10 +206,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             if (validLogin(password, cursor)) {
                 currentUser = new RegUser(username, password);
-                currentUser.setRealName(cursor.getString(3));
-                currentUser.setFavoriteGenre(cursor.getInt(4));
-                currentUser.setLocation(cursor.getString(5));
-                currentUser.setMajor(cursor.getString(6));
+                currentUser.setRealName(cursor.getString(REAL_NAME_IND));
+                currentUser.setFavoriteGenre(cursor.getInt(GENRE_IND));
+                currentUser.setLocation(cursor.getString(LOCATION_IND));
+                currentUser.setMajor(cursor.getString(MAJOR_IND));
                 currentUser.setFailedAttempts(0);
                 db = this.getWritableDatabase();
                 final ContentValues values = new ContentValues();
@@ -180,27 +217,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db.update(TABLE_NAME, values, "username like \'"
                         + username + "\'", null);
                 cursor.close();
-                return 0;
+                return LoginResult.SUCCESS.ordinal();
             } else {
                 final String trueS = c.getString(R.string.trueS);
                 db = this.getWritableDatabase();
                 final ContentValues values = new ContentValues();
-                values.put(COLUMN_ATTEMPTS, cursor.getInt(9) + 1);
-                if (FALSE_STRING.equals(cursor.getString(8)) && cursor
-                        .getInt(9) >= RegUser.ATTEMPTS_ALLOWED) {
+                values.put(COLUMN_ATTEMPTS, cursor.getInt(ATTEMPT_IND) + 1);
+                if (FALSE_STRING.equals(cursor.getString(LOCKED_INDEX)) && cursor
+                        .getInt(ATTEMPT_IND) >= RegUser.ATTEMPTS_ALLOWED) {
                     values.put(COLUMN_LOCKED, trueS);
                 }
                 db.update(TABLE_NAME, values, "username like \'"
                         + username + "\'", null);
-                if (trueS.equals(cursor.getString(7))) {
-                    return 2;
-                } else if (trueS.equals(cursor.getString(8))) {
-                    return 3;
+                if (trueS.equals(cursor.getString(BAN_IND))) {
+                    return LoginResult.BANNED.ordinal();
+                } else if (trueS.equals(cursor.getString(LOCKED_INDEX))) {
+                    return LoginResult.LOCKED.ordinal();
                 }
             }
         }
         cursor.close();
-        return 1;
+        return LoginResult.NOTFOUND.ordinal();
     }
 
     /**
@@ -214,9 +251,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .getString(7).equals("false")
                 && cursor.getString(8).equals("false")
                 && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED;*/
-        return password.equals(cursor.getString(2)) && FALSE_STRING.equals(cursor
-                .getString(7)) && FALSE_STRING.equals(cursor.getString(8))
-                && cursor.getInt(9) < RegUser.ATTEMPTS_ALLOWED;
+        return password.equals(cursor.getString(PASSWORD_IND)) && FALSE_STRING.equals(cursor
+                .getString(BAN_IND)) && FALSE_STRING.equals(cursor.getString(LOCKED_INDEX))
+                && cursor.getInt(ATTEMPT_IND) < RegUser.ATTEMPTS_ALLOWED;
 
     }
 
@@ -309,15 +346,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             final RegUser tempUser = new RegUser(cursor
-                    .getString(1), cursor.getString(2));
-            tempUser.setRealName(cursor.getString(3));
-            tempUser.setFavoriteGenre(cursor.getInt(4));
-            tempUser.setLocation(cursor.getString(5));
-            tempUser.setMajor(cursor.getString(6));
-            if (TRUE_STRING.equals(cursor.getString(7))) {
+                    .getString(USERNAME_IND), cursor.getString(PASSWORD_IND));
+            tempUser.setRealName(cursor.getString(REAL_NAME_IND));
+            tempUser.setFavoriteGenre(cursor.getInt(GENRE_IND));
+            tempUser.setLocation(cursor.getString(LOCATION_IND));
+            tempUser.setMajor(cursor.getString(MAJOR_IND));
+            if (TRUE_STRING.equals(cursor.getString(BAN_IND))) {
                 tempUser.ban();
             }
-            if (TRUE_STRING.equals(cursor.getString(8))) {
+            if (TRUE_STRING.equals(cursor.getString(LOCKED_INDEX))) {
                 tempUser.lock();
             }
             list.add(tempUser);

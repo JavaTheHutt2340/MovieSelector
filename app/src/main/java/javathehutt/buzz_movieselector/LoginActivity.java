@@ -14,6 +14,7 @@ import com.facebook.FacebookSdk;
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
+import javathehutt.buzz_movieselector.model.LoginResult;
 
 public class LoginActivity extends FragmentActivity
         implements FacebookFragment.OnFragmentInteractionListener {
@@ -50,7 +51,7 @@ public class LoginActivity extends FragmentActivity
         if (helper.isInSystem(etUsername.getText().toString().toLowerCase())) {
             final int value = helper.handleLogInRequest(etUsername.getText()
                     .toString().toLowerCase(), etPassword.getText().toString());
-            if (value == 0) {
+            if (value == LoginResult.SUCCESS.ordinal()) {
                 final Context context = getApplicationContext();
                 final CharSequence text = "Log In Successful!";
                 final int duration = Toast.LENGTH_SHORT;
@@ -62,9 +63,9 @@ public class LoginActivity extends FragmentActivity
             } else {
                 final Context context = getApplicationContext();
                 CharSequence text = "Invalid Password!";
-                if (value == 2) {
+                if (value == LoginResult.BANNED.ordinal()) {
                     text = "This account is banned!";
-                } else if (value == 3) {
+                } else if (value == LoginResult.LOCKED.ordinal()) {
                     text = "This account is locked!";
                 }
                 final int duration = Toast.LENGTH_SHORT;

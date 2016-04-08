@@ -23,11 +23,11 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javathehutt.buzz_movieselector.model.AbstractRegUser;
 import javathehutt.buzz_movieselector.model.DatabaseHelper;
 import javathehutt.buzz_movieselector.model.DependencyContainer;
 import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.FacebookUser;
-import javathehutt.buzz_movieselector.model.RegUser;
 
 
 /**
@@ -124,7 +124,7 @@ public class FacebookFragment extends Fragment {
                             try {
                                 final String name = object.getString("name");
                                 final String id = object.getString("id");
-                                final RegUser u = new FacebookUser(name, id, accessToken);
+                                final AbstractRegUser u = new FacebookUser(name, id, accessToken);
                                 final DatabaseHelper db = new DatabaseHelper(getContext());
                                 db.addUser(u);
                                 db.handleLogInRequest(name, id);

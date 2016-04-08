@@ -6,7 +6,7 @@ import com.facebook.login.LoginManager;
 /**
  * Created by Mohammed on 2/28/2016.
  */
-public class FacebookUser extends RegUser {
+public class FacebookUser extends AbstractRegUser {
     /**
      * access token
      */
@@ -37,6 +37,13 @@ public class FacebookUser extends RegUser {
     public final void logout() {
         LoginManager.getInstance().logOut();
         at = null;
-        super.logout();
+    }
+    @Override
+    public final int getLogAttempts() {
+        return 0;
+    }
+    @Override
+    public final boolean getLockStatus() {
+        return false;
     }
 }

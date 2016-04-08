@@ -5,6 +5,10 @@ import java.io.Serializable;
  * Created by Mohammed on 2/16/2016.
  */
 public class Movie implements Serializable {
+
+    public static final int PRIME1 = 17;
+    public static final int PRIME2 = 31;
+
     /**
      * name of the movie
      */
@@ -165,9 +169,9 @@ public class Movie implements Serializable {
 
     @Override
     public final int hashCode() {
-        int h = 17;
-        h += 31 * name.hashCode();
-        h += 31 * year;
+        int h = PRIME1;
+        h += PRIME2 * name.hashCode();
+        h += PRIME2 * year;
         return h;
     }
     @Override
