@@ -6,7 +6,13 @@ import java.io.Serializable;
  * Created by JasonGibson on 2/2/16.
  */
 public abstract class User implements Serializable {
+    /**
+     * ge
+     */
     public static final int PRIME1 = 17;
+    /**
+     * ge
+     */
     public static final int PRIME2 = 31;
     /**
      * the username of the user

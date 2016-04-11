@@ -246,9 +246,24 @@ public class RottenTomatoesJSON implements MovieSource {
         }
 
         private final class ResponseListener implements Response.Listener<JSONObject> {
+            /**
+             * ge
+             */
             private static final int SIMILARMOVIESPECIALCASE = 3;
+            /**
+             * ge
+             */
             private String[] params;
+            /**
+             * ge
+             */
             private Long l;
+
+            /**
+             * response listener
+             * @param passedIn passed in
+             * @param passedInLong passed in long
+             */
             private ResponseListener(String[] passedIn, Long passedInLong) {
                 params = Arrays.copyOf(passedIn, passedIn.length);
                 l = passedInLong;
@@ -299,8 +314,20 @@ public class RottenTomatoesJSON implements MovieSource {
 
     private final class MovieResponse implements Response.Listener<JSONObject> {
 
+        /**
+         * filter
+         */
         private boolean[] filter;
+        /**
+         * boolean
+         */
         private boolean f;
+
+        /**
+         * movie response
+         * @param boolArray boolean arrray
+         * @param bool bool
+         */
         private MovieResponse(boolean[] boolArray, boolean bool) {
             filter = Arrays.copyOf(boolArray, boolArray.length);
             f = bool;

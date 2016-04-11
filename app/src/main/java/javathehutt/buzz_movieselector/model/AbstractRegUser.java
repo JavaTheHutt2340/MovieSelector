@@ -8,6 +8,12 @@ public abstract class AbstractRegUser extends User {
      * if the user is banned
      */
     private boolean banned;
+
+    /**
+     * construcotr
+     * @param user the username
+     * @param pd the user password
+     */
     public AbstractRegUser(String user, String pd) {
         super(user, pd);
         banned = false;
