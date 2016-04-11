@@ -16,9 +16,21 @@ import javathehutt.buzz_movieselector.model.DependencyInjectionContainer;
 import javathehutt.buzz_movieselector.model.User;
 
 public class MovieSearchActivity extends Activity {
+    /**
+     * ge
+     */
     public static final int NEWDVD = 1;
+    /**
+     * ge
+     */
     public static final int BYNAME = 2;
+    /**
+     * ge
+     */
     public static final int INTHEATRE = 3;
+    /**
+     * ge
+     */
     public static final int RECOMMEND = 4;
     /**
      * Utility String for bundling with searches

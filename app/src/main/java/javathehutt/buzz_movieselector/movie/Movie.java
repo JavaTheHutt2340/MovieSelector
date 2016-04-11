@@ -6,7 +6,13 @@ import java.io.Serializable;
  */
 public class Movie implements Serializable {
 
+    /**
+     * prime number
+     */
     public static final int PRIME1 = 17;
+    /**
+     * prime number
+     */
     public static final int PRIME2 = 31;
 
     /**
