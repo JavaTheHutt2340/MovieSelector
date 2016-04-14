@@ -3,6 +3,7 @@
     package="javathehutt.buzz_movieselector">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <provider android:authorities="com.facebook.app.FacebookContentProvider1244273668920806"
         android:name="com.facebook.FacebookContentProvider"
         android:exported="true"/>
@@ -15,6 +16,10 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_app_id"/>
+
 
         <activity android:name=".MainActivity">
             <intent-filter>

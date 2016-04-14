@@ -1,14 +1,22 @@
 package javathehutt.buzz_movieselector;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +42,10 @@ public class ProfileActivity extends Activity {
      */
     private DatabaseHelper helper;
 
+    private Activity act;
+
+    private final int PLACE_PICKER_REQUEST = 1;
+
     /**
      * creates the activity, sets screen, and
      * sets values in TextViews based on User attributes
@@ -46,7 +58,7 @@ public class ProfileActivity extends Activity {
         final DependencyContainer dc = new DependencyInjectionContainer(this);
         helper = dc.getDatabaseDep();
         u = helper.lastLogIn();
-
+        act = this;
         final TextView realName = (TextView) findViewById(R.id.realNameEdit);
         realName.setText(u.getRealName());
 
@@ -67,6 +79,20 @@ public class ProfileActivity extends Activity {
         genreSpinner.setSelection(u.getFavoriteGenreNum());
     }
 
+    public void onLocationClick(View v) {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        //This part of the code defines a rectangle defined in PlacePicker
+        LatLngBounds latLngBounds = LatLngBounds.builder()
+                .include(new LatLng(32.573, -85.385))
+                .include(new LatLng(34, -83)).build();
+        builder.setLatLngBounds(latLngBounds);
+        try {
+            startActivityForResult(builder.build(act), PLACE_PICKER_REQUEST);
+        } catch (Exception e) {
+            Log.e("Error", e.getStackTrace().toString());
+        }
+    }
+
     /**
      * onClick method for the Update Profile button.
      * Sets attributes in the User based on Strings
@@ -79,7 +105,7 @@ public class ProfileActivity extends Activity {
         final TextView realName = (TextView) findViewById(R.id.realNameEdit);
         u.setRealName(realName.getText().toString());
 
-        final TextView location = (TextView) findViewById(R.id.locationProfileEdit);
+        final Button location = (Button) findViewById(R.id.locationProfileEdit);
         u.setLocation(location.getText().toString());
 
         final Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
@@ -108,6 +134,25 @@ public class ProfileActivity extends Activity {
         final int duration = Toast.LENGTH_SHORT;
         final Toast toast = Toast.makeText(this, text, duration);
         toast.show();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(getApplicationContext(), data);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_LONG).show();
+                final Button location = (Button) findViewById(R.id.locationProfileEdit);
+                if (place.getName() != null || place.getName().length() > 0) {
+                    location.setText(place.getName());
+                } else {
+                    location.setText(place.getAddress());
+                }
+                Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
+        }
     }
 
     /**

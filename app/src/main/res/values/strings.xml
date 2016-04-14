@@ -122,7 +122,7 @@
     <string name="title_activity_movie_view">MovieViewActivity</string>
     <string name="newDVDS">New DVDs</string>
     <string name="newInTheaters">New in Theaters</string>
-
+    <string name="google_app_id">AIzaSyCi4lqaUW3D4LOK1QhOqktM9Y4WD9bt3IM</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_user_list">UserListActivity</string>
