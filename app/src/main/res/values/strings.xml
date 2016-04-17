@@ -122,15 +122,16 @@
     <string name="title_activity_movie_view">MovieViewActivity</string>
     <string name="newDVDS">New DVDs</string>
     <string name="newInTheaters">New in Theaters</string>
-    <string name="google_app_id">AIzaSyCi4lqaUW3D4LOK1QhOqktM9Y4WD9bt3IM</string>
+    <string name="google_app_id">AIzaSyBjOlMvHXiI4cM-_fqJ0YdxPFRS45CjKgw</string>
+    <!--<string name="google_app_id">AIzaSyBjOlMvHXiI4cM-_fqJ0YdxPFRS45CjKgw</string>-->
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_user_list">UserListActivity</string>
     <string name="title_activity_detailed_user_view">DetailedUserView</string>
-    <string name="unlock">unlock account</string>
-    <string name="Lock">lock account</string>
-    <string name="unBan">unBan account</string>
-    <string name="Ban">ban account</string>
+    <string name="unlock">Unlock account</string>
+    <string name="Lock">Lock account</string>
+    <string name="unBan">Unban account</string>
+    <string name="Ban">Ban account</string>
     <string name="trueS">true</string>
     <string name="falseS">false</string>
 </resources>

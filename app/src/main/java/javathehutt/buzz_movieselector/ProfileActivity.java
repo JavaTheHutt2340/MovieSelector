@@ -82,10 +82,6 @@ public class ProfileActivity extends Activity {
     public void onLocationClick(View v) {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         //This part of the code defines a rectangle defined in PlacePicker
-        LatLngBounds latLngBounds = LatLngBounds.builder()
-                .include(new LatLng(32.573, -85.385))
-                .include(new LatLng(34, -83)).build();
-        builder.setLatLngBounds(latLngBounds);
         try {
             startActivityForResult(builder.build(act), PLACE_PICKER_REQUEST);
         } catch (Exception e) {
@@ -140,14 +136,12 @@ public class ProfileActivity extends Activity {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(getApplicationContext(), data);
-                String toastMsg = String.format("Place: %s", place.getName());
+                String toastMsg = String.format("Profile Updated!: %s", place.getName());
                 Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_LONG).show();
                 final Button location = (Button) findViewById(R.id.locationProfileEdit);
-                if (place.getName() != null || place.getName().length() > 0) {
-                    location.setText(place.getName());
-                } else {
-                    location.setText(place.getAddress());
-                }
+                location.setText(place.getName());
+                u.setLocation(place.getName().toString());
+                helper.updateUser(u);
                 Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
