@@ -142,9 +142,6 @@ public class ProfileActivity extends Activity {
                 location.setText(place.getName());
                 u.setLocation(place.getName().toString());
                 helper.updateUser(u);
-                Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
             }
         }
     }
